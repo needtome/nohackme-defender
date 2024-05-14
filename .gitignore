@@ -1,0 +1,9 @@
+# Игнорировать файлы .DS_Store
+.DS_Store
+
+# Игнорировать файлы с окончанием _premium.php
+*_premium.php
+
+# Игнорировать все в папке lib, кроме README.txt
+lib/**
+!lib/README.txt

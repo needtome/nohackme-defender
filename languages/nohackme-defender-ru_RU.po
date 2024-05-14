@@ -1,0 +1,613 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: NoHackMe Defender\n"
+"POT-Creation-Date: 2024-02-20 07:59+0200\n"
+"PO-Revision-Date: 2024-05-13 12:12+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: pdxnohackme.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: ajax.php:8 ajax.php:37
+msgid "Parameters are specified incorrectly!"
+msgstr "Параметры указаны неверно!"
+
+#: ajax.php:18 ajax.php:47 ajax.php:76
+msgid "List updated"
+msgstr "Список обновлен"
+
+#: ajax.php:21 ajax.php:50 ajax.php:79
+msgid "This functionality is only available to administrators."
+msgstr "Эта функция доступна только администраторам."
+
+#: ajax.php:24 ajax.php:53
+msgid "Your session has expired. Please log in again on the website."
+msgstr ""
+"Срок действия сеанса истек. Пожалуйста, авторизуйтесь еще раз на сайте."
+
+#: ajax.php:66
+msgid "Invalid parameters specified!"
+msgstr "Указаны неверные параметры!"
+
+#: ajax.php:82
+msgid "Your session has expired. Please log in to the website again."
+msgstr ""
+"Срок действия сеанса истек. Пожалуйста, авторизуйтесь на сайте еще раз."
+
+#: funcs.php:67
+msgid "premium"
+msgstr "премиум"
+
+#: funcs.php:73
+msgid ""
+"You are using a free version of the plugin. Some functions may be "
+"unavailable."
+msgstr ""
+"Вы используете бесплатную версию плагина. Некоторые функции могут быть "
+"недоступны."
+
+#: funcs.php:75
+msgid "To purchase the paid version of the plugin"
+msgstr "Чтобы активировать полный функционал плагина"
+
+#: funcs.php:76
+msgid "go to the Premium tab"
+msgstr "перейдите на вкладку «Премиум»"
+
+#: pdxnohackme.php:153 pdxnohackme.php:646
+msgid "Blocked IP"
+msgstr "Заблокированный IP"
+
+#: pdxnohackme.php:166
+msgid "IP unlocked"
+msgstr "IP-адрес разблокирован"
+
+#: pdxnohackme.php:183 pdxnohackme.php:548 pdxnohackme.php:578
+#: pdxnohackme.php:608
+msgid "IP"
+msgstr "IP"
+
+#: pdxnohackme.php:183
+msgid "Start of blocking"
+msgstr "Начало блокировки"
+
+#: pdxnohackme.php:183 pdxnohackme.php:548 pdxnohackme.php:578
+#: pdxnohackme.php:608
+msgid "User country"
+msgstr "Страна пользователя"
+
+#: pdxnohackme.php:183
+msgid "Blocking reason"
+msgstr "Причина блокировки"
+
+#: pdxnohackme.php:183
+msgid "Actions"
+msgstr "Действия"
+
+#: pdxnohackme.php:206
+msgid "Exceeding the number of requests per minute"
+msgstr "Превышение количества запросов в минуту"
+
+#: pdxnohackme.php:209
+msgid "Exceeding the number of requests in 10 minutes"
+msgstr "Превышение количества запросов за 10 минут"
+
+#: pdxnohackme.php:212
+msgid "Exceeding the number of requests for 50 minutes"
+msgstr "Превышение количества запросов за 50 минут"
+
+#: pdxnohackme.php:215
+msgid "Suspicious data in requests"
+msgstr "Подозрительные данные в запросах"
+
+#: pdxnohackme.php:241
+msgid "Delete"
+msgstr "Удалить"
+
+#: pdxnohackme.php:249
+msgid "Everything is fine. No one is blocked"
+msgstr "Все отлично. Никто не заблокирован"
+
+#: pdxnohackme.php:255
+msgid "List of suspicious requests"
+msgstr "Подозрительные данные в запросах"
+
+#: pdxnohackme.php:257
+msgid ""
+"In this section, all suspicious requests that the plugin searches for in the "
+"GET and POST parameters sent to the site are presented. When any of the "
+"presented requests are detected, the IP address is blocked."
+msgstr ""
+"В этом разделе представлены все подозрительные запросы, которые плагин ищет "
+"в параметрах GET и POST, отправляемых на сайт. При обнаружении любого из "
+"представленных запросов IP-адрес блокируется."
+
+#: pdxnohackme.php:264
+msgid "Changing the list is available only in the paid version"
+msgstr "Изменение списка доступно только в платной версии"
+
+#: pdxnohackme.php:278
+msgid "Working with the list is only available in the paid version!"
+msgstr "Работа со списком доступна только в платной версии!"
+
+#: pdxnohackme.php:289 pdxnohackme.php:370 pdxnohackme.php:454
+msgid "Value"
+msgstr "Значение"
+
+#: pdxnohackme.php:298 pdxnohackme.php:379 pdxnohackme.php:463
+msgid "Save changes"
+msgstr "Сохранить изменения"
+
+#: pdxnohackme.php:299
+msgid "Add a row"
+msgstr "Добавить строку"
+
+#: pdxnohackme.php:301 pdxnohackme.php:382 pdxnohackme.php:466
+msgid "Restore Defaults"
+msgstr "Восстановить значения по умолчанию"
+
+#: pdxnohackme.php:306 pdxnohackme.php:387 pdxnohackme.php:471
+msgid "Are you sure you want to restore the default list?"
+msgstr "Вы уверены, что хотите восстановить список по умолчанию?"
+
+#: pdxnohackme.php:329
+msgid "List of suspicious requests not found"
+msgstr "Список подозрительных запросов не найден"
+
+#: pdxnohackme.php:336
+msgid "List of Google spider IP ranges"
+msgstr "Список диапазонов IP-адресов пауков Google"
+
+#: pdxnohackme.php:338
+msgid ""
+"Ranges from this section are used to form a whitelist of IP addresses if the "
+"corresponding checkbox is checked in the plugin settings."
+msgstr ""
+"Диапазоны из этого раздела используются для формирования белого списка IP-"
+"адресов, если в настройках плагина установлена соответствующая галочка."
+
+#: pdxnohackme.php:345 pdxnohackme.php:429
+msgid "Changing the list is only available in the paid version"
+msgstr "Изменение списка доступно только в платной версии"
+
+#: pdxnohackme.php:359
+msgid "Work with the list is available only in the paid version!"
+msgstr "Работа со списком доступна только в платной версии!"
+
+#: pdxnohackme.php:380 pdxnohackme.php:464
+msgid "Add row"
+msgstr "Добавить ряд"
+
+#: pdxnohackme.php:410 pdxnohackme.php:494
+msgid "List of IP ranges not found"
+msgstr "Список диапазонов IP-адресов не найден"
+
+#: pdxnohackme.php:417
+msgid "List of Yandex spider IP ranges"
+msgstr "Список диапазонов IP-адресов пауков Яндекс"
+
+#: pdxnohackme.php:419
+msgid ""
+"Ranges from this section are used to create a whitelist of IP addresses if "
+"the corresponding checkbox is checked in the plugin settings."
+msgstr ""
+"Диапазоны из этого раздела используются для создания белого списка IP-"
+"адресов, если в настройках плагина установлена соответствующая галочка."
+
+#: pdxnohackme.php:422
+msgid ""
+"Актуальный список диапазонов адресов поисковых роботов Яндекс можно увидеть"
+msgstr ""
+"Актуальный список диапазонов адресов поисковых роботов Яндекс можно увидеть"
+
+#: pdxnohackme.php:422
+msgid "на этой странице"
+msgstr "на этой странице"
+
+#: pdxnohackme.php:443
+msgid "Working with the list is available only in the paid version!"
+msgstr "Работа со списком доступна только в платной версии!"
+
+#: pdxnohackme.php:501
+msgid "Top by blocking counters"
+msgstr "Топ по счетчикам блокировки"
+
+#: pdxnohackme.php:546
+msgid "For 50 minutes"
+msgstr "За 50 минут"
+
+#: pdxnohackme.php:548 pdxnohackme.php:578 pdxnohackme.php:608
+msgid "Views"
+msgstr "Просмотры"
+
+#: pdxnohackme.php:576
+msgid "For 10 minutes"
+msgstr "За 10 минут"
+
+#: pdxnohackme.php:606
+msgid "One minute"
+msgstr "За 1 минуту"
+
+#: pdxnohackme.php:634
+msgid "No data"
+msgstr "Нет данных"
+
+#: pdxnohackme.php:647
+msgid "Statistics"
+msgstr "Статистика"
+
+#: pdxnohackme.php:648
+msgid "Suspicious requests"
+msgstr "Подозрительные запросы"
+
+#: pdxnohackme.php:649
+msgid "Google IP Ranges"
+msgstr "Диапазоны IP-адресов Google"
+
+#: pdxnohackme.php:650
+msgid "Yandex IP Ranges"
+msgstr "Диапазоны IP-адресов Яндекс"
+
+#: pdxnohackme.php:666 pdxnohackme.php:1144
+msgid "Settings"
+msgstr "Настройки"
+
+#: pdxnohackme.php:667
+msgid "Premium Features"
+msgstr "Премиум-функции"
+
+#: pdxnohackme.php:668
+msgid "Other plugins"
+msgstr "Другие плагины"
+
+#: pdxnohackme.php:669
+msgid "Website Development"
+msgstr "Разработка сайтов"
+
+#: pdxnohackme.php:670
+msgid "SEO"
+msgstr "SEO"
+
+#: pdxnohackme.php:716
+msgid "Temporarily disable plugin"
+msgstr "Временно отключить отслеживание и блокировку"
+
+#: pdxnohackme.php:719
+msgid ""
+"If the checkbox is checked, the plugin will stop tracking and blocking IP "
+"addresses, and will also provide access to the site from IP addresses that "
+"are already blocked."
+msgstr ""
+"Если галочка установлена, плагин перестанет отслеживать и блокировать IP-"
+"адреса, а также будет предоставлять доступ к сайту с IP-адресов, которые уже "
+"заблокированы."
+
+#: pdxnohackme.php:723
+msgid "Cancel current IP blocking if there is a GET parameter"
+msgstr "Отменить текущую блокировку IP-адреса при наличии GET-параметра"
+
+#: pdxnohackme.php:725
+msgid ""
+"Specify the GET parameter that can be entered to remove the current IP from "
+"the list of blocked ones."
+msgstr ""
+"Укажите GET-параметр, который можно ввести для удаления текущего IP из "
+"списка заблокированных."
+
+#: pdxnohackme.php:730
+msgid "For example:"
+msgstr "Например:"
+
+#: pdxnohackme.php:730 pdxnohackme.php:733
+msgid "Copy"
+msgstr "Копировать"
+
+#: pdxnohackme.php:733
+msgid ""
+"That is, if this GET parameter is specified in the field, then in case of "
+"blocking your IP, you will be able to unblock it by opening the URL: "
+msgstr ""
+"То есть, если в поле указан этот GET-параметр, то в случае блокировки вашего "
+"IP, вы сможете его разблокировать, открыв URL: "
+
+#: pdxnohackme.php:740
+msgid "Message for blocked IPs"
+msgstr "Сообщение для заблокированных IP-адресов"
+
+#: pdxnohackme.php:759
+msgid "How many days to block IP"
+msgstr "На сколько дней блокировать IP"
+
+#: pdxnohackme.php:763
+msgid "Whitelists"
+msgstr "Белые списки"
+
+#: pdxnohackme.php:763
+msgid ""
+"Whitelists allow disabling the check for the number of requests to the site "
+"within a certain time period for specific IPs."
+msgstr ""
+"Вайтлисты позволяют отключить проверку количества запросов к сайту за "
+"определенный период времени для конкретных IP."
+
+#: pdxnohackme.php:768
+msgid "Whitelist of IP addresses"
+msgstr "Белый список IP-адресов"
+
+#: pdxnohackme.php:770
+msgid "The specified IP addresses will not be blocked by the plugin."
+msgstr "Указанные IP-адреса не будут заблокированы плагином."
+
+#: pdxnohackme.php:770
+msgid "Each IP from a new line"
+msgstr "Каждый IP с новой строки"
+
+#: pdxnohackme.php:770
+#, php-format
+msgid "Your current IP: %s"
+msgstr "Ваш текущий IP-адрес: %s"
+
+#: pdxnohackme.php:772
+#, php-format
+msgid "IP address of your site: %s"
+msgstr "IP-адрес вашего сайта: %s"
+
+#: pdxnohackme.php:778
+msgid "Do not block Google robots"
+msgstr "Не блокировать роботов Google"
+
+#: pdxnohackme.php:781
+msgid "The list includes well-known IP address ranges of Google."
+msgstr "Список включает в себя известные диапазоны IP-адресов Google."
+
+#: pdxnohackme.php:781 pdxnohackme.php:791
+msgid "Change the list of ranges"
+msgstr "Изменить список диапазонов"
+
+#: pdxnohackme.php:788
+msgid "Do not block Yandex robots"
+msgstr "Не блокировать роботов Яндекс"
+
+#: pdxnohackme.php:791
+msgid "The list of addresses is taken from the official Yandex page:"
+msgstr "Список адресов взят с официальной страницы Яндекс:"
+
+#: pdxnohackme.php:798
+msgid "White list User Agent"
+msgstr "Белый список User Agent"
+
+#: pdxnohackme.php:800
+msgid ""
+"Requests with the specified User Agent will not be blocked by the plugin."
+msgstr "Запросы с указанным User Agent не будут блокироваться плагином."
+
+#: pdxnohackme.php:800
+msgid "View a list of popular User Agents"
+msgstr "Смотреть список популярных User Agent"
+
+#: pdxnohackme.php:800
+msgid ""
+"Each User Agent on a new line. It is not necessary to specify the entire "
+"User Agent - the plugin checks for the presence of the specified string in "
+"the request User Agent"
+msgstr ""
+"Каждый User Agent с новой строки. Указывать весь User Agent не обязательно - "
+"плагин проверяет наличие указанной строки в запросе User Agent"
+
+#: pdxnohackme.php:800
+msgid ""
+"ATTENTION!!! An attacker can specify any User Agent for their request. Thus, "
+"they can easily pretend to be a Google or Yandex robot if you add these "
+"robots' User Agents to the whitelist."
+msgstr ""
+"ВНИМАНИЕ!!! Злоумышленник может указать любой User Agent для своего запроса. "
+"Таким образом, он может легко выдать себя за роботов Google или Yandex, если "
+"вы добавите User Agent этих роботов в белый список."
+
+#: pdxnohackme.php:841
+msgid "Max number of requests"
+msgstr "Максимальное количество запросов"
+
+#: pdxnohackme.php:844
+msgid "Per 1 minute"
+msgstr "За 1 минуту"
+
+#: pdxnohackme.php:846
+msgid "Block IP if there are this many or more requests within one minute"
+msgstr ""
+"Блокировать IP-адрес, если в течение одной минуты поступает такое количество "
+"или более запросов"
+
+#: pdxnohackme.php:851
+msgid "Per 10 minutes"
+msgstr "За 10 минут"
+
+#: pdxnohackme.php:853
+msgid "Block IP if there are this many or more requests within ten minutes"
+msgstr ""
+"Блокировать IP-адрес, если в течение десяти минут будет столько или больше "
+"запросов"
+
+#: pdxnohackme.php:858
+msgid "Per 50 minutes"
+msgstr "За 50 минут"
+
+#: pdxnohackme.php:860
+msgid "Block IP if there are this many or more requests within fifty minutes"
+msgstr ""
+"Блокировать IP-адрес, если в течение пятидесяти минут поступит столько или "
+"больше запросов"
+
+#: pdxnohackme.php:867 pdxnohackme.php:900
+msgid "Save Changes"
+msgstr "Сохранить изменения"
+
+#: pdxnohackme.php:893
+msgid "License key"
+msgstr "Лицензионный ключ"
+
+#: pdxnohackme.php:896
+msgid "Enter the license key to activate premium features."
+msgstr "Введите лицензионный ключ, чтобы активировать премиум-функции."
+
+#: pdxnohackme.php:906
+msgid "You have a paid version of the plugin."
+msgstr "У вас платная версия плагина."
+
+#: pdxnohackme.php:909
+msgid "Thank you for your purchase!"
+msgstr "Спасибо за покупку!"
+
+#: pdxnohackme.php:917
+msgid "The cost of the premium version of the plugin"
+msgstr "Стоимость премиум-версии плагина"
+
+#: pdxnohackme.php:920
+msgid ""
+"For inquiries about purchasing the paid version of the plugin, write to the "
+"email"
+msgstr "По вопросам приобретения платной версии плагина пишите на почту"
+
+#: pdxnohackme.php:927
+msgid ""
+"By purchasing the plugin, you will get the opportunity to use the following "
+"premium features:"
+msgstr ""
+"Купив плагин, вы получите возможность пользоваться следующими премиум-"
+"функциями:"
+
+#: pdxnohackme.php:931
+msgid ""
+"The ability to add ranges of IP addresses belonging to Google and Yandex "
+"search engine crawlers to the whitelist with just two checkboxes."
+msgstr ""
+"Возможность добавлять диапазоны IP-адресов, принадлежащих поисковым роботам "
+"Google и Yandex, в белый список всего двумя флажками."
+
+#: pdxnohackme.php:934
+msgid "Edit the list of IP ranges owned by Google spiders."
+msgstr ""
+"Редактировать по своему усмотрению список диапазонов IP-адресов, "
+"принадлежащих паукам Google."
+
+#: pdxnohackme.php:937
+msgid "Edit the list of IP ranges owned by Yandex spiders."
+msgstr ""
+"Редактировать по своему усмотрению список диапазонов IP-адресов, "
+"принадлежащих паукам Яндекс."
+
+#: pdxnohackme.php:940
+msgid ""
+"Edit the list of data that, when detected, the request is considered "
+"suspicious and its blocking is performed."
+msgstr ""
+"Редактировать по своему усмотрению список данных, при обнаружении которых "
+"запрос считается подозрительным и выполняется его блокировка."
+
+#: pdxnohackme.php:1072
+msgid ""
+"To work with the NoHackMe Defender plugin, you need to add the following "
+"lines to your wp-config.php file located in the root of the site:"
+msgstr ""
+"Для работы с плагином NoHackMe Defender вам необходимо добавить следующие "
+"строки в ваш файл wp-config.php, расположенный в корне сайта:"
+
+#: pdxnohackme.php:1074
+msgid "Add them to the wp-config.php file after the line"
+msgstr "Добавьте их в файл wp-config.php после строки"
+
+#: pdxnohackme.php:1074
+msgid "(on the next line)"
+msgstr "(на следующей строке)"
+
+#: pdxnohackme.php:1075
+msgid "Unfortunately, it was not possible to do this automatically."
+msgstr "К сожалению, сделать это автоматически не удалось."
+
+#. Plugin Name of the plugin/theme
+msgid "NoHackMe Defender"
+msgstr "NoHackMe Defender"
+
+#. Plugin URI of the plugin/theme
+msgid "https://needtome.com/nohackme/"
+msgstr "https://needtome.com/nohackme/"
+
+#. Description of the plugin/theme
+msgid ""
+"NoHackMe Defender ensures your WordPress site's safety by blocking IP "
+"addresses upon receiving suspicious requests or too many requests from a "
+"single IP in a certain period. Keep hackers at bay with efficient real-time "
+"monitoring and security enforcement. Sponsors of plugin development: <a "
+"href=\"https://malinovsky.io\">malinovsky.io</a>, <a href=\"https://gloap."
+"net\">gloap.net</a>, <a href=\"https://gloapm.com\">gloapm.com</a>, <a "
+"href=\"https://imgai.art\">imgai.art</a>"
+msgstr ""
+"NoHackMe Defender обеспечивает безопасность вашего сайта на WordPress, "
+"блокируя IP-адреса при получении с них подозрительных запросов, а также при "
+"поступлении слишком большого количества запросов с одного IP за определенный "
+"промежуток времени. Держите хакеров на расстоянии с помощью эффективного "
+"мониторинга в режиме реального времени и обеспечения безопасности. Спонсоры "
+"разработки плагина: <a href=\"https://malinovsky.io\">malinovsky.io</a>, <a "
+"href=\"https://gloap.net\">gloap.net</a>, <a href=\"https://gloapm."
+"com\">gloapm.com</a>, <a href=\"https://imgai.art\">imgai.art</a>"
+
+#. Author of the plugin/theme
+msgid "Parad0x <paraz0n3@gmail.com>"
+msgstr "Parad0x <paraz0n3@gmail.com>"
+
+#. Author URI of the plugin/theme
+msgid "https://www.linkedin.com/in/roman-klymenko-parad0x/"
+msgstr "https://www.linkedin.com/in/roman-klymenko-parad0x/"
+
+#~ msgid "enter license key"
+#~ msgstr "введите лицензионный ключ"
+
+#~ msgid "Changes saved."
+#~ msgstr "Изменения сохранены."
+
+#~ msgid "noHackMe Defender"
+#~ msgstr "noHackMe Defender"
+
+#~ msgid "Отменить блокировку текущего IP, если есть GET-параметр"
+#~ msgstr "Отменить блокировку текущего IP, если есть GET-параметр"
+
+#~ msgid ""
+#~ "Укажите GET-параметр, который можно будет ввести, чтобы удалить текущий "
+#~ "IP из списка заблокированных."
+#~ msgstr ""
+#~ "Укажите GET-параметр, который можно будет ввести, чтобы удалить текущий "
+#~ "IP из списка заблокированных."
+
+#~ msgid "Например:"
+#~ msgstr "Например:"
+
+#~ msgid "Копировать"
+#~ msgstr "Копировать"
+
+#~ msgid ""
+#~ "То есть, если данный GET-параметр будет указан в поле, то в случае "
+#~ "блокировки вашего IP, вы сможете разблокировать его, открыв урл: "
+#~ msgstr ""
+#~ "То есть, если данный GET-параметр будет указан в поле, то в случае "
+#~ "блокировки вашего IP, вы сможете разблокировать его, открыв урл: "
+
+#~ msgid "https://kra.name"
+#~ msgstr "https://kra.name"
+
+#~ msgid "https://www.freelancer.com/u/needtome"
+#~ msgstr "https://www.freelancer.com/u/needtome"
+
+#~ msgid "Your daily pdxnohackme notification!"
+#~ msgstr "Ваше ежедневное уведомление pdxnohackme!"

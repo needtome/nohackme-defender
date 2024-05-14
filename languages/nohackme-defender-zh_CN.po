@@ -1,0 +1,557 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: NoHackMe Defender\n"
+"POT-Creation-Date: 2024-02-20 08:01+0200\n"
+"PO-Revision-Date: 2024-05-13 12:12+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: pdxnohackme.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: ajax.php:8 ajax.php:37
+msgid "Parameters are specified incorrectly!"
+msgstr "参数指定不正确！"
+
+#: ajax.php:18 ajax.php:47 ajax.php:76
+msgid "List updated"
+msgstr "列表已更新"
+
+#: ajax.php:21 ajax.php:50 ajax.php:79
+msgid "This functionality is only available to administrators."
+msgstr "此功能仅供管理员使用。"
+
+#: ajax.php:24 ajax.php:53
+msgid "Your session has expired. Please log in again on the website."
+msgstr "您的会话已过期。请在网站上重新登录。"
+
+#: ajax.php:66
+msgid "Invalid parameters specified!"
+msgstr "指定的参数无效！"
+
+#: ajax.php:82
+msgid "Your session has expired. Please log in to the website again."
+msgstr "您的会话已过期。请重新登录网站。"
+
+#: funcs.php:67
+msgid "premium"
+msgstr "高级"
+
+#: funcs.php:73
+msgid ""
+"You are using a free version of the plugin. Some functions may be "
+"unavailable."
+msgstr "您正在使用该插件的免费版本。某些功能可能不可用。"
+
+#: funcs.php:75
+msgid "To purchase the paid version of the plugin"
+msgstr "要激活插件的全部功能"
+
+#: funcs.php:76
+msgid "go to the Premium tab"
+msgstr "转到“高级”选项卡"
+
+#: pdxnohackme.php:153 pdxnohackme.php:646
+msgid "Blocked IP"
+msgstr "已阻止的 IP"
+
+#: pdxnohackme.php:166
+msgid "IP unlocked"
+msgstr "IP 已解锁"
+
+#: pdxnohackme.php:183 pdxnohackme.php:548 pdxnohackme.php:578
+#: pdxnohackme.php:608
+msgid "IP"
+msgstr "IP"
+
+#: pdxnohackme.php:183
+msgid "Start of blocking"
+msgstr "开始阻止"
+
+#: pdxnohackme.php:183 pdxnohackme.php:548 pdxnohackme.php:578
+#: pdxnohackme.php:608
+msgid "User country"
+msgstr "用户国家/地区"
+
+#: pdxnohackme.php:183
+msgid "Blocking reason"
+msgstr "阻止原因"
+
+#: pdxnohackme.php:183
+msgid "Actions"
+msgstr "操作"
+
+#: pdxnohackme.php:206
+msgid "Exceeding the number of requests per minute"
+msgstr "超过每分钟的请求数"
+
+#: pdxnohackme.php:209
+msgid "Exceeding the number of requests in 10 minutes"
+msgstr "超过 10 分钟内的请求数"
+
+#: pdxnohackme.php:212
+msgid "Exceeding the number of requests for 50 minutes"
+msgstr "超过 50 分钟的请求数"
+
+#: pdxnohackme.php:215
+msgid "Suspicious data in requests"
+msgstr "请求中的可疑数据"
+
+#: pdxnohackme.php:241
+msgid "Delete"
+msgstr "删除"
+
+#: pdxnohackme.php:249
+msgid "Everything is fine. No one is blocked"
+msgstr "一切都很好。没有人被阻止"
+
+#: pdxnohackme.php:255
+msgid "List of suspicious requests"
+msgstr "可疑请求列表"
+
+#: pdxnohackme.php:257
+msgid ""
+"In this section, all suspicious requests that the plugin searches for in the "
+"GET and POST parameters sent to the site are presented. When any of the "
+"presented requests are detected, the IP address is blocked."
+msgstr ""
+"在本节中，将显示插件在发送到站点的 GET 和 POST 参数中搜索的所有可疑请求。当检"
+"测到任何提出的请求时，IP 地址将被阻止。"
+
+#: pdxnohackme.php:264
+msgid "Changing the list is available only in the paid version"
+msgstr "更改列表仅在付费版本中可用"
+
+#: pdxnohackme.php:278
+msgid "Working with the list is only available in the paid version!"
+msgstr "使用列表仅在付费版本中可用！"
+
+#: pdxnohackme.php:289 pdxnohackme.php:370 pdxnohackme.php:454
+msgid "Value"
+msgstr "值"
+
+#: pdxnohackme.php:298 pdxnohackme.php:379 pdxnohackme.php:463
+msgid "Save changes"
+msgstr "保存更改"
+
+#: pdxnohackme.php:299
+msgid "Add a row"
+msgstr "添加顶行"
+
+#: pdxnohackme.php:301 pdxnohackme.php:382 pdxnohackme.php:466
+msgid "Restore Defaults"
+msgstr "恢复默认值"
+
+#: pdxnohackme.php:306 pdxnohackme.php:387 pdxnohackme.php:471
+msgid "Are you sure you want to restore the default list?"
+msgstr "是否确实要还原默认列表？"
+
+#: pdxnohackme.php:329
+msgid "List of suspicious requests not found"
+msgstr "未找到可疑请求的列表"
+
+#: pdxnohackme.php:336
+msgid "List of Google spider IP ranges"
+msgstr "Google 蜘蛛 IP 范围列表"
+
+#: pdxnohackme.php:338
+msgid ""
+"Ranges from this section are used to form a whitelist of IP addresses if the "
+"corresponding checkbox is checked in the plugin settings."
+msgstr ""
+"如果在插件设置中选中了相应的复选框，则此部分的范围将用于形成 IP 地址白名单。"
+
+#: pdxnohackme.php:345 pdxnohackme.php:429
+msgid "Changing the list is only available in the paid version"
+msgstr "更改列表仅在付费版本中可用"
+
+#: pdxnohackme.php:359
+msgid "Work with the list is available only in the paid version!"
+msgstr "使用列表仅在付费版本中可用！"
+
+#: pdxnohackme.php:380 pdxnohackme.php:464
+msgid "Add row"
+msgstr "添加行"
+
+#: pdxnohackme.php:410 pdxnohackme.php:494
+msgid "List of IP ranges not found"
+msgstr "未找到的 IP 范围列表"
+
+#: pdxnohackme.php:417
+msgid "List of Yandex spider IP ranges"
+msgstr "Yandex 蜘蛛 IP 范围列表"
+
+#: pdxnohackme.php:419
+msgid ""
+"Ranges from this section are used to create a whitelist of IP addresses if "
+"the corresponding checkbox is checked in the plugin settings."
+msgstr ""
+"如果在插件设置中选中了相应的复选框，则此部分的范围用于创建 IP 地址白名单。"
+
+#: pdxnohackme.php:422
+msgid ""
+"Актуальный список диапазонов адресов поисковых роботов Яндекс можно увидеть"
+msgstr ""
+"Актуальный список диапазонов адресов поисковых роботов Яндекс можно увидеть"
+
+#: pdxnohackme.php:422
+msgid "на этой странице"
+msgstr "на этой странице"
+
+#: pdxnohackme.php:443
+msgid "Working with the list is available only in the paid version!"
+msgstr "使用列表仅在付费版本中可用！"
+
+#: pdxnohackme.php:501
+msgid "Top by blocking counters"
+msgstr "通过阻止计数器进行顶部"
+
+#: pdxnohackme.php:546
+msgid "For 50 minutes"
+msgstr "50分钟"
+
+#: pdxnohackme.php:548 pdxnohackme.php:578 pdxnohackme.php:608
+msgid "Views"
+msgstr "查看"
+
+#: pdxnohackme.php:576
+msgid "For 10 minutes"
+msgstr "持续 10 分钟"
+
+#: pdxnohackme.php:606
+msgid "One minute"
+msgstr "一分钟"
+
+#: pdxnohackme.php:634
+msgid "No data"
+msgstr "没有数据"
+
+#: pdxnohackme.php:647
+msgid "Statistics"
+msgstr "统计"
+
+#: pdxnohackme.php:648
+msgid "Suspicious requests"
+msgstr "多个可疑请求"
+
+#: pdxnohackme.php:649
+msgid "Google IP Ranges"
+msgstr "Google IP 范围"
+
+#: pdxnohackme.php:650
+msgid "Yandex IP Ranges"
+msgstr "Yandex IP 范围"
+
+#: pdxnohackme.php:666 pdxnohackme.php:1144
+msgid "Settings"
+msgstr "设置"
+
+#: pdxnohackme.php:667
+msgid "Premium Features"
+msgstr "高级功能"
+
+#: pdxnohackme.php:668
+msgid "Other plugins"
+msgstr "其他插件"
+
+#: pdxnohackme.php:669
+msgid "Website Development"
+msgstr "网站开发"
+
+#: pdxnohackme.php:670
+msgid "SEO"
+msgstr "SEO"
+
+#: pdxnohackme.php:716
+msgid "Temporarily disable plugin"
+msgstr "暂时禁用插件"
+
+#: pdxnohackme.php:719
+msgid ""
+"If the checkbox is checked, the plugin will stop tracking and blocking IP "
+"addresses, and will also provide access to the site from IP addresses that "
+"are already blocked."
+msgstr ""
+"如果选中该复选框，插件将停止跟踪和阻止 IP 地址，并且还将提供从已阻止的 IP 地"
+"址访问站点。"
+
+#: pdxnohackme.php:723
+msgid "Cancel current IP blocking if there is a GET parameter"
+msgstr "如果存在 GET 参数，则取消当前 IP 阻止"
+
+#: pdxnohackme.php:725
+msgid ""
+"Specify the GET parameter that can be entered to remove the current IP from "
+"the list of blocked ones."
+msgstr "指定可以输入的 GET 参数，以从阻止的 IP 列表中删除当前 IP。"
+
+#: pdxnohackme.php:730
+msgid "For example:"
+msgstr "例如："
+
+#: pdxnohackme.php:730 pdxnohackme.php:733
+msgid "Copy"
+msgstr "复制"
+
+#: pdxnohackme.php:733
+msgid ""
+"That is, if this GET parameter is specified in the field, then in case of "
+"blocking your IP, you will be able to unblock it by opening the URL: "
+msgstr ""
+"也就是说，如果在字段中指定了此 GET 参数，那么在阻止您的 IP 的情况下，您将能够"
+"通过打开 URL 来取消阻止它："
+
+#: pdxnohackme.php:740
+msgid "Message for blocked IPs"
+msgstr "被阻止的 IP 的消息"
+
+#: pdxnohackme.php:759
+msgid "How many days to block IP"
+msgstr "阻止 IP 的天数"
+
+#: pdxnohackme.php:763
+msgid "Whitelists"
+msgstr "白名单"
+
+#: pdxnohackme.php:763
+msgid ""
+"Whitelists allow disabling the check for the number of requests to the site "
+"within a certain time period for specific IPs."
+msgstr "白名单允许禁用对特定 IP 在特定时间段内对站点的请求数的检查。"
+
+#: pdxnohackme.php:768
+msgid "Whitelist of IP addresses"
+msgstr "IP地址白名单"
+
+#: pdxnohackme.php:770
+msgid "The specified IP addresses will not be blocked by the plugin."
+msgstr "指定的 IP 地址不会件阻止。"
+
+#: pdxnohackme.php:770
+msgid "Each IP from a new line"
+msgstr "每个 IP 来自一个新行"
+
+#: pdxnohackme.php:770
+#, php-format
+msgid "Your current IP: %s"
+msgstr "您当前的 IP：%s"
+
+#: pdxnohackme.php:772
+#, php-format
+msgid "IP address of your site: %s"
+msgstr "您网站的 IP 地址：%s"
+
+#: pdxnohackme.php:778
+msgid "Do not block Google robots"
+msgstr "不要屏蔽 Google 漫游器"
+
+#: pdxnohackme.php:781
+msgid "The list includes well-known IP address ranges of Google."
+msgstr "该列表包括 Google 的知名 IP 地址范围。"
+
+#: pdxnohackme.php:781 pdxnohackme.php:791
+msgid "Change the list of ranges"
+msgstr "更改范围列表"
+
+#: pdxnohackme.php:788
+msgid "Do not block Yandex robots"
+msgstr "不要阻止 Yandex 机器人"
+
+#: pdxnohackme.php:791
+msgid "The list of addresses is taken from the official Yandex page:"
+msgstr "地址列表取自 Yandex 官方页面："
+
+#: pdxnohackme.php:798
+msgid "White list User Agent"
+msgstr "White list User Agent"
+
+#: pdxnohackme.php:800
+msgid ""
+"Requests with the specified User Agent will not be blocked by the plugin."
+msgstr ""
+"Requests with the specified User Agent will not be blocked by the plugin."
+
+#: pdxnohackme.php:800
+msgid "View a list of popular User Agents"
+msgstr "View a list of popular User Agents"
+
+#: pdxnohackme.php:800
+msgid ""
+"Each User Agent on a new line. It is not necessary to specify the entire "
+"User Agent - the plugin checks for the presence of the specified string in "
+"the request User Agent"
+msgstr ""
+"Each User Agent on a new line. It is not necessary to specify the entire "
+"User Agent - the plugin checks for the presence of the specified string in "
+"the request User Agent"
+
+#: pdxnohackme.php:800
+msgid ""
+"ATTENTION!!! An attacker can specify any User Agent for their request. Thus, "
+"they can easily pretend to be a Google or Yandex robot if you add these "
+"robots' User Agents to the whitelist."
+msgstr ""
+"ATTENTION!!! An attacker can specify any User Agent for their request. Thus, "
+"they can easily pretend to be a Google or Yandex robot if you add these "
+"robots’ User Agents to the whitelist."
+
+#: pdxnohackme.php:841
+msgid "Max number of requests"
+msgstr "最大请求数"
+
+#: pdxnohackme.php:844
+msgid "Per 1 minute"
+msgstr "每 1 分钟"
+
+#: pdxnohackme.php:846
+msgid "Block IP if there are this many or more requests within one minute"
+msgstr "如果在一分钟内有这么多或更多请求，则阻止 IP"
+
+#: pdxnohackme.php:851
+msgid "Per 10 minutes"
+msgstr "每 10 分钟"
+
+#: pdxnohackme.php:853
+msgid "Block IP if there are this many or more requests within ten minutes"
+msgstr "如果在十分钟内有这么多或更多请求，则阻止 IP"
+
+#: pdxnohackme.php:858
+msgid "Per 50 minutes"
+msgstr "每 50 分钟"
+
+#: pdxnohackme.php:860
+msgid "Block IP if there are this many or more requests within fifty minutes"
+msgstr "如果在 50 分钟内有这么多或更多请求，则阻止 IP"
+
+#: pdxnohackme.php:867 pdxnohackme.php:900
+msgid "Save Changes"
+msgstr "保存更改"
+
+#: pdxnohackme.php:893
+msgid "License key"
+msgstr "许可证密钥"
+
+#: pdxnohackme.php:896
+msgid "Enter the license key to activate premium features."
+msgstr "输入许可证密钥以激活高级功能。"
+
+#: pdxnohackme.php:906
+msgid "You have a paid version of the plugin."
+msgstr "您有该插件的付费版本。"
+
+#: pdxnohackme.php:909
+msgid "Thank you for your purchase!"
+msgstr "感谢您的购买！"
+
+#: pdxnohackme.php:917
+msgid "The cost of the premium version of the plugin"
+msgstr "插件高级版的费用"
+
+#: pdxnohackme.php:920
+msgid ""
+"For inquiries about purchasing the paid version of the plugin, write to the "
+"email"
+msgstr "有关购买该插件付费版本的查询，请发送电子邮件至"
+
+#: pdxnohackme.php:927
+msgid ""
+"By purchasing the plugin, you will get the opportunity to use the following "
+"premium features:"
+msgstr "通过购买插件，您将有机会使用以下高级功能："
+
+#: pdxnohackme.php:931
+msgid ""
+"The ability to add ranges of IP addresses belonging to Google and Yandex "
+"search engine crawlers to the whitelist with just two checkboxes."
+msgstr ""
+"只需两个复选框即可将属于 Google 和 Yandex 搜索引擎爬虫的 IP 地址范围添加到白"
+"名单中。"
+
+#: pdxnohackme.php:934
+msgid "Edit the list of IP ranges owned by Google spiders."
+msgstr "编辑 Google 蜘蛛拥有的 IP 范围列表。"
+
+#: pdxnohackme.php:937
+msgid "Edit the list of IP ranges owned by Yandex spiders."
+msgstr "编辑 Yandex 蜘蛛拥有的 IP 范围列表。"
+
+#: pdxnohackme.php:940
+msgid ""
+"Edit the list of data that, when detected, the request is considered "
+"suspicious and its blocking is performed."
+msgstr "编辑数据列表，当检测到该请求时，该请求将被视为可疑请求并执行其阻止。"
+
+#: pdxnohackme.php:1072
+msgid ""
+"To work with the NoHackMe Defender plugin, you need to add the following "
+"lines to your wp-config.php file located in the root of the site:"
+msgstr ""
+"要使用NoHackMe Defender插件，您需要将以下行添加到位于站点根目录的wp-config."
+"php文件中："
+
+#: pdxnohackme.php:1074
+msgid "Add them to the wp-config.php file after the line"
+msgstr "将它们添加到 wp-config.php 文件的行之后"
+
+#: pdxnohackme.php:1074
+msgid "(on the next line)"
+msgstr "（在下一行）"
+
+#: pdxnohackme.php:1075
+msgid "Unfortunately, it was not possible to do this automatically."
+msgstr "不幸的是，不可能自动执行此操作。"
+
+#. Plugin Name of the plugin/theme
+msgid "NoHackMe Defender"
+msgstr "NoHackMe Defender（无黑客防御者）"
+
+#. Plugin URI of the plugin/theme
+msgid "https://needtome.com/nohackme/"
+msgstr "https://needtome.com/nohackme/"
+
+#. Description of the plugin/theme
+msgid ""
+"NoHackMe Defender ensures your WordPress site's safety by blocking IP "
+"addresses upon receiving suspicious requests or too many requests from a "
+"single IP in a certain period. Keep hackers at bay with efficient real-time "
+"monitoring and security enforcement. Sponsors of plugin development: <a "
+"href=\"https://malinovsky.io\">malinovsky.io</a>, <a href=\"https://gloap."
+"net\">gloap.net</a>, <a href=\"https://gloapm.com\">gloapm.com</a>, <a "
+"href=\"https://imgai.art\">imgai.art</a>"
+msgstr ""
+"NoHackMe Defender 通过在一定时期内收到来自单个 IP 的可疑请求或过多请求时阻止 "
+"IP 地址来确保您的 WordPress 网站的安全。通过高效的实时监控和安全实施，将黑客"
+"拒之门外。插件开发赞助商：<a href=\"https://malinovsky.io\">malinovsky.io</"
+"a>、<a href=\"https://gloap.net\">gloap.net</a>、<a href=\"https://gloapm."
+"com\">gloapm.com</a><a href=\"https://imgai.art\">、imgai.art</a>"
+
+#. Author of the plugin/theme
+msgid "Parad0x <paraz0n3@gmail.com>"
+msgstr "Parad0x <paraz0n3@gmail.com>"
+
+#. Author URI of the plugin/theme
+msgid "https://www.linkedin.com/in/roman-klymenko-parad0x/"
+msgstr "https://www.linkedin.com/in/roman-klymenko-parad0x/"
+
+#~ msgid "enter license key"
+#~ msgstr "输入许可证密钥"
+
+#~ msgid "Changes saved."
+#~ msgstr "更改已保存。"
+
+#~ msgid "noHackMe Defender"
+#~ msgstr "noHackMe Defender（无黑客防御者）"
+
+#~ msgid "https://kra.name"
+#~ msgstr "https://kra.name"

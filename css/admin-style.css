@@ -1,0 +1,9 @@
+.pdxnohackme_useragent{
+  padding: 3px 0;
+  justify-content: flex-start;
+  align-items: center;
+}
+.pdxnohackme_useragent > div{
+  box-sizing: border-box;
+  padding-left: 11px;
+}
