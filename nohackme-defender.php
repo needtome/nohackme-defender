@@ -19,20 +19,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $upload_dir = wp_upload_dir();
-define('PDXNOHACKME_NAME', 'NoHackMe Defender');
-define('PDXNOHACKME_BANNED_PATH', $upload_dir['basedir'] . '/hackme_ban/');
-define('PDXNOHACKME_SETTINGS_PATH', $upload_dir['basedir'] . '/nohackme/');
-define('PDXNOHACKME_PLUGIN_PATH', plugin_dir_path(__FILE__));
+define('NOHACKME_DEFENDER_NAME', 'NoHackMe Defender');
+define('NOHACKME_DEFENDER_BANNED_PATH', $upload_dir['basedir'] . '/hackme_ban/');
+define('NOHACKME_DEFENDER_SETTINGS_PATH', $upload_dir['basedir'] . '/nohackme/');
+define('NOHACKME_DEFENDER_PLUGIN_PATH', plugin_dir_path(__FILE__));
 
-register_activation_hook( __FILE__, 'pdxnohackme_activation' );
-register_deactivation_hook( __FILE__, 'pdxnohackme_deactivation' );
-register_uninstall_hook(__FILE__, 'pdxnohackme_uninstall');
-function pdxnohackme_uninstall() {
+register_activation_hook( __FILE__, 'nohackme_defender_activation' );
+register_deactivation_hook( __FILE__, 'nohackme_defender_deactivation' );
+register_uninstall_hook(__FILE__, 'nohackme_defender_uninstall');
+function nohackme_defender_uninstall() {
   	// remove plugin options
-  	delete_option('pdxnohackme_options');
-  	delete_option('pdxnohackme_license');
+  	delete_option('nohackme_defender_options');
+  	delete_option('nohackme_defender_license');
 
-  	$dirs = array(PDXNOHACKME_BANNED_PATH, PDXNOHACKME_SETTINGS_PATH);
+  	$dirs = array(NOHACKME_DEFENDER_BANNED_PATH, NOHACKME_DEFENDER_SETTINGS_PATH);
   	foreach($dirs as $dir) {
     	if (file_exists($dir)) {
       		_pdxglobal_delete_folder_recursively($dir);
@@ -40,9 +40,8 @@ function pdxnohackme_uninstall() {
   	}
 }
 
-function pdxnohackme_activation(){
-
-	$default_options = get_option('pdxnohackme_options');
+function nohackme_defender_activation(){
+	$default_options = get_option('nohackme_defender_options');
 	if ( isset($default_options['block_msg']) and strlen($default_options['block_msg']) ) {
 	} else {
 		$default_options = array();
@@ -53,13 +52,13 @@ function pdxnohackme_activation(){
 		$default_options['block_if_50min']= 4000;
 	}
 	$default_options['activation_time']= time();
-	update_option('pdxnohackme_options', $default_options);
+	update_option('nohackme_defender_options', $default_options);
 
 
 	$path_to_wp_config = ABSPATH . 'wp-config.php';
 	$config_contents = _pdxglobal_get_file_via_wpfs($path_to_wp_config);
 
-	$insert_code = PHP_EOL . "if ( is_file('" . esc_html(PDXNOHACKME_PLUGIN_PATH) . "nohackme.php') ) { require_once( '" . esc_html(PDXNOHACKME_PLUGIN_PATH) . "nohackme.php' ); }" . PHP_EOL;
+	$insert_code = PHP_EOL . "if ( is_file('" . esc_html(NOHACKME_DEFENDER_PLUGIN_PATH) . "nohackme.php') ) { require_once( '" . esc_html(NOHACKME_DEFENDER_PLUGIN_PATH) . "nohackme.php' ); }" . PHP_EOL;
 
 	if (strpos($config_contents, $insert_code) === false) {
 		$config_contents = preg_replace("/<\?php/", "<?php" . PHP_EOL . $insert_code, $config_contents, 1);
@@ -69,8 +68,8 @@ function pdxnohackme_activation(){
 	}
 
   	// cron task activation
-	if (!wp_next_scheduled('pdxnohackme_daily_event')) {
-    	wp_schedule_event(time(), 'daily', 'pdxnohackme_daily_event');
+	if (!wp_next_scheduled('nohackme_defender_daily_event')) {
+    	wp_schedule_event(time(), 'daily', 'nohackme_defender_daily_event');
   	}
 
 	// creating folders
@@ -79,14 +78,14 @@ function pdxnohackme_activation(){
 	global $wp_filesystem;
 	$htaccess_content = "Options -Indexes\nOrder allow,deny\nDeny from all";
 
-	if (!is_dir(PDXNOHACKME_BANNED_PATH)) {
-	    wp_mkdir_p(PDXNOHACKME_BANNED_PATH);
+	if (!is_dir(NOHACKME_DEFENDER_BANNED_PATH)) {
+	    wp_mkdir_p(NOHACKME_DEFENDER_BANNED_PATH);
 	}
-	if (!file_exists(PDXNOHACKME_BANNED_PATH . '/.htaccess')) {
-		$wp_filesystem->put_contents(PDXNOHACKME_BANNED_PATH . '/.htaccess', $htaccess_content, FS_CHMOD_FILE);
+	if (!file_exists(NOHACKME_DEFENDER_BANNED_PATH . '/.htaccess')) {
+		$wp_filesystem->put_contents(NOHACKME_DEFENDER_BANNED_PATH . '/.htaccess', $htaccess_content, FS_CHMOD_FILE);
 	}
 
-	$save_path = PDXNOHACKME_SETTINGS_PATH;
+	$save_path = NOHACKME_DEFENDER_SETTINGS_PATH;
 	if (!is_dir($save_path)) {
 	    wp_mkdir_p($save_path);
 	}
@@ -95,11 +94,11 @@ function pdxnohackme_activation(){
 	}
   	_pdxglobal_update_file_via_wpfs($save_path . 'settings', $default_options);
 }
-function pdxnohackme_deactivation(){
+function nohackme_defender_deactivation(){
 	$path_to_wp_config = ABSPATH . 'wp-config.php';
 	$config_contents = _pdxglobal_get_file_via_wpfs($path_to_wp_config);
 
-	$insert_code = PHP_EOL . "if ( is_file('" . esc_html(PDXNOHACKME_PLUGIN_PATH) . "nohackme.php') ) { require_once( '" . esc_html(PDXNOHACKME_PLUGIN_PATH) . "nohackme.php' ); }" . PHP_EOL;
+	$insert_code = PHP_EOL . "if ( is_file('" . esc_html(NOHACKME_DEFENDER_PLUGIN_PATH) . "nohackme.php') ) { require_once( '" . esc_html(NOHACKME_DEFENDER_PLUGIN_PATH) . "nohackme.php' ); }" . PHP_EOL;
 
 	// Remove the code if it exists
 	$config_contents = str_replace($insert_code, "", $config_contents);
@@ -109,17 +108,17 @@ function pdxnohackme_deactivation(){
 
 
 	// deactivation of cron task
-	$timestamp = wp_next_scheduled('pdxnohackme_daily_event');
+	$timestamp = wp_next_scheduled('nohackme_defender_daily_event');
   if ($timestamp) {
-    wp_unschedule_event($timestamp, 'pdxnohackme_daily_event');
+    wp_unschedule_event($timestamp, 'nohackme_defender_daily_event');
   }
 
   // remove blocked IP
-	if (is_dir(PDXNOHACKME_BANNED_PATH)) {
-    $objects = scandir(PDXNOHACKME_BANNED_PATH);
+	if (is_dir(NOHACKME_DEFENDER_BANNED_PATH)) {
+    $objects = scandir(NOHACKME_DEFENDER_BANNED_PATH);
     foreach ($objects as $object) {
       if ($object != "." && $object != "..") {
-        @wp_delete_file(PDXNOHACKME_BANNED_PATH . $object);  // Delete files inside folder
+        @wp_delete_file(NOHACKME_DEFENDER_BANNED_PATH . $object);  // Delete files inside folder
       }
     }
   }
@@ -127,19 +126,19 @@ function pdxnohackme_deactivation(){
 }
 
 // add function to the specified hook
-add_action( 'pdxnohackme_daily_event', 'pdxnohackme_do_daily_event' );
-function pdxnohackme_do_daily_event(){
+add_action( 'nohackme_defender_daily_event', 'nohackme_defender_do_daily_event' );
+function nohackme_defender_do_daily_event(){
 
-	$default_options = get_option('pdxnohackme_options');
+	$default_options = get_option('nohackme_defender_options');
 	_pdxglobal_check_new_messages($default_options);
 
 	$upload_dir = wp_upload_dir();
 	$hackme_path = $upload_dir['basedir'] . '/hackme_ban/';
-	$pdxnohackme_options = get_option( 'pdxnohackme_options' );
-	if ( isset($pdxnohackme_options['block_time']) and is_numeric($pdxnohackme_options['block_time']) and $pdxnohackme_options['block_time'] > 0 ) {} else {
-		$pdxnohackme_options['block_time'] = 1;
+	$nohackme_defender_options = get_option( 'nohackme_defender_options' );
+	if ( isset($nohackme_defender_options['block_time']) and is_numeric($nohackme_defender_options['block_time']) and $nohackme_defender_options['block_time'] > 0 ) {} else {
+		$nohackme_defender_options['block_time'] = 1;
 	}
-	$hackme_time = time() - (86400*$pdxnohackme_options['block_time']);
+	$hackme_time = time() - (86400*$nohackme_defender_options['block_time']);
 
 	if ( is_dir($hackme_path) ) {
 		$files = scandir($hackme_path, SCANDIR_SORT_NONE);
@@ -155,51 +154,51 @@ function pdxnohackme_do_daily_event(){
 	}
 
  // removing counters to prevent excessive growth
-	$settings_path = PDXNOHACKME_SETTINGS_PATH;
+	$settings_path = NOHACKME_DEFENDER_SETTINGS_PATH;
 	if ( is_file($settings_path . 'cur_ips_counters') ) {
 		@wp_delete_file($settings_path . 'cur_ips_counters');
 	}
 
 }
 
-function pdxnohackme_admin_menu_logs(){
-	$block_qty = _pdxnohackme_get_blocks_qty();
+function nohackme_defender_admin_menu_logs(){
+	$block_qty = _nohackme_defender_get_blocks_qty();
   	echo '<div class="wrap"><h1>' . esc_html__('Blocked IP', 'nohackme-defender') . ' (' . esc_html($block_qty) . ')</h1>';
-	pdxnohackme_admin_menu_logs_output();
+	nohackme_defender_admin_menu_logs_output();
 	echo '</div>';
 }
-function pdxnohackme_admin_menu_logs_output () {
-	$SxGeo = _pdxnohackme_get_geo();
+function nohackme_defender_admin_menu_logs_output () {
+	$SxGeo = _nohackme_defender_get_geo();
 	if ( is_string($SxGeo) ) {
 		echo '<div class="pdxhighlight">';
 		echo wp_kses_post($SxGeo);
 		echo '</div>';
 	}
 
-	if ( isset($_REQUEST['clean']) && isset($_REQUEST['pdxnohackme_clean_nonce_field']) ) {
-	    $nonce = sanitize_text_field(wp_unslash($_REQUEST['pdxnohackme_clean_nonce_field']));
-	    if ( wp_verify_nonce($nonce, 'pdxnohackme_clean_action') ) {
+	if ( isset($_REQUEST['clean']) && isset($_REQUEST['nohackme_defender_clean_nonce_field']) ) {
+	    $nonce = sanitize_text_field(wp_unslash($_REQUEST['nohackme_defender_clean_nonce_field']));
+	    if ( wp_verify_nonce($nonce, 'nohackme_defender_clean_action') ) {
 			$clean_input = sanitize_text_field(wp_unslash($_REQUEST['clean']));
 	        if ( strlen($clean_input) && ctype_digit(substr($clean_input, 0, 1)) ) {
 	            $clean_input = preg_replace('/[^0-9.]/', '', $clean_input);
-	            if ( is_file(PDXNOHACKME_BANNED_PATH . $clean_input) ) {
-	                @wp_delete_file(PDXNOHACKME_BANNED_PATH . $clean_input);
+	            if ( is_file(NOHACKME_DEFENDER_BANNED_PATH . $clean_input) ) {
+	                @wp_delete_file(NOHACKME_DEFENDER_BANNED_PATH . $clean_input);
 	            }
 	            echo '<p>' . esc_html__('IP unlocked', 'nohackme-defender') . '</p>';
 	        }
 	    }
 	}
-	$block_qty = _pdxnohackme_get_blocks_qty();
+	$block_qty = _nohackme_defender_get_blocks_qty();
 
 	if ( $block_qty > 0 ) {
 		$aips = array();
-		$files = scandir(PDXNOHACKME_BANNED_PATH, SCANDIR_SORT_NONE);
+		$files = scandir(NOHACKME_DEFENDER_BANNED_PATH, SCANDIR_SORT_NONE);
 	  if (isset($files) and is_array($files) and count($files)) { foreach ( $files as $file) {
 	    if ( $file == '.' ) continue;
 	    if ( $file == '..' ) continue;
 			if ( !ctype_digit(substr($file, 0, 1)) ) continue;
 
-	    $aips [$file]= filectime(PDXNOHACKME_BANNED_PATH . $file);
+	    $aips [$file]= filectime(NOHACKME_DEFENDER_BANNED_PATH . $file);
 	  } }
 
 		if (isset($aips) and is_array($aips) and count($aips)) {
@@ -208,7 +207,7 @@ function pdxnohackme_admin_menu_logs_output () {
 			foreach ( $aips as $ip => $start) {
 				echo '<tr>';
 				echo '<td>';
-				$newip = _pdxnohackme_formatIp($ip);
+				$newip = _nohackme_defender_formatIp($ip);
 				echo esc_html($newip);
 				echo '</td>';
 				echo '<td>';
@@ -225,7 +224,7 @@ function pdxnohackme_admin_menu_logs_output () {
 				echo esc_html($country_code);
 				echo '</td>';
 				echo '<td>';
-				$reason = @unserialize(_pdxglobal_get_file_via_wpfs(PDXNOHACKME_BANNED_PATH . $ip));
+				$reason = @unserialize(_pdxglobal_get_file_via_wpfs(NOHACKME_DEFENDER_BANNED_PATH . $ip));
 				if (isset($reason) and is_array($reason) and count($reason) > 1) {
 					switch ($reason[0]) {
 						case 1:
@@ -262,7 +261,7 @@ function pdxnohackme_admin_menu_logs_output () {
 				echo '</td>';
 				echo '<td>';
     			echo '<form action="" method="post">';
-				wp_nonce_field('pdxnohackme_clean_action', 'pdxnohackme_clean_nonce_field');
+				wp_nonce_field('nohackme_defender_clean_action', 'nohackme_defender_clean_nonce_field');
 				echo '<input type="hidden" value="' . esc_attr($ip) . '" name="clean" /><input class="isbtn isbtn_theme_sm isbtn_theme_blue" type="submit" value="' . esc_html__('Delete', 'nohackme-defender') . '" />';
 				echo '</td>';
 				echo '</tr>';
@@ -278,24 +277,24 @@ function pdxnohackme_admin_menu_logs_output () {
 	echo '<p><a href="/qweqewqe?wer=php://input" target="_blank" class="button button-primary">' . esc_html__('Block me', 'nohackme-defender') . '</a></p>';
 }
 
-function pdxnohackme_admin_menu_hacklist(){
+function nohackme_defender_admin_menu_hacklist(){
  	echo '<div class="wrap"><h1>' . esc_html__('List of suspicious requests', 'nohackme-defender') . '</h1>';
 	echo '<p class="description">';
 	echo esc_html__('In this section, all suspicious requests that the plugin searches for in the GET and POST parameters sent to the site are presented. When any of the presented requests are detected, the IP address is blocked.', 'nohackme-defender');
 	echo '</p>';
 
-	$has_premium = _pdxnohackme_check_premium();
+	$has_premium = _nohackme_defender_check_premium();
 	if ( !$has_premium ) {
 		echo '<div class="premium premium__desc notice notice-warning is-dismissible">';
 		echo '<p class="description premium__text">';
   		echo esc_html__('Changing the list is available only in the paid version', 'nohackme-defender');
-		echo wp_kses_post(_pdxnohackme_get_premium_label('pdxnohackme_parent'));
+		echo wp_kses_post(_nohackme_defender_get_premium_label('nohackme_defender_parent'));
 		echo '</p>';
 		echo '</div>';
 	}
-	$file_path = PDXNOHACKME_SETTINGS_PATH . 'hacks_list';
+	$file_path = NOHACKME_DEFENDER_SETTINGS_PATH . 'hacks_list';
 
-	if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['hacks']) && check_admin_referer('pdxnohackme_hacklist_action', 'pdxnohackme_hacklist_nonce_field')) {
+	if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['hacks']) && check_admin_referer('nohackme_defender_hacklist_action', 'nohackme_defender_hacklist_nonce_field')) {
 		$stripped_hacks = array_map('wp_unslash', $_POST['hacks']);
 		$sanitized_hacks = array_map('esc_html', $stripped_hacks);
 	    $hacks = array_filter($sanitized_hacks, function($value) {
@@ -305,7 +304,7 @@ function pdxnohackme_admin_menu_hacklist(){
 		if ( !$has_premium ) {
    		echo '<div id="message" class="notice notice-warning is-dismissible"><p>' . esc_html__('Working with the list is only available in the paid version!', 'nohackme-defender') . '</p></div>';
 		} else {
-			_pdxnohackme_premium1($file_path, $hacks);
+			_nohackme_defender_premium1($file_path, $hacks);
 		}
   }
 
@@ -313,7 +312,7 @@ function pdxnohackme_admin_menu_hacklist(){
   	$hacks = file($file_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES); // Read file into array
 
 		echo '<form method="post" action="">';
-		wp_nonce_field('pdxnohackme_hacklist_action', 'pdxnohackme_hacklist_nonce_field');
+		wp_nonce_field('nohackme_defender_hacklist_action', 'nohackme_defender_hacklist_nonce_field');
 	  echo '<table class="table__pdxglobal">';
    	echo '<tr><th>№</th><th>' . esc_html__('Value', 'nohackme-defender') . '</th></tr>';
 	  foreach($hacks as $index => $hack){
@@ -325,11 +324,11 @@ function pdxnohackme_admin_menu_hacklist(){
 	  echo '</table>';
 		echo '<div class="flex_item">';
    	echo '<input type="submit" value="' . esc_html__('Save changes', 'nohackme-defender') . '" class="button button-primary">';
-  	echo '<button type="button" onclick="pdxnohackme_addRow()">' . esc_html__('Add a row', 'nohackme-defender') . '</button>';
+  	echo '<button type="button" onclick="nohackme_defender_addRow()">' . esc_html__('Add a row', 'nohackme-defender') . '</button>';
 		echo '</div>';
   	echo '<br><hr><br>';
 ?>
-<input type="button" id="restoreDefaults" value="<?php echo esc_attr__('Restore Defaults', 'nohackme-defender'); ?>" class="button" data-nonce="<?php echo esc_attr(wp_create_nonce('pdxnohackme_restore_defaults_action')); ?>">
+<input type="button" id="restoreDefaults" value="<?php echo esc_attr__('Restore Defaults', 'nohackme-defender'); ?>" class="button" data-nonce="<?php echo esc_attr(wp_create_nonce('nohackme_defender_restore_defaults_action')); ?>">
 <?php
 	  echo '</form>';
 		?>
@@ -338,7 +337,7 @@ function pdxnohackme_admin_menu_hacklist(){
 		    var nonce = this.getAttribute('data-nonce');
 		    if(confirm('<?php echo esc_js(__('Are you sure you want to restore the default list?', 'nohackme-defender')); ?>')) {
 		        var send_data = {
-		            'action': 'pdxnohackme_restore_defaults',
+		            'action': 'nohackme_defender_restore_defaults',
 		            '_wpnonce': nonce
 		        };
 
@@ -367,24 +366,24 @@ function pdxnohackme_admin_menu_hacklist(){
 	echo '</div>';
 }
 
-function pdxnohackme_admin_menu_google_ips(){
+function nohackme_defender_admin_menu_google_ips(){
   echo '<div class="wrap"><h1>' . esc_html__('List of Google spider IP ranges', 'nohackme-defender') . '</h1>';
 	echo '<p class="description">';
  echo esc_html__('Ranges from this section are used to form a whitelist of IP addresses if the corresponding checkbox is checked in the plugin settings.', 'nohackme-defender');
 	echo '</p>';
 
-	$has_premium = _pdxnohackme_check_premium();
+	$has_premium = _nohackme_defender_check_premium();
 	if ( !$has_premium ) {
 		echo '<div class="premium premium__desc notice notice-warning is-dismissible">';
 		echo '<p class="description premium__text">';
   	echo esc_html__('Changing the list is only available in the paid version', 'nohackme-defender');
-		echo wp_kses_post(_pdxnohackme_get_premium_label('pdxnohackme_parent'));
+		echo wp_kses_post(_nohackme_defender_get_premium_label('nohackme_defender_parent'));
 		echo '</p>';
 		echo '</div>';
 	}
-	$file_path = PDXNOHACKME_SETTINGS_PATH . 'robots_google_list';
+	$file_path = NOHACKME_DEFENDER_SETTINGS_PATH . 'robots_google_list';
 
-	if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['hacks']) && check_admin_referer('pdxnohackme_google_ips_action', 'pdxnohackme_google_ips_nonce')) {
+	if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['hacks']) && check_admin_referer('nohackme_defender_google_ips_action', 'nohackme_defender_google_ips_nonce')) {
 		$stripped_hacks = array_map('wp_unslash', $_POST['hacks']);
 	    $cleaned_hacks = array_map(function($value) {
 	        $sanitized_value = sanitize_text_field($value);
@@ -397,7 +396,7 @@ function pdxnohackme_admin_menu_google_ips(){
 		if ( !$has_premium ) {
    echo '<div id="message" class="notice notice-warning is-dismissible"><p>' . esc_html__('Work with the list is available only in the paid version!', 'nohackme-defender') . '</p></div>';
 		} else {
-			_pdxnohackme_premium1($file_path, $hacks);
+			_nohackme_defender_premium1($file_path, $hacks);
 		}
   }
 
@@ -405,7 +404,7 @@ function pdxnohackme_admin_menu_google_ips(){
   $hacks = file($file_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES); // Reading file into an array
 
 		echo '<form method="post" action="">';
-		wp_nonce_field('pdxnohackme_google_ips_action', 'pdxnohackme_google_ips_nonce');
+		wp_nonce_field('nohackme_defender_google_ips_action', 'nohackme_defender_google_ips_nonce');
 	  echo '<table class="table__pdxglobal">';
    echo '<tr><th>№</th><th>' . esc_html__('Value', 'nohackme-defender') . '</th></tr>';
 	  foreach($hacks as $index => $hack){
@@ -417,19 +416,19 @@ function pdxnohackme_admin_menu_google_ips(){
 	  echo '</table>';
 		echo '<div class="flex_item">';
    echo '<input type="submit" value="' . esc_html__('Save changes', 'nohackme-defender') . '" class="button button-primary">';
-  echo '<button type="button" onclick="pdxnohackme_addRow()">' . esc_html__('Add row', 'nohackme-defender') . '</button>';
+  echo '<button type="button" onclick="nohackme_defender_addRow()">' . esc_html__('Add row', 'nohackme-defender') . '</button>';
 		echo '</div>';
   echo '<br><hr><br>';
 ?>
-<input type="button" id="restoreDefaults" value="<?php echo esc_attr__('Restore Defaults', 'nohackme-defender'); ?>" class="button" data-nonce="<?php echo esc_attr(wp_create_nonce('pdxnohackme_restore_defaults_google_action')); ?>">
+<input type="button" id="restoreDefaults" value="<?php echo esc_attr__('Restore Defaults', 'nohackme-defender'); ?>" class="button" data-nonce="<?php echo esc_attr(wp_create_nonce('nohackme_defender_restore_defaults_google_action')); ?>">
 <?php
 	  echo '</form>';
 		?>
     <script>
 		document.getElementById('restoreDefaults').addEventListener('click', function() {
-		    if(confirm('<?php echo esc_js(__("Are you sure you want to restore the default list?", "pdxnohackme")); ?>')) {
+		    if(confirm('<?php echo esc_js(__("Are you sure you want to restore the default list?", "nohackme_defender")); ?>')) {
 		        var send_data = {
-		            'action': 'pdxnohackme_restore_defaults_ips_google',
+		            'action': 'nohackme_defender_restore_defaults_ips_google',
 		            '_wpnonce': this.getAttribute('data-nonce')
 		        };
 
@@ -457,7 +456,7 @@ function pdxnohackme_admin_menu_google_ips(){
 	echo '</div>';
 }
 
-function pdxnohackme_admin_menu_yandex_ips(){
+function nohackme_defender_admin_menu_yandex_ips(){
   echo '<div class="wrap"><h1>' . esc_html__('List of Yandex spider IP ranges', 'nohackme-defender') . '</h1>';
 	echo '<p class="description">';
  	echo esc_html__('Ranges from this section are used to create a whitelist of IP addresses if the corresponding checkbox is checked in the plugin settings.', 'nohackme-defender');
@@ -466,18 +465,18 @@ function pdxnohackme_admin_menu_yandex_ips(){
  	echo esc_html__('Актуальный список диапазонов адресов поисковых роботов Яндекс можно увидеть', 'nohackme-defender') . ' <a target="_blank" href="https://yandex.ru/ips">' . esc_html__('на этой странице', 'nohackme-defender') . '</a>';
 	echo '</p>';
 
-	$has_premium = _pdxnohackme_check_premium();
+	$has_premium = _nohackme_defender_check_premium();
 	if ( !$has_premium ) {
 		echo '<div class="premium premium__desc notice notice-warning is-dismissible">';
 		echo '<p class="description premium__text">';
   echo esc_html__('Changing the list is only available in the paid version', 'nohackme-defender');
-		echo wp_kses_post(_pdxnohackme_get_premium_label('pdxnohackme_parent'));
+		echo wp_kses_post(_nohackme_defender_get_premium_label('nohackme_defender_parent'));
 		echo '</p>';
 		echo '</div>';
 	}
-	$file_path = PDXNOHACKME_SETTINGS_PATH . 'robots_yandex_list';
+	$file_path = NOHACKME_DEFENDER_SETTINGS_PATH . 'robots_yandex_list';
 
-	if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['hacks']) && check_admin_referer('pdxnohackme_yandex_ips_action', 'pdxnohackme_yandex_ips_nonce')) {
+	if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['hacks']) && check_admin_referer('nohackme_defender_yandex_ips_action', 'nohackme_defender_yandex_ips_nonce')) {
 		$stripped_hacks = array_map('wp_unslash', $_POST['hacks']);
 	    $cleaned_hacks = array_map(function($value) {
 	        $sanitized_value = sanitize_text_field($value);
@@ -490,7 +489,7 @@ function pdxnohackme_admin_menu_yandex_ips(){
 		if ( !$has_premium ) {
    echo '<div id="message" class="notice notice-warning is-dismissible"><p>' . esc_html__('Working with the list is available only in the paid version!', 'nohackme-defender') . '</p></div>';
 		} else {
-			_pdxnohackme_premium1($file_path, $hacks);
+			_nohackme_defender_premium1($file_path, $hacks);
 		}
   }
 
@@ -498,7 +497,7 @@ function pdxnohackme_admin_menu_yandex_ips(){
   $hacks = file($file_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES); // Read file into an array
 
 		echo '<form method="post" action="">';
-		wp_nonce_field('pdxnohackme_yandex_ips_action', 'pdxnohackme_yandex_ips_nonce');
+		wp_nonce_field('nohackme_defender_yandex_ips_action', 'nohackme_defender_yandex_ips_nonce');
 	  echo '<table class="table__pdxglobal">';
    echo '<tr><th>№</th><th>' . esc_html__('Value', 'nohackme-defender') . '</th></tr>';
 	  foreach($hacks as $index => $hack){
@@ -510,19 +509,19 @@ function pdxnohackme_admin_menu_yandex_ips(){
 	  echo '</table>';
 		echo '<div class="flex_item">';
    echo '<input type="submit" value="' . esc_html__('Save changes', 'nohackme-defender') . '" class="button button-primary">';
-  echo '<button type="button" onclick="pdxnohackme_addRow()">' . esc_html__('Add row', 'nohackme-defender') . '</button>';
+  echo '<button type="button" onclick="nohackme_defender_addRow()">' . esc_html__('Add row', 'nohackme-defender') . '</button>';
 		echo '</div>';
   echo '<br><hr><br>';
 ?>
-<input type="button" id="restoreDefaults" value="<?php echo esc_attr__('Restore Defaults', 'nohackme-defender'); ?>" class="button" data-nonce="<?php echo esc_attr(wp_create_nonce('pdxnohackme_restore_defaults_yandex_action')); ?>">
+<input type="button" id="restoreDefaults" value="<?php echo esc_attr__('Restore Defaults', 'nohackme-defender'); ?>" class="button" data-nonce="<?php echo esc_attr(wp_create_nonce('nohackme_defender_restore_defaults_yandex_action')); ?>">
 <?php
 	  echo '</form>';
 		?>
     <script>
 		document.getElementById('restoreDefaults').addEventListener('click', function() {
-		    if(confirm('<?php echo esc_js(__("Are you sure you want to restore the default list?", "pdxnohackme")); ?>')) {
+		    if(confirm('<?php echo esc_js(__("Are you sure you want to restore the default list?", "nohackme_defender")); ?>')) {
 		        var send_data = {
-		            'action': 'pdxnohackme_restore_defaults_ips_yandex',
+		            'action': 'nohackme_defender_restore_defaults_ips_yandex',
 		            '_wpnonce': this.getAttribute('data-nonce')
 		        };
 
@@ -550,13 +549,13 @@ function pdxnohackme_admin_menu_yandex_ips(){
 	echo '</div>';
 }
 
-function pdxnohackme_admin_menu_stats(){
+function nohackme_defender_admin_menu_stats(){
   	echo '<div class="wrap"><h1>' . esc_html__('Top by blocking counters', 'nohackme-defender') . '</h1>';
-	pdxnohackme_admin_menu_stats_output();
+	nohackme_defender_admin_menu_stats_output();
 	echo '</div>';
 }
-function pdxnohackme_admin_menu_stats_output () {
-	$SxGeo = _pdxnohackme_get_geo();
+function nohackme_defender_admin_menu_stats_output () {
+	$SxGeo = _nohackme_defender_get_geo();
 	if ( is_string($SxGeo) ) {
 		echo '<div class="pdxhighlight">';
 		echo wp_kses_post($SxGeo);
@@ -567,8 +566,8 @@ function pdxnohackme_admin_menu_stats_output () {
 	$acounter_10min = array();
 	$acounter_60min = array();
 	$ips = array();
-	if ( is_file(PDXNOHACKME_SETTINGS_PATH . 'cur_ips_counters') ) {
-		$data = @_pdxglobal_get_file_via_wpfs(PDXNOHACKME_SETTINGS_PATH . 'cur_ips_counters');
+	if ( is_file(NOHACKME_DEFENDER_SETTINGS_PATH . 'cur_ips_counters') ) {
+		$data = @_pdxglobal_get_file_via_wpfs(NOHACKME_DEFENDER_SETTINGS_PATH . 'cur_ips_counters');
 		if ( strlen($data) ) {
 			$ips = @unserialize($data);
 		}
@@ -606,7 +605,7 @@ function pdxnohackme_admin_menu_stats_output () {
 			foreach ( $acounter_60min as $ip => $qty) {
 				echo '<tr>';
 				echo '<td>';
-				$newip = _pdxnohackme_formatIp($ip);
+				$newip = _nohackme_defender_formatIp($ip);
 				echo esc_html($newip);
 				echo '</td>';
 				echo '<td>';
@@ -639,7 +638,7 @@ function pdxnohackme_admin_menu_stats_output () {
 			foreach ( $acounter_10min as $ip => $qty) {
 				echo '<tr>';
 				echo '<td>';
-				$newip = _pdxnohackme_formatIp($ip);
+				$newip = _nohackme_defender_formatIp($ip);
 				echo esc_html($newip);
 				echo '</td>';
 				echo '<td>';
@@ -672,7 +671,7 @@ function pdxnohackme_admin_menu_stats_output () {
 			foreach ( $acounter_1min as $ip => $qty) {
 				echo '<tr>';
 				echo '<td>';
-				$newip = _pdxnohackme_formatIp($ip);
+				$newip = _nohackme_defender_formatIp($ip);
 				echo esc_html($newip);
 				echo '</td>';
 				echo '<td>';
@@ -703,23 +702,23 @@ function pdxnohackme_admin_menu_stats_output () {
 }
 
 add_action('admin_menu', function(){
-	$block_qty = _pdxnohackme_get_blocks_qty();
-  add_menu_page( 'noHackMe', 'noHackMe', 'manage_options', 'pdxnohackme_parent', 'pdxnohackme_admin_menu', '', 101 );
-  add_action( 'admin_init', 'pdxnohackme_register_settings' );
+	$block_qty = _nohackme_defender_get_blocks_qty();
+  add_menu_page( 'noHackMe', 'noHackMe', 'manage_options', 'nohackme_defender_parent', 'nohackme_defender_admin_menu', '', 101 );
+  add_action( 'admin_init', 'nohackme_defender_register_settings' );
 
- add_submenu_page( 'pdxnohackme_parent', esc_html__('Blocked IP', 'nohackme-defender'), esc_html__('Blocked IP', 'nohackme-defender') . (($block_qty > 0)?(' <span class="update-plugins">' . $block_qty . '</span>'):(' (0)')), 'manage_options', 'pdxnohackme_logs', 'pdxnohackme_admin_menu_logs' );
- add_submenu_page( 'pdxnohackme_parent', esc_html__('Statistics', 'nohackme-defender'), esc_html__('Statistics', 'nohackme-defender'), 'manage_options', 'pdxnohackme_stats', 'pdxnohackme_admin_menu_stats' );
- add_submenu_page( 'pdxnohackme_parent', esc_html__('Suspicious requests', 'nohackme-defender'), esc_html__('Suspicious requests', 'nohackme-defender'), 'manage_options', 'pdxnohackme_hacklist', 'pdxnohackme_admin_menu_hacklist' );
- add_submenu_page( 'pdxnohackme_parent', esc_html__('Google IP Ranges', 'nohackme-defender'), esc_html__('Google IP Ranges', 'nohackme-defender'), 'manage_options', 'pdxnohackme_google_ips', 'pdxnohackme_admin_menu_google_ips' );
- add_submenu_page( 'pdxnohackme_parent', esc_html__('Yandex IP Ranges', 'nohackme-defender'), esc_html__('Yandex IP Ranges', 'nohackme-defender'), 'manage_options', 'pdxnohackme_yandex_ips', 'pdxnohackme_admin_menu_yandex_ips' );
+ add_submenu_page( 'nohackme_defender_parent', esc_html__('Blocked IP', 'nohackme-defender'), esc_html__('Blocked IP', 'nohackme-defender') . (($block_qty > 0)?(' <span class="update-plugins">' . $block_qty . '</span>'):(' (0)')), 'manage_options', 'nohackme_defender_logs', 'nohackme_defender_admin_menu_logs' );
+ add_submenu_page( 'nohackme_defender_parent', esc_html__('Statistics', 'nohackme-defender'), esc_html__('Statistics', 'nohackme-defender'), 'manage_options', 'nohackme_defender_stats', 'nohackme_defender_admin_menu_stats' );
+ add_submenu_page( 'nohackme_defender_parent', esc_html__('Suspicious requests', 'nohackme-defender'), esc_html__('Suspicious requests', 'nohackme-defender'), 'manage_options', 'nohackme_defender_hacklist', 'nohackme_defender_admin_menu_hacklist' );
+ add_submenu_page( 'nohackme_defender_parent', esc_html__('Google IP Ranges', 'nohackme-defender'), esc_html__('Google IP Ranges', 'nohackme-defender'), 'manage_options', 'nohackme_defender_google_ips', 'nohackme_defender_admin_menu_google_ips' );
+ add_submenu_page( 'nohackme_defender_parent', esc_html__('Yandex IP Ranges', 'nohackme-defender'), esc_html__('Yandex IP Ranges', 'nohackme-defender'), 'manage_options', 'nohackme_defender_yandex_ips', 'nohackme_defender_admin_menu_yandex_ips' );
 } );
-function pdxnohackme_register_settings() {
-  register_setting( 'pdxnohackme_settings_group', 'pdxnohackme_options', 'pdxnohackme_sanitize_options' );
-	register_setting('pdxnohackme_premium_group', 'pdxnohackme_license', 'pdxnohackme_sanitize_premium_options');
+function nohackme_defender_register_settings() {
+  register_setting( 'nohackme_defender_settings_group', 'nohackme_defender_options', 'nohackme_defender_sanitize_options' );
+	register_setting('nohackme_defender_premium_group', 'nohackme_defender_license', 'nohackme_defender_sanitize_premium_options');
 }
-function pdxnohackme_admin_menu() {
+function nohackme_defender_admin_menu() {
 	if ( isset($_GET['tab']) ) {
-		if (!isset($_GET['nonce']) || !wp_verify_nonce(sanitize_text_field($_GET['nonce']), 'pdxnohackme_admin_action')) {
+		if (!isset($_GET['nonce']) || !wp_verify_nonce(sanitize_text_field($_GET['nonce']), 'nohackme_defender_admin_action')) {
 	        wp_die(esc_html__('Sorry, you are not allowed to access this page.', 'nohackme-defender'));
 	    }
 	}
@@ -727,28 +726,28 @@ function pdxnohackme_admin_menu() {
     $active_tab = isset($_GET['tab']) ? esc_html(sanitize_key($_GET['tab'])) : 'settings';
 
     echo '<div class="wrap">';
-    echo '<h1>' . esc_html(PDXNOHACKME_NAME) . '</h1>';
+    echo '<h1>' . esc_html(NOHACKME_DEFENDER_NAME) . '</h1>';
 
     // Tabs
     ?>
     <h2 class="nav-tab-wrapper">
-        <a href="?page=pdxnohackme_parent&tab=settings&nonce=<?php echo esc_html(wp_create_nonce('pdxnohackme_admin_action')); ?>" class="nav-tab <?php echo $active_tab == 'settings' ? 'nav-tab-active' : ''; ?>"><?php echo esc_html__('Settings', 'nohackme-defender'); ?></a>
-    <?php if (!_pdxnohackme_premium_exists()) { ?>
-        <a href="?page=pdxnohackme_parent&tab=premium&nonce=<?php echo esc_html(wp_create_nonce('pdxnohackme_admin_action')); ?>" class="nav-tab <?php echo $active_tab == 'premium' ? 'nav-tab-active' : ''; ?>"><?php echo esc_html__('Premium Features', 'nohackme-defender'); ?></a>
+        <a href="?page=nohackme_defender_parent&tab=settings&nonce=<?php echo esc_html(wp_create_nonce('nohackme_defender_admin_action')); ?>" class="nav-tab <?php echo $active_tab == 'settings' ? 'nav-tab-active' : ''; ?>"><?php echo esc_html__('Settings', 'nohackme-defender'); ?></a>
+    <?php if (!_nohackme_defender_premium_exists()) { ?>
+        <a href="?page=nohackme_defender_parent&tab=premium&nonce=<?php echo esc_html(wp_create_nonce('nohackme_defender_admin_action')); ?>" class="nav-tab <?php echo $active_tab == 'premium' ? 'nav-tab-active' : ''; ?>"><?php echo esc_html__('Premium Features', 'nohackme-defender'); ?></a>
     <?php } ?>
-        <a href="?page=pdxnohackme_parent&tab=plugins&nonce=<?php echo esc_html(wp_create_nonce('pdxnohackme_admin_action')); ?>" class="nav-tab <?php echo $active_tab == 'plugins' ? 'nav-tab-active' : ''; ?>"><?php echo esc_html__('Other plugins', 'nohackme-defender'); ?></a>
-    <?php if (_pdxnohackme_show_branding()) { ?>
-        <a href="?page=pdxnohackme_parent&tab=development&nonce=<?php echo esc_html(wp_create_nonce('pdxnohackme_admin_action')); ?>" class="nav-tab <?php echo $active_tab == 'development' ? 'nav-tab-active' : ''; ?>"><?php echo esc_html__('Website Development', 'nohackme-defender'); ?></a>
-        <a href="?page=pdxnohackme_parent&tab=seo&nonce=<?php echo esc_html(wp_create_nonce('pdxnohackme_admin_action')); ?>" class="nav-tab <?php echo $active_tab == 'seo' ? 'nav-tab-active' : ''; ?>"><?php echo esc_html__('SEO', 'nohackme-defender'); ?></a>
+        <a href="?page=nohackme_defender_parent&tab=plugins&nonce=<?php echo esc_html(wp_create_nonce('nohackme_defender_admin_action')); ?>" class="nav-tab <?php echo $active_tab == 'plugins' ? 'nav-tab-active' : ''; ?>"><?php echo esc_html__('Other plugins', 'nohackme-defender'); ?></a>
+    <?php if (_nohackme_defender_show_branding()) { ?>
+        <a href="?page=nohackme_defender_parent&tab=development&nonce=<?php echo esc_html(wp_create_nonce('nohackme_defender_admin_action')); ?>" class="nav-tab <?php echo $active_tab == 'development' ? 'nav-tab-active' : ''; ?>"><?php echo esc_html__('Website Development', 'nohackme-defender'); ?></a>
+        <a href="?page=nohackme_defender_parent&tab=seo&nonce=<?php echo esc_html(wp_create_nonce('nohackme_defender_admin_action')); ?>" class="nav-tab <?php echo $active_tab == 'seo' ? 'nav-tab-active' : ''; ?>"><?php echo esc_html__('SEO', 'nohackme-defender'); ?></a>
     <?php } ?>
     </h2>
     <?php
 
     // Content of tabs
     if ($active_tab == 'settings') {
-        pdxnohackme_get_settings_page();
+        nohackme_defender_get_settings_page();
     } elseif ($active_tab == 'premium') {
-        pdxnohackme_get_premium_page();
+        nohackme_defender_get_premium_page();
     } elseif ($active_tab == 'plugins') {
         if (function_exists('_pdxglobal_get_plugins_page')) {
             $func = '_pdxglobal_get_plugins_page';
@@ -768,17 +767,17 @@ function pdxnohackme_admin_menu() {
     echo '</div>';
 }
 
-function pdxnohackme_get_settings_page( ) {
+function nohackme_defender_get_settings_page( ) {
 	echo '<div>&nbsp;</div>';
-	$pdxnohackme_options = get_option('pdxnohackme_options');
-	$has_premium = _pdxnohackme_check_premium();
+	$nohackme_defender_options = get_option('nohackme_defender_options');
+	$has_premium = _nohackme_defender_check_premium();
 
 	if ( !$has_premium ) {
-		_pdxnohackme_get_premium_desc('pdxnohackme_parent');
+		_nohackme_defender_get_premium_desc('nohackme_defender_parent');
 	}
 
 	echo '<form method="post" action="options.php">';
-	settings_fields('pdxnohackme_settings_group');
+	settings_fields('nohackme_defender_settings_group');
 
 	echo '<table class="form-table">';
 	echo '<tbody>';
@@ -786,19 +785,19 @@ function pdxnohackme_get_settings_page( ) {
 	// Temporarily disable tracking and blocking
 	$tmpval = 'cancel';
  echo '<tr class="highlight"><th scope="row">' . esc_html__('Temporarily disable plugin', 'nohackme-defender') . '</th><td>';
-	echo '<input type="checkbox" id="pdxmeta_options_' . esc_html($tmpval) . '" name="pdxnohackme_options[' . esc_html($tmpval) . ']" value="1"' . (isset($pdxnohackme_options[$tmpval]) && $pdxnohackme_options[$tmpval] == 1 ? ' checked' : '') . '>';
+	echo '<input type="checkbox" id="pdxmeta_options_' . esc_html($tmpval) . '" name="nohackme_defender_options[' . esc_html($tmpval) . ']" value="1"' . (isset($nohackme_defender_options[$tmpval]) && $nohackme_defender_options[$tmpval] == 1 ? ' checked' : '') . '>';
 	echo '<label for="pdxmeta_options_' . esc_html($tmpval) . '"></label>';
  echo '<p class="description">' . esc_html__('If the checkbox is checked, the plugin will stop tracking and blocking IP addresses, and will also provide access to the site from IP addresses that are already blocked.', 'nohackme-defender') . '</p>';
 	echo '</td></tr>';
 
 	$tmpval = 'cancel_block';
  echo '<tr><th scope="row">' . esc_html__('Cancel current IP blocking if there is a GET parameter', 'nohackme-defender') . '</th><td>';
-	echo '<input type="text" id="pdxmeta_options_' . esc_html($tmpval) . '" name="pdxnohackme_options[' . esc_html($tmpval) . ']" value="' . (isset($pdxnohackme_options[$tmpval]) && strlen($pdxnohackme_options[$tmpval]) ? esc_attr($pdxnohackme_options[$tmpval]) : '') . '" style="width: 100%;">';
+	echo '<input type="text" id="pdxmeta_options_' . esc_html($tmpval) . '" name="nohackme_defender_options[' . esc_html($tmpval) . ']" value="' . (isset($nohackme_defender_options[$tmpval]) && strlen($nohackme_defender_options[$tmpval]) ? esc_attr($nohackme_defender_options[$tmpval]) : '') . '" style="width: 100%;">';
  echo '<p class="description">' . esc_html__('Specify the GET parameter that can be entered to remove the current IP from the list of blocked ones.', 'nohackme-defender');
-	if ( isset($pdxnohackme_options[$tmpval]) && strlen($pdxnohackme_options[$tmpval]) ) {
-		$maybe_get_param = $pdxnohackme_options[$tmpval];
+	if ( isset($nohackme_defender_options[$tmpval]) && strlen($nohackme_defender_options[$tmpval]) ) {
+		$maybe_get_param = $nohackme_defender_options[$tmpval];
 	} else {
-		$maybe_get_param = _pdxnohackme_generateRandomString();
+		$maybe_get_param = _nohackme_defender_generateRandomString();
   echo '<br>' . esc_html__('For example:', 'nohackme-defender') . ' <span id="copy_code_this">' . esc_html($maybe_get_param) . '</span> <span class="button button-primary" onclick="copyToClipboard(\'copy_code_this\');">' . esc_html__('Copy', 'nohackme-defender') . '</span>';
 	}
 	echo '<br>';
@@ -812,10 +811,10 @@ function pdxnohackme_get_settings_page( ) {
 	echo '<tr><th scope="row">' . esc_html__('Message for blocked IPs', 'nohackme-defender') . '</th><td>';
 
 	$editor_id = 'pdxmeta_options_' . $tmpval;
-	$editor_content = (isset($pdxnohackme_options[$tmpval]) && strlen($pdxnohackme_options[$tmpval]) ? $pdxnohackme_options[$tmpval] : $tmpdef);
+	$editor_content = (isset($nohackme_defender_options[$tmpval]) && strlen($nohackme_defender_options[$tmpval]) ? $nohackme_defender_options[$tmpval] : $tmpdef);
 
 	$args = array(
-	  'textarea_name' => 'pdxnohackme_options[' . $tmpval . ']',
+	  'textarea_name' => 'nohackme_defender_options[' . $tmpval . ']',
 	  'textarea_rows' => 3,
 	  'teeny' => true, // Set to true to create a minimal editor, false for full editor
 	);
@@ -827,7 +826,7 @@ function pdxnohackme_get_settings_page( ) {
 	// How many days to block IP
 	$tmpval = 'block_time';
 	echo '<tr><th scope="row">' . esc_html__('How many days to block IP', 'nohackme-defender') . '</th><td>';
-	echo '<input type="text" id="pdxmeta_options_' . esc_html($tmpval) . '" name="pdxnohackme_options[' . esc_html($tmpval) . ']" value="' . (isset($pdxnohackme_options[$tmpval]) && is_numeric($pdxnohackme_options[$tmpval]) ? esc_attr($pdxnohackme_options[$tmpval]) : '') . '" size="3">';
+	echo '<input type="text" id="pdxmeta_options_' . esc_html($tmpval) . '" name="nohackme_defender_options[' . esc_html($tmpval) . ']" value="' . (isset($nohackme_defender_options[$tmpval]) && is_numeric($nohackme_defender_options[$tmpval]) ? esc_attr($nohackme_defender_options[$tmpval]) : '') . '" size="3">';
 	echo '</td></tr>';
 
  echo '<tr><td colspan="2"><h2>' . esc_html__('Whitelists', 'nohackme-defender') . '</h2><p class="description">' . esc_html__('Whitelists allow disabling the check for the number of requests to the site within a certain time period for specific IPs.', 'nohackme-defender') . '</p></td></tr>';
@@ -837,7 +836,7 @@ function pdxnohackme_get_settings_page( ) {
 
 	$tmpval = 'exclude_ip';
   echo '<tr><th scope="row">' . esc_html__('Whitelist of IP addresses', 'nohackme-defender') . '</th><td>';
-	echo '<textarea id="pdxmeta_options_' . esc_html($tmpval) . '" name="pdxnohackme_options[' . esc_html($tmpval) . ']" cols="33" rows="7">' . (isset($pdxnohackme_options[$tmpval]) && strlen($pdxnohackme_options[$tmpval]) ? esc_attr($pdxnohackme_options[$tmpval]) : '') . '</textarea>';
+	echo '<textarea id="pdxmeta_options_' . esc_html($tmpval) . '" name="nohackme_defender_options[' . esc_html($tmpval) . ']" cols="33" rows="7">' . (isset($nohackme_defender_options[$tmpval]) && strlen($nohackme_defender_options[$tmpval]) ? esc_attr($nohackme_defender_options[$tmpval]) : '') . '</textarea>';
 	// translators: %s: IP address of the current user
   	echo '<p class="description">' . esc_html__('The specified IP addresses will not be blocked by the plugin.', 'nohackme-defender') . '<br>' . esc_html__('Each IP from a new line', 'nohackme-defender') . '.<br>' . sprintf(esc_html__('Your current IP: %s', 'nohackme-defender'), esc_html($ip));
 	if ( isset($_SERVER['SERVER_ADDR']) and strlen($_SERVER['SERVER_ADDR']) ) {
@@ -849,30 +848,30 @@ function pdxnohackme_get_settings_page( ) {
 
 	$tmpval = 'exclude_google_ips';
  echo '<tr' . ((!$has_premium)?(' class="premium"'):('')) . '><th scope="row">' . esc_html__('Do not block Google robots', 'nohackme-defender') . '</th><td>';
-	echo '<input type="checkbox"' . ((!$has_premium)?(' disabled readonly'):('')) . ' id="pdxmeta_options_' . esc_html($tmpval) . '" name="pdxnohackme_options[' . esc_html($tmpval) . ']" value="1"' . (isset($pdxnohackme_options[$tmpval]) && $pdxnohackme_options[$tmpval] == 1 ? ' checked' : '') . '>';
+	echo '<input type="checkbox"' . ((!$has_premium)?(' disabled readonly'):('')) . ' id="pdxmeta_options_' . esc_html($tmpval) . '" name="nohackme_defender_options[' . esc_html($tmpval) . ']" value="1"' . (isset($nohackme_defender_options[$tmpval]) && $nohackme_defender_options[$tmpval] == 1 ? ' checked' : '') . '>';
 	echo '<label for="pdxmeta_options_' . esc_html($tmpval) . '"></label>';
- echo '<p class="description">' . esc_html__('The list includes well-known IP address ranges of Google.', 'nohackme-defender') . '<br><a href="/wp-admin/admin.php?page=pdxnohackme_google_ips">' . esc_html__('Change the list of ranges', 'nohackme-defender') . '</a></p>';
+ echo '<p class="description">' . esc_html__('The list includes well-known IP address ranges of Google.', 'nohackme-defender') . '<br><a href="/wp-admin/admin.php?page=nohackme_defender_google_ips">' . esc_html__('Change the list of ranges', 'nohackme-defender') . '</a></p>';
 	if ( !$has_premium ) {
-		echo wp_kses_post(_pdxnohackme_get_premium_label('pdxnohackme_parent'));
+		echo wp_kses_post(_nohackme_defender_get_premium_label('nohackme_defender_parent'));
 	}
 	echo '</td></tr>';
 
 	$tmpval = 'exclude_yandex_ips';
  echo '<tr' . ((!$has_premium)?(' class="premium"'):('')) . '><th scope="row">' . esc_html__('Do not block Yandex robots', 'nohackme-defender') . '</th><td>';
-	echo '<input type="checkbox"' . ((!$has_premium)?(' disabled readonly'):('')) . ' id="pdxmeta_options_' . esc_html($tmpval) . '" name="pdxnohackme_options[' . esc_html($tmpval) . ']" value="1"' . (isset($pdxnohackme_options[$tmpval]) && $pdxnohackme_options[$tmpval] == 1 ? ' checked' : '') . '>';
+	echo '<input type="checkbox"' . ((!$has_premium)?(' disabled readonly'):('')) . ' id="pdxmeta_options_' . esc_html($tmpval) . '" name="nohackme_defender_options[' . esc_html($tmpval) . ']" value="1"' . (isset($nohackme_defender_options[$tmpval]) && $nohackme_defender_options[$tmpval] == 1 ? ' checked' : '') . '>';
 	echo '<label for="pdxmeta_options_' . esc_html($tmpval) . '"></label>';
- echo '<p class="description">' . esc_html__('The list of addresses is taken from the official Yandex page:', 'nohackme-defender') . ' <a href="https://yandex.ru/ips" target="_blank">https://yandex.ru/ips</a><br><a href="/wp-admin/admin.php?page=pdxnohackme_yandex_ips">' . esc_html__('Change the list of ranges', 'nohackme-defender') . '</a></p>';
+ echo '<p class="description">' . esc_html__('The list of addresses is taken from the official Yandex page:', 'nohackme-defender') . ' <a href="https://yandex.ru/ips" target="_blank">https://yandex.ru/ips</a><br><a href="/wp-admin/admin.php?page=nohackme_defender_yandex_ips">' . esc_html__('Change the list of ranges', 'nohackme-defender') . '</a></p>';
 	if ( !$has_premium ) {
-		echo wp_kses_post(_pdxnohackme_get_premium_label('pdxnohackme_parent'));
+		echo wp_kses_post(_nohackme_defender_get_premium_label('nohackme_defender_parent'));
 	}
 	echo '</td></tr>';
 
 	$tmpval = 'exclude_user_agent';
  echo '<tr><th scope="row">' . esc_html__('White list User Agent', 'nohackme-defender') . '</th><td>';
-	echo '<textarea id="pdxmeta_options_' . esc_html($tmpval) . '" name="pdxnohackme_options[' . esc_html($tmpval) . ']" cols="33" rows="7">' . (isset($pdxnohackme_options[$tmpval]) && strlen($pdxnohackme_options[$tmpval]) ? esc_attr($pdxnohackme_options[$tmpval]) : '') . '</textarea>';
- echo '<p class="description">' . esc_html__('Requests with the specified User Agent will not be blocked by the plugin.', 'nohackme-defender') . ' <span class="is_a is_link" onclick="showOverlayBlock(\'#pdxnohackme_useragent_list\');">' . esc_html__('View a list of popular User Agents', 'nohackme-defender') . '</span>' . '<br>' . esc_html__('Each User Agent on a new line. It is not necessary to specify the entire User Agent - the plugin checks for the presence of the specified string in the request User Agent', 'nohackme-defender') . '.<br><strong>' . esc_html__('ATTENTION!!! An attacker can specify any User Agent for their request. Thus, they can easily pretend to be a Google or Yandex robot if you add these robots\' User Agents to the whitelist.', 'nohackme-defender') . '</strong>';
+	echo '<textarea id="pdxmeta_options_' . esc_html($tmpval) . '" name="nohackme_defender_options[' . esc_html($tmpval) . ']" cols="33" rows="7">' . (isset($nohackme_defender_options[$tmpval]) && strlen($nohackme_defender_options[$tmpval]) ? esc_attr($nohackme_defender_options[$tmpval]) : '') . '</textarea>';
+ echo '<p class="description">' . esc_html__('Requests with the specified User Agent will not be blocked by the plugin.', 'nohackme-defender') . ' <span class="is_a is_link" onclick="showOverlayBlock(\'#nohackme_defender_useragent_list\');">' . esc_html__('View a list of popular User Agents', 'nohackme-defender') . '</span>' . '<br>' . esc_html__('Each User Agent on a new line. It is not necessary to specify the entire User Agent - the plugin checks for the presence of the specified string in the request User Agent', 'nohackme-defender') . '.<br><strong>' . esc_html__('ATTENTION!!! An attacker can specify any User Agent for their request. Thus, they can easily pretend to be a Google or Yandex robot if you add these robots\' User Agents to the whitelist.', 'nohackme-defender') . '</strong>';
 	echo '</p>';
-	echo '<div id="pdxnohackme_useragent_list" style="display: none;">';
+	echo '<div id="nohackme_defender_useragent_list" style="display: none;">';
 	echo '<div class="flex_item flex_item2">';
 
 	$abots = array(
@@ -901,7 +900,7 @@ function pdxnohackme_get_settings_page( ) {
     'AddThis' => 'AddThis',
 	);
 	if (isset($abots) and is_array($abots) and count($abots)) { foreach ( $abots as $abot_id => $abot_desc) {
-		echo '<div class="pdxnohackme_useragent flex_item flex_item2">
+		echo '<div class="nohackme_defender_useragent flex_item flex_item2">
 			<div><input type="text" value="' . esc_attr($abot_id) . '" onclick="copyToCB(\'' . esc_attr($abot_id) . '\');" style="width: 100%;"></div>
 			<div> ' . esc_html($abot_desc) . '</div>
 	  </div>';
@@ -914,21 +913,21 @@ function pdxnohackme_get_settings_page( ) {
 	// Max number of requests per 1 minute
 	$tmpval = 'block_if_min';
 	echo '<tr><th scope="row">' . esc_html__('Per 1 minute', 'nohackme-defender') . '</th><td>';
-	echo '<input type="text" id="pdxmeta_options_' . esc_html($tmpval) . '" name="pdxnohackme_options[' . esc_html($tmpval) . ']" value="' . (isset($pdxnohackme_options[$tmpval]) && is_numeric($pdxnohackme_options[$tmpval]) ? esc_attr($pdxnohackme_options[$tmpval]) : '') . '" size="3">';
+	echo '<input type="text" id="pdxmeta_options_' . esc_html($tmpval) . '" name="nohackme_defender_options[' . esc_html($tmpval) . ']" value="' . (isset($nohackme_defender_options[$tmpval]) && is_numeric($nohackme_defender_options[$tmpval]) ? esc_attr($nohackme_defender_options[$tmpval]) : '') . '" size="3">';
 	echo '<p class="description">' . esc_html__('Block IP if there are this many or more requests within one minute', 'nohackme-defender') . '</p>';
 	echo '</td></tr>';
 
 	// Max number of requests per 10 minutes
 	$tmpval = 'block_if_10min';
 	echo '<tr><th scope="row">' . esc_html__('Per 10 minutes', 'nohackme-defender') . '</th><td>';
-	echo '<input type="text" id="pdxmeta_options_' . esc_html($tmpval) . '" name="pdxnohackme_options[' . esc_html($tmpval) . ']" value="' . (isset($pdxnohackme_options[$tmpval]) && is_numeric($pdxnohackme_options[$tmpval]) ? esc_attr($pdxnohackme_options[$tmpval]) : '') . '" size="3">';
+	echo '<input type="text" id="pdxmeta_options_' . esc_html($tmpval) . '" name="nohackme_defender_options[' . esc_html($tmpval) . ']" value="' . (isset($nohackme_defender_options[$tmpval]) && is_numeric($nohackme_defender_options[$tmpval]) ? esc_attr($nohackme_defender_options[$tmpval]) : '') . '" size="3">';
 	echo '<p class="description">' . esc_html__('Block IP if there are this many or more requests within ten minutes', 'nohackme-defender') . '</p>';
 	echo '</td></tr>';
 
 	// Max number of requests per 50 minutes
 	$tmpval = 'block_if_50min';
 	echo '<tr><th scope="row">' . esc_html__('Per 50 minutes', 'nohackme-defender') . '</th><td>';
-	echo '<input type="text" id="pdxmeta_options_' . esc_html($tmpval) . '" name="pdxnohackme_options[' . esc_html($tmpval) . ']" value="' . (isset($pdxnohackme_options[$tmpval]) && is_numeric($pdxnohackme_options[$tmpval]) ? esc_attr($pdxnohackme_options[$tmpval]) : '') . '" size="3">';
+	echo '<input type="text" id="pdxmeta_options_' . esc_html($tmpval) . '" name="nohackme_defender_options[' . esc_html($tmpval) . ']" value="' . (isset($nohackme_defender_options[$tmpval]) && is_numeric($nohackme_defender_options[$tmpval]) ? esc_attr($nohackme_defender_options[$tmpval]) : '') . '" size="3">';
 	echo '<p class="description">' . esc_html__('Block IP if there are this many or more requests within fifty minutes', 'nohackme-defender') . '</p>';
 	echo '</td></tr>';
 
@@ -941,10 +940,10 @@ function pdxnohackme_get_settings_page( ) {
 
 	echo '</form>';
 }
-function pdxnohackme_get_premium_page( ) {
+function nohackme_defender_get_premium_page( ) {
 	echo '<div>&nbsp;</div>';
 	$premium_type = 0;
-	if ( _pdxnohackme_check_premium() ) {
+	if ( _nohackme_defender_check_premium() ) {
 		$premium_type = 777;
 	}
 	$premium_cost = 5;
@@ -952,14 +951,14 @@ function pdxnohackme_get_premium_page( ) {
 	switch ($premium_type) {
 		case 1:
 			// Field for entering the license key
-			$pdxnohackme_options = get_option('pdxnohackme_license');
+			$nohackme_defender_options = get_option('nohackme_defender_license');
 			echo '<form method="post" action="options.php">';
-			settings_fields('pdxnohackme_premium_group');
+			settings_fields('nohackme_defender_premium_group');
 			echo '<table class="form-table">';
 			echo '<tbody>';
 			$tmpval = 'license_key';
 		 	echo '<tr class="highlight"><th scope="row">' . esc_html__('License key', 'nohackme-defender') . '</th><td>';
-			echo '<input type="text" id="pdxmeta_options_' . esc_html($tmpval) . '" name="pdxnohackme_license[' . esc_html($tmpval) . ']" value="' . (isset($pdxnohackme_options[$tmpval]) ? esc_attr($pdxnohackme_options[$tmpval]) : '') . '" class="regular-text">';
+			echo '<input type="text" id="pdxmeta_options_' . esc_html($tmpval) . '" name="nohackme_defender_license[' . esc_html($tmpval) . ']" value="' . (isset($nohackme_defender_options[$tmpval]) ? esc_attr($nohackme_defender_options[$tmpval]) : '') . '" class="regular-text">';
 			echo '<label for="pdxmeta_options_' . esc_html($tmpval) . '"></label>';
 		 	echo '<p class="description">' . esc_html__('Enter the license key to activate premium features.', 'nohackme-defender') . '</p>';
 			echo '</td></tr>';
@@ -985,7 +984,7 @@ function pdxnohackme_get_premium_page( ) {
 			echo esc_html__('The cost of the premium version of the plugin', 'nohackme-defender') . ': <strong>$' . esc_html($premium_cost) . '</strong>';
 			echo '</p>';
 			echo '<p>';
-			echo esc_html__('For inquiries about purchasing the paid version of the plugin, write to the email', 'nohackme-defender') . ' <a href="mailto:paraz0n3@gmail.com?subject=Purchase of the premium version of the ' . esc_html(PDXNOHACKME_NAME) . ' plugin">paraz0n3@gmail.com</a>';
+			echo esc_html__('For inquiries about purchasing the paid version of the plugin, write to the email', 'nohackme-defender') . ' <a href="mailto:paraz0n3@gmail.com?subject=Purchase of the premium version of the ' . esc_html(NOHACKME_DEFENDER_NAME) . ' plugin">paraz0n3@gmail.com</a>';
 			echo '</p>';
 			echo '</div>';
 			echo '<hr>';
@@ -1009,12 +1008,12 @@ function pdxnohackme_get_premium_page( ) {
 	echo '</li>';
 	echo '</ul>';
 }
-function pdxnohackme_sanitize_premium_options($input) {
+function nohackme_defender_sanitize_premium_options($input) {
 	$input['license_key'] = sanitize_text_field($input['license_key']);
 
 	return $input;
 }
-function pdxnohackme_sanitize_options( $input ) {
+function nohackme_defender_sanitize_options( $input ) {
   $input['block_time'] = intval( $input['block_time'] );
 
 	$hackme_settings = array();
@@ -1027,15 +1026,15 @@ function pdxnohackme_sanitize_options( $input ) {
   $input['cancel'] = $outp;
 
 	$outp = 0;
-	if ( _pdxnohackme_check_premium() ) {
-		$outp = _pdxnohackme_premium_save($input, 'exclude_google_ips');
+	if ( _nohackme_defender_check_premium() ) {
+		$outp = _nohackme_defender_premium_save($input, 'exclude_google_ips');
 	}
 	$hackme_settings ['exclude_google_ips']= $outp;
   $input['exclude_google_ips'] = $outp;
 
 	$outp = 0;
-	if ( _pdxnohackme_check_premium() ) {
-		$outp = _pdxnohackme_premium_save($input, 'exclude_yandex_ips');
+	if ( _nohackme_defender_check_premium() ) {
+		$outp = _nohackme_defender_premium_save($input, 'exclude_yandex_ips');
 	}
 	$hackme_settings ['exclude_yandex_ips']= $outp;
   $input['exclude_yandex_ips'] = $outp;
@@ -1090,7 +1089,7 @@ function pdxnohackme_sanitize_options( $input ) {
 	$hackme_settings ['block_if_50min']= $outp;
   $input['block_if_50min'] = $outp;
 
-	$save_path = PDXNOHACKME_SETTINGS_PATH;
+	$save_path = NOHACKME_DEFENDER_SETTINGS_PATH;
 	if ( !is_dir($save_path) ) {
 		wp_mkdir_p($save_path);
 	}
@@ -1099,49 +1098,49 @@ function pdxnohackme_sanitize_options( $input ) {
   return $input;
 }
 
-function pdxnohackme_enqueue_admin_scripts($hook_suffix) {
+function nohackme_defender_enqueue_admin_scripts($hook_suffix) {
 	$plugin_url = plugin_dir_url( __FILE__ );
 	$plugin_path = plugin_dir_path( __FILE__ );
-	if ( strpos($hook_suffix, 'pdxnohackme_') === false ) {} else {
+	if ( strpos($hook_suffix, 'nohackme_defender_') === false ) {} else {
 		$base_admin_style_ver = filemtime( $plugin_path . 'css/base_admin.css' );
 		$admin_style_ver = filemtime( $plugin_path . 'css/admin-style.css' );
 		$base_admin_script_ver = filemtime( $plugin_path . 'js/base_admin.js' );
 		$admin_script_ver = filemtime( $plugin_path . 'js/admin.js' );
 
-		wp_enqueue_style('pdxnohackme_base_admin_style', $plugin_url . 'css/base_admin.css', array(), $base_admin_style_ver);
-		wp_enqueue_style('pdxnohackme_admin_style', $plugin_url . 'css/admin-style.css', array(), $admin_style_ver);
-		wp_enqueue_script('pdxnohackme-base-admin-script', $plugin_url . 'js/base_admin.js', array('jquery'), $base_admin_script_ver, true);
-		wp_enqueue_script('pdxnohackme-admin-script', $plugin_url . 'js/admin.js', array('jquery'), $admin_script_ver, true);
+		wp_enqueue_style('nohackme_defender_base_admin_style', $plugin_url . 'css/base_admin.css', array(), $base_admin_style_ver);
+		wp_enqueue_style('nohackme_defender_admin_style', $plugin_url . 'css/admin-style.css', array(), $admin_style_ver);
+		wp_enqueue_script('nohackme_defender-base-admin-script', $plugin_url . 'js/base_admin.js', array('jquery'), $base_admin_script_ver, true);
+		wp_enqueue_script('nohackme_defender-admin-script', $plugin_url . 'js/admin.js', array('jquery'), $admin_script_ver, true);
 	}
 }
-add_action('admin_enqueue_scripts', 'pdxnohackme_enqueue_admin_scripts');
+add_action('admin_enqueue_scripts', 'nohackme_defender_enqueue_admin_scripts');
 
 
-function pdxnohackme_load_textdomain() {
+function nohackme_defender_load_textdomain() {
   load_plugin_textdomain('nohackme-defender', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 }
-add_action('plugins_loaded', 'pdxnohackme_load_textdomain');
+add_action('plugins_loaded', 'nohackme_defender_load_textdomain');
 
-function pdxnohackme_check_wpconfig() {
+function nohackme_defender_check_wpconfig() {
 	$path_to_wp_config = ABSPATH . 'wp-config.php';
 	$config_contents = _pdxglobal_get_file_via_wpfs($path_to_wp_config);
 
 	// The string that needs to be found
-	$needle = "nohackme-defender/nohackme.php";
+	$needle = "/nohackme.php";
 
 	 // Check if the string is contained in wp-config.php
 	if (!strstr($config_contents, $needle)) {
    // If not found, add a notification to the admin panel
-			add_action('admin_notices', 'pdxnohackme_admin_notice_wpconfig');
+			add_action('admin_notices', 'nohackme_defender_admin_notice_wpconfig');
 	}
 }
 // Calling a function when the admin panel is loaded
-add_action('admin_init', 'pdxnohackme_check_wpconfig');
-function pdxnohackme_admin_notice_wpconfig() {
+add_action('admin_init', 'nohackme_defender_check_wpconfig');
+function nohackme_defender_admin_notice_wpconfig() {
 	?>
 	<div class="notice notice-warning">
 			<p><?php esc_html_e('To work with the NoHackMe Defender plugin, you need to add the following lines to your wp-config.php file located in the root of the site:', 'nohackme-defender'); ?></p>
-			<p><textarea rows="3" style="width: 100%;" onclick="this.select();">if ( is_file('<?php echo esc_html(PDXNOHACKME_PLUGIN_PATH); ?>nohackme.php') ) { require_once( '<?php echo esc_html(PDXNOHACKME_PLUGIN_PATH); ?>nohackme.php' ); }</textarea></p>
+			<p><textarea rows="3" style="width: 100%;" onclick="this.select();">if ( is_file('<?php echo esc_html(NOHACKME_DEFENDER_PLUGIN_PATH); ?>nohackme.php') ) { require_once( '<?php echo esc_html(NOHACKME_DEFENDER_PLUGIN_PATH); ?>nohackme.php' ); }</textarea></p>
 			<p><?php esc_html_e('Add them to the wp-config.php file after the line', 'nohackme-defender'); ?> &lt;?php <?php esc_html_e('(on the next line)', 'nohackme-defender'); ?>.</p>
    <p><?php esc_html_e('Unfortunately, it was not possible to do this automatically.', 'nohackme-defender'); ?></p>
 	</div>
@@ -1155,13 +1154,13 @@ if ( is_admin() ) {
 	  if (isset($options['daily_notice_dismissed']) && $options['daily_notice_dismissed']) {
 	  } else {
 			if ( isset($options['notices']['msg']) and strlen($options['notices']['msg']) ) {
-				add_action('admin_notices', 'pdxnohackme_show_admin_notice');
+				add_action('admin_notices', 'nohackme_defender_show_admin_notice');
 			}
 		}
 	}
 }
 // Displaying a notification
-function pdxnohackme_show_admin_notice() {
+function nohackme_defender_show_admin_notice() {
 	if ( defined('PDXGLOBAL_NOTICE_SHOWED') ) { } else {
 		$options = get_option('pdxglobal_options');
 
@@ -1205,16 +1204,41 @@ if ( !function_exists('pdxglobal_dismiss_daily_notice') ) {
 	add_action('admin_footer', 'pdxglobal_admin_scripts');
 }
 
-function pdxnohackme_add_settings_link($links) {
-  $settings_link = '<a href="' . admin_url('admin.php?page=pdxnohackme_parent') . '">' . esc_html__('Settings', 'nohackme-defender') . '</a>';
+add_action('admin_notices', 'nohackme_defender_check_premium_plugin_folder');
+
+function nohackme_defender_check_premium_plugin_folder() {
+    $plugin_dir = WP_PLUGIN_DIR;
+
+    $free_plugin_folder = 'nohackme-defender';
+
+    if (strpos(__FILE__, $plugin_dir . '/' . $free_plugin_folder . '/') === false) {
+        return;
+    }
+
+    $premium_plugin_folder = $free_plugin_folder . '-premium';
+
+    if (is_dir($plugin_dir . '/' . $premium_plugin_folder)) {
+        $plugin_name = NOHACKME_DEFENDER_NAME;
+        $message = sprintf(
+            esc_html__('Before activating the premium version of the "%s" plugin, please remember to deactivate the free version.', 'nohackme-defender'),
+            esc_html($plugin_name)
+        );
+        echo '<div class="notice notice-warning is-dismissible">';
+        echo '<p>' . $message . '</p>';
+        echo '</div>';
+    }
+}
+
+function nohackme_defender_add_settings_link($links) {
+  $settings_link = '<a href="' . admin_url('admin.php?page=nohackme_defender_parent') . '">' . esc_html__('Settings', 'nohackme-defender') . '</a>';
   array_push($links, $settings_link);
   return $links;
 }
-add_filter('plugin_action_links_pdxnohackme/pdxnohackme.php', 'pdxnohackme_add_settings_link');
+add_filter('plugin_action_links_nohackme_defender/nohackme_defender.php', 'nohackme_defender_add_settings_link');
 
-if (is_file(PDXNOHACKME_PLUGIN_PATH . 'pdxnohackme_premium.php')) {
-  include_once PDXNOHACKME_PLUGIN_PATH . 'pdxnohackme_premium.php';
+if (is_file(NOHACKME_DEFENDER_PLUGIN_PATH . 'nohackme-defender_premium.php')) {
+  include_once NOHACKME_DEFENDER_PLUGIN_PATH . 'nohackme-defender_premium.php';
 }
-require_once PDXNOHACKME_PLUGIN_PATH . 'general.php';
-require_once PDXNOHACKME_PLUGIN_PATH . 'funcs.php';
-require_once PDXNOHACKME_PLUGIN_PATH . 'ajax.php';
+require_once NOHACKME_DEFENDER_PLUGIN_PATH . 'general.php';
+require_once NOHACKME_DEFENDER_PLUGIN_PATH . 'funcs.php';
+require_once NOHACKME_DEFENDER_PLUGIN_PATH . 'ajax.php';

@@ -15,11 +15,11 @@ $settings_path = ABSPATH . $uploads_path . '/nohackme/';
 if ( !is_dir($settings_path) ) {
 	mkdir($settings_path, 0777, true);
 }
-_pdxnohackme_hackme_generate_defaults($settings_path);
+_nohackme_defender_hackme_generate_defaults($settings_path);
 
 $skip_check = false;
 if ( isset($_SERVER['REQUEST_URI']) and strlen($_SERVER['REQUEST_URI']) ) {
-	$check_str = _pdxnohackme_esc_html(_pdxnohackme_sanitize_text_field($_SERVER['REQUEST_URI']));
+	$check_str = _nohackme_defender_esc_html(_nohackme_defender_sanitize_text_field($_SERVER['REQUEST_URI']));
 	if ( strpos($check_str, '/wp-admin/') === false ) {} else {
 		$skip_check = true;
 	}
@@ -78,7 +78,7 @@ if ( !$skip_check ) {
 			} }
 		}
 		if (count($exclude_uas)) {
-			$current_user_agent = _pdxnohackme_esc_html(_pdxnohackme_sanitize_text_field($_SERVER['HTTP_USER_AGENT']));
+			$current_user_agent = _nohackme_defender_esc_html(_nohackme_defender_sanitize_text_field($_SERVER['HTTP_USER_AGENT']));
 			foreach ($exclude_uas as $excluded_ua) {
 				if (strpos($current_user_agent, $excluded_ua) !== false) {
 					$skip_by_ua = true;
@@ -87,16 +87,16 @@ if ( !$skip_check ) {
 			}
 		}
 
-		$client_ip = _pdxnohackme_hackme_get_ip();
+		$client_ip = _nohackme_defender_hackme_get_ip();
 		$check_client_ip = str_replace('.', '', $client_ip);
 		if ( !$skip_by_ua and isset($settings['exclude_google_ips']) and is_numeric($settings['exclude_google_ips']) and $settings['exclude_google_ips'] == 1 ) {
-			if ( _pdxnohackme_hackme_isGoogleIp($client_ip) ) {
+			if ( _nohackme_defender_hackme_isGoogleIp($client_ip) ) {
 				$skip_by_ua = true;
 			}
 		}
 
 		if ( !$skip_by_ua and isset($settings['exclude_yandex_ips']) and is_numeric($settings['exclude_yandex_ips']) and $settings['exclude_yandex_ips'] == 1 ) {
-			if ( _pdxnohackme_hackme_isYandexIp($client_ip) ) {
+			if ( _nohackme_defender_hackme_isYandexIp($client_ip) ) {
 				$skip_by_ua = true;
 			}
 		}
@@ -141,7 +141,7 @@ if ( !$skip_check ) {
 					if ( isset($settings['block_if_min']) and is_numeric($settings['block_if_min']) and $settings['block_if_min'] > 20 and $cur_ips[$client_ip][$cur_minute] > $settings['block_if_min'] ) {
 						// banned, reason 1 minute
 						$isbanned = 1;
-						_pdxnohackme_hackme_banned_ip($client_ip, $isbanned, $cur_ips[$client_ip][$cur_minute]);
+						_nohackme_defender_hackme_banned_ip($client_ip, $isbanned, $cur_ips[$client_ip][$cur_minute]);
 						unset($cur_ips[$client_ip]);
 					}
 					if ( !$isbanned and isset($settings['block_if_10min']) and is_numeric($settings['block_if_10min']) and $settings['block_if_10min'] > 50 ) {
@@ -160,7 +160,7 @@ if ( !$skip_check ) {
 							// banned, reason 10 minutes
 							unset($cur_ips[$client_ip]);
 							$isbanned = 2;
-							_pdxnohackme_hackme_banned_ip($client_ip, $isbanned, $allcount);
+							_nohackme_defender_hackme_banned_ip($client_ip, $isbanned, $allcount);
 						}
 					}
 					if ( !$isbanned and isset($settings['block_if_50min']) and is_numeric($settings['block_if_50min']) and $settings['block_if_50min'] > 100 ) {
@@ -179,7 +179,7 @@ if ( !$skip_check ) {
 							// banned, reason 60 minutes
 							unset($cur_ips[$client_ip]);
 							$isbanned = 3;
-							_pdxnohackme_hackme_banned_ip($client_ip, $isbanned, $allcount);
+							_nohackme_defender_hackme_banned_ip($client_ip, $isbanned, $allcount);
 						}
 					}
 					$fp = fopen($settings_path . 'cur_ips_counters' , 'w'); fwrite($fp, serialize($cur_ips)); fclose($fp);
@@ -193,7 +193,7 @@ if ( !$skip_check ) {
 
 		$skip_check_hack = false;
 		if ( isset($_SERVER['REQUEST_URI']) and strlen($_SERVER['REQUEST_URI']) ) {
-			$check_str = _pdxnohackme_esc_html(_pdxnohackme_sanitize_text_field($_SERVER['REQUEST_URI']));
+			$check_str = _nohackme_defender_esc_html(_nohackme_defender_sanitize_text_field($_SERVER['REQUEST_URI']));
 			if ( strpos($check_str, '/wp-admin/') === false ) {} else {
 				$skip_check_hack = true;
 			}
@@ -227,8 +227,8 @@ if ( !$skip_check ) {
 				}
 			}
 			if ( strlen($reqfound) ) {
-				$reqfound = _pdxnohackme_esc_html(mb_strtolower($reqfound));
-				$reqfound_for_save = _pdxnohackme_esc_html(_pdxnohackme_sanitize_text_field(mb_strtolower($reqfound_for_save)));
+				$reqfound = _nohackme_defender_esc_html(mb_strtolower($reqfound));
+				$reqfound_for_save = _nohackme_defender_esc_html(_nohackme_defender_sanitize_text_field(mb_strtolower($reqfound_for_save)));
 				foreach ( $ahacks as $ahacks_item) {
 					if ( strpos($reqfound, $ahacks_item) === false ) {} else {
 						$found_hack = true;
@@ -241,26 +241,26 @@ if ( !$skip_check ) {
 		if ( $found_hack ) {
 			$isbanned = 4;
 			if ( is_numeric($check_client_ip) and $check_client_ip > 0 ) {
-				_pdxnohackme_hackme_banned_ip($client_ip, $isbanned, $hackme_string);
+				_nohackme_defender_hackme_banned_ip($client_ip, $isbanned, $hackme_string);
 				exit();
 			}
 		}
 	}
 }
 
-function _pdxnohackme_hackme_get_ip(){
+function _nohackme_defender_hackme_get_ip(){
     $ip = '';
     if (!empty($_SERVER['HTTP_CLIENT_IP'])){
-        $ip = _pdxnohackme_esc_html(_pdxnohackme_sanitize_text_field($_SERVER['HTTP_CLIENT_IP']));
+        $ip = _nohackme_defender_esc_html(_nohackme_defender_sanitize_text_field($_SERVER['HTTP_CLIENT_IP']));
     } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-        $ip = _pdxnohackme_esc_html(_pdxnohackme_sanitize_text_field($_SERVER['HTTP_X_FORWARDED_FOR']));
+        $ip = _nohackme_defender_esc_html(_nohackme_defender_sanitize_text_field($_SERVER['HTTP_X_FORWARDED_FOR']));
     } else {
-        $ip = _pdxnohackme_esc_html(_pdxnohackme_sanitize_text_field($_SERVER['REMOTE_ADDR']));
+        $ip = _nohackme_defender_esc_html(_nohackme_defender_sanitize_text_field($_SERVER['REMOTE_ADDR']));
     }
     $ip = preg_replace('/[^0-9.]/', '', $ip);
     return $ip;
 }
-function _pdxnohackme_hackme_banned_ip($client_ip, $reason, $data = ''){
+function _nohackme_defender_hackme_banned_ip($client_ip, $reason, $data = ''){
 	global $hackme_path;
 	$fp = fopen($hackme_path . $client_ip , 'w'); fwrite($fp, serialize(array($reason, $data))); fclose($fp);
 }
@@ -273,7 +273,7 @@ function _hackme_ip_in_range($ip, $range) {
 
   return (($ip_decimal & $netmask_decimal) == ($range_decimal & $netmask_decimal));
 }
-function _pdxnohackme_hackme_isGoogleIp($ip) {
+function _nohackme_defender_hackme_isGoogleIp($ip) {
 	global $settings_path;
 
 	$google_ips = array();
@@ -290,7 +290,7 @@ function _pdxnohackme_hackme_isGoogleIp($ip) {
 
   return false;
 }
-function _pdxnohackme_hackme_isYandexIp($ip) {
+function _nohackme_defender_hackme_isYandexIp($ip) {
 	global $settings_path;
 
 	$yandex_ips = array();
@@ -307,7 +307,7 @@ function _pdxnohackme_hackme_isYandexIp($ip) {
 
   return false;
 }
-function _pdxnohackme_hackme_generate_defaults($settings_path) {
+function _nohackme_defender_hackme_generate_defaults($settings_path) {
 	$ahacks_def = array();
 	$ahacks_def []= '&#039;&quot;';
 	$ahacks_def []= '&quot;&#039;';
@@ -386,12 +386,12 @@ function _pdxnohackme_hackme_generate_defaults($settings_path) {
 	}
 
 }
-function _pdxnohackme_esc_html($text) {
+function _nohackme_defender_esc_html($text) {
 	$text = htmlspecialchars($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
 	$text = str_replace('&apos;', '&#039;', $text);
 	return $text;
 }
-function _pdxnohackme_sanitize_text_field($str) {
+function _nohackme_defender_sanitize_text_field($str) {
 	$str = strip_tags($str);
 	$str = preg_replace('/[\r\n\t ]+/', ' ', $str);
 	$str = preg_replace('/[\x00-\x1F\x7F]/u', '', $str);
