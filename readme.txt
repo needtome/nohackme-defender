@@ -3,8 +3,8 @@ Contributors: needtome
 Donate link: https://www.donationalerts.com/r/needtome
 Tags: security, protection, anti-hack, IP blocking, firewall
 Requires at least: 6.0
-Tested up to: 6.4.3
-Stable tag: 1.0.0
+Tested up to: 7.1.3
+Stable tag: 1.1.9
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -25,7 +25,6 @@ Explore our instructional videos to see the NoHackMe Defender plugin in action a
 
 1. [Protect Your WordPress Site for Free - Installing and Configuring NoHackMe Defender Plugin](https://youtu.be/l6LFvNn7RE8): A thorough guide on activating and configuring the NoHackMe Defender plugin, including its free version features.
 2. [How to Protect Your Site from Hackers, Parsing, and DoS - Testing WordPress Plugin NoHackMe Defender](https://youtu.be/DqTvUfLmmGQ): Demonstrates the plugin's effectiveness in blocking suspicious requests and securing your site.
-3. [Premium Protection for WordPress Sites - A Breakdown of the Paid Features of NoHackMe Defender Plugin](https://youtu.be/35G8wi02-70): Explores the advanced features available in the premium version of the plugin.
 
 For more information and a live demonstration, visit our [Plugin Demo Page](https://needtome.com/nohackme/).
 
@@ -33,21 +32,25 @@ Special thanks to our sponsors for supporting the development of this plugin:
 - [malinovsky.io](https://malinovsky.io)
 - [gloap.net](https://gloap.net)
 - [gloapm.com](https://gloapm.com)
-- [imgai.art](https://imgai.art)
+- [o-keto.com](https://o-keto.com)
 
 == Frequently Asked Questions ==
 
-= What is the difference between the free and Premium versions of the plugin? =
+= Is the plugin fully available in one version? =
 
-The main difference of the Premium version of the plugin lies in the ability to edit lists of suspicious queries, as well as the IP address ranges of Google and Yandex robots. In this regard, you can both delete individual suspicious queries and trusted IP address ranges from these lists and add your own.
+Yes. The plugin is now distributed as a single version with all functionality available without a paid upgrade.
 
-Also, in the Premium version of the plugin, there is an option to “one-click” add Google and Yandex robots to the list of trusted IP addresses. That is, not to block Google and Yandex robots if they exceed the limits of the maximum possible number of requests over a period of time.
+= How can I support the plugin developer? =
 
-Otherwise, the free version of the plugin is not limited in any way. And, essentially, purchasing the Premium version of the plugin is just a way to say “thank you” and support the plugin developer.
+If NoHackMe Defender helps protect your site, you can support further development via the donation links listed in the plugin settings page.
 
-= How to Buy a Premium Version of the Plugin =
+= Can the plugin show the country for a blocked IP? =
 
-To purchase the Premium version of the plugin, write to e-mail [paraz0n3@gmail.com](mailto:paraz0n3@gmail.com).
+Yes. Add the Sypex Geo PHP API file `SxGeo.php` and the country database `SxGeo.dat` to the GeoIP directory under your WordPress uploads directory: `wp-content/uploads/nohackme-defender/geo/`. Create the folders if they do not exist. If your site uses a custom uploads directory, use that directory instead of `wp-content/uploads`.
+
+This location is outside the plugin, so plugin updates will not remove the files. For backward compatibility, the plugin also checks the old `wp-content/plugins/nohackme-defender/lib/geo/` folder. Both files must be present in the same directory. IP blocking works without GeoIP files, but the country is shown as unknown.
+
+Download the PHP API and Sypex Geo Country database from the [official Sypex Geo download page](https://sypexgeo.net/ru/download/).
 
 = About the plugin developer =
 
@@ -57,20 +60,89 @@ For website and WordPress plugin development inquiries, email [paraz0n3@gmail.co
 
 == Screenshots ==
 
-1. screen1.png
-2. screen2.png
-3. screen3.png
-4. screen4.png
-5. screen5.png
-6. screen6.png
-7. screen7.png
+1. screenshot-1.png
+2. screenshot-2.png
+3. screenshot-3.png
+4. screenshot-4.png
+5. screenshot-5.png
+6. screenshot-6.png
+7. screenshot-7.png
 
 == Changelog ==
+
+= 1.1.9 =
+* Store GeoIP files in the WordPress uploads directory so plugin updates do not remove them, while continuing to support the previous plugin folder.
+
+= 1.1.8 =
+* Verified compatibility with WordPress 7.1.3, including suspicious-path blocking and the English/Russian demonstrations.
+
+= 1.1.7 =
+* Tested with WordPress 7.1.2.
+
+= 1.1.6 =
+* Added a runtime safety guard that ignores overly broad short alphabetic payload rules such as `or` or `and`, preventing normal URLs like `/sailors/` from being blocked.
+* Existing active short alphabetic payload rules are now automatically marked inactive in the stored rules file during default-rule synchronization.
+* Removed the broad standalone `or` payload signature from default rules while keeping safer quoted SQL variants.
+* Added a "Разблокировать всех" button to the blocked IP admin page to clear all current IP blocks at once.
+
+= 1.1.5 =
+* Split suspicious request payload patterns and suspicious URL path patterns into two separate admin sections with independent URLs and submenu entries.
+* Added the Suspicious URL paths admin page for sensitive files, foreign CMS/framework fingerprints, admin panels, and service endpoints.
+* Added separate temporary protection toggles for payload/body scanning and suspicious URL path scanning.
+* Added per-rule Active checkboxes so individual rules can be temporarily disabled without deleting them.
+* Added per-row Delete buttons for both rule lists, making it clear that unused rules can be removed directly.
+* Disabled rules are preserved in the settings files and ignored by the runtime scanner until re-enabled.
+* Updated default-list synchronization so disabled default rules are not re-added as active duplicates.
+
+= 1.1.4 =
+* Added raw request body and decoded JSON scanning for REST, GraphQL, and other API-style POST/PUT/PATCH/DELETE requests.
+* Added request URI, query string, request parameters, and User-Agent scanning to close bypasses where suspicious paths or scanner signatures were not submitted as normal form parameters.
+* Added immediate blocking for sensitive scanner paths such as `.env`, `wp-config.php`, `composer.json`, backup/swap/SQL dump extensions, PHP-CGI probes, and exposed debug/runtime endpoints.
+* Added immediate blocking for high-confidence foreign CMS and framework scanner paths, including Drupal, Joomla, Magento, Laravel, Symfony, TYPO3, Umbraco, and Ghost fingerprints.
+* Added a missing-file probe counter that blocks IPs repeatedly requesting non-existent high-risk files such as executable script variants, backups, logs, archives, or config files.
+* Added new default suspicious fragments for REST batch abuse, GraphQL probes, PHP-CGI attempts, exposed configuration/debug paths, and additional SQL injection patterns.
+* Existing suspicious-fragment lists now receive missing default security signatures without removing custom entries.
+
+= 1.1.2 =
+* The plugin is now distributed as a single version without a separate premium/free split.
+* Added a support block with donation links to the settings page.
+* Removed premium-only UI restrictions and related admin notices.
+
+= 1.1.1 =
+* Fixed deletion of blocked IPs from the middle of the list in the admin panel.
+* Added IPv6 support for blocked IPs, whitelists, range matching, and admin display.
+* Added buttons to update Google and Yandex crawler IP ranges from their official sources.
+* Improved admin update UX: buttons now show progress and reload the page after a successful update.
+* Added safer file locking for counters and ban files to reduce race conditions under concurrent requests.
+* Removed unnecessary unauthenticated AJAX actions for admin-only operations.
+
+= 1.1.0 =
+* Fixed issue with the IP whitelist functionality.
+* Added a page view counter for a single IP in 10 minutes to the Statistics section.
+* Updated the logic of page view counters for a single IP in 1 minute and 50 minutes in the Statistics section.
 
 = 1.0.0 =
 * Initial release: Includes hacking, parsing, DoS, and password brute force protection.
 
 == Upgrade Notice ==
 
+= 1.1.6 =
+This update prevents overly broad short payload rules from blocking normal traffic, disables existing unsafe short payload rules, and adds a bulk unblock button.
+
+= 1.1.5 =
+This update separates payload/body rules from suspicious URL path rules and adds per-rule Active and Delete controls.
+
+= 1.1.4 =
+This update improves blocking for malicious API requests, raw JSON bodies, sensitive scanner paths, repeated missing-file probes, and additional SQL injection patterns.
+
+= 1.1.2 =
+This update unifies the plugin into a single version and adds a support section to the settings page.
+
+= 1.1.1 =
+This update improves blocked IP management, adds IPv6 support, and allows refreshing crawler IP ranges from official sources.
+
 = 1.0.0 =
 This is the first release of the plugin. Installing this version ensures comprehensive security measures are in place to protect your WordPress site from various types of attacks.
+
+= 1.1.0 =
+This update improves IP whitelist handling and extends the statistics section with better per-IP counters.

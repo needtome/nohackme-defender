@@ -489,6 +489,83 @@ table.table__pdxglobal td.counter{
 .pdxhighlight{
   margin-bottom: 11px;
 }
+.nohackme-donation-box{
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #fff8d9 0%, #fff3b0 46%, #e8f5ff 100%);
+  border: 1px solid #f0cc58;
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(188, 155, 48, 0.15);
+}
+.nohackme-donation-hero{
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-bottom: 12px;
+}
+.nohackme-donation-visual{
+  flex: 0 0 124px;
+  width: 124px;
+  height: 124px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 28px;
+  background: radial-gradient(circle at 30% 30%, #ffffff 0%, #eff9ff 48%, #d8eeff 100%);
+  box-shadow: 0 16px 30px rgba(80, 141, 199, 0.22);
+}
+.nohackme-donation-icon{
+  width: 88px;
+  height: 88px;
+  display: block;
+  filter: drop-shadow(0 10px 14px rgba(60, 130, 190, 0.24));
+  animation: nohackmeDonationFloat 3.6s ease-in-out infinite;
+  transform-origin: center center;
+}
+.nohackme-donation-title{
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: #443400;
+}
+.nohackme-donation-text{
+  margin: 0;
+  max-width: 780px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #5e5126;
+}
+.nohackme-donation-box ul{
+  margin: 0;
+}
+@keyframes nohackmeDonationFloat{
+  0%{
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  50%{
+    transform: translateY(-8px) rotate(-4deg) scale(1.04);
+  }
+  100%{
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+}
+@media (max-width: 782px){
+  .nohackme-donation-hero{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .nohackme-donation-visual{
+    width: 108px;
+    height: 108px;
+    flex-basis: 108px;
+  }
+  .nohackme-donation-icon{
+    width: 76px;
+    height: 76px;
+  }
+}
 
 .premium {
   background-color: #dcdcde; /* светло-желтый фон для выделения */

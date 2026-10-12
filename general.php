@@ -63,9 +63,7 @@ if ( !function_exists('_pdxglobal_get_dev_page') ) {
       <p>Product aggregator. More than 50,000,000 products processed daily from YML files.</p>
     </div>
     <div class="pdxglobal_video">
-        <a href="https://www.youtube.com/watch?v=H0dq7qwO9-0" target="_blank" rel="noreferrer noopener">
-          <img src="https://img.youtube.com/vi/H0dq7qwO9-0/maxresdefault.jpg" alt="" loading="lazy">
-        </a>
+	        <a href="https://www.youtube.com/watch?v=H0dq7qwO9-0" target="_blank" rel="noreferrer noopener">Watch video</a>
     </div>
   </div>
 
@@ -77,9 +75,7 @@ if ( !function_exists('_pdxglobal_get_dev_page') ) {
       <p>A platform for interaction between seafarers and crewing agencies. Over 200,000 seafarer resumes, job listings, response systems, and instant message exchange, mass mailings and automatic mass phone calling of seafarers via Asterisk, Telegram bots for instant notifications, creation and downloading of various documents in PDF and Word formats, and much more.</p>
     </div>
     <div class="pdxglobal_video">
-        <a href="https://www.youtube.com/watch?v=0mpd-2ZyOVM" target="_blank" rel="noreferrer noopener">
-          <img src="https://img.youtube.com/vi/0mpd-2ZyOVM/maxresdefault.jpg" alt="" loading="lazy">
-        </a>
+	        <a href="https://www.youtube.com/watch?v=0mpd-2ZyOVM" target="_blank" rel="noreferrer noopener">Watch video</a>
     </div>
   </div>
 
@@ -91,9 +87,7 @@ if ( !function_exists('_pdxglobal_get_dev_page') ) {
       <p>Marketing agency’s portfolio website.</p>
     </div>
     <div class="pdxglobal_video">
-        <a href="https://www.youtube.com/watch?v=f4D9j6rp1ps" target="_blank" rel="noreferrer noopener">
-          <img src="https://img.youtube.com/vi/f4D9j6rp1ps/maxresdefault.jpg" alt="" loading="lazy">
-        </a>
+	        <a href="https://www.youtube.com/watch?v=f4D9j6rp1ps" target="_blank" rel="noreferrer noopener">Watch video</a>
     </div>
   </div>
 
@@ -105,9 +99,7 @@ if ( !function_exists('_pdxglobal_get_dev_page') ) {
       <p>Online store. Website development according to the provided design.</p>
     </div>
     <div class="pdxglobal_video">
-        <a href="https://www.youtube.com/watch?v=x7alZeq14FI" target="_blank" rel="noreferrer noopener">
-          <img src="https://img.youtube.com/vi/x7alZeq14FI/sddefault.jpg" alt="" loading="lazy">
-        </a>
+	        <a href="https://www.youtube.com/watch?v=x7alZeq14FI" target="_blank" rel="noreferrer noopener">Watch video</a>
     </div>
   </div>
 
@@ -119,9 +111,7 @@ if ( !function_exists('_pdxglobal_get_dev_page') ) {
       <p>Information site of the music school.</p>
     </div>
     <div class="pdxglobal_video">
-        <a href="https://www.youtube.com/watch?v=yn6AypCyY_4" target="_blank" rel="noreferrer noopener">
-          <img src="https://img.youtube.com/vi/yn6AypCyY_4/maxresdefault.jpg" alt="" loading="lazy">
-        </a>
+	        <a href="https://www.youtube.com/watch?v=yn6AypCyY_4" target="_blank" rel="noreferrer noopener">Watch video</a>
     </div>
   </div>
 
@@ -133,9 +123,7 @@ if ( !function_exists('_pdxglobal_get_dev_page') ) {
       <p>Online casino information website.</p>
     </div>
     <div class="pdxglobal_video">
-        <a href="https://www.youtube.com/watch?v=KpcCRmQ22Ks" target="_blank" rel="noreferrer noopener">
-          <img src="https://img.youtube.com/vi/KpcCRmQ22Ks/maxresdefault.jpg" alt="" loading="lazy">
-        </a>
+	        <a href="https://www.youtube.com/watch?v=KpcCRmQ22Ks" target="_blank" rel="noreferrer noopener">Watch video</a>
     </div>
   </div>
 
@@ -147,9 +135,7 @@ if ( !function_exists('_pdxglobal_get_dev_page') ) {
       <p>Interactive map with various organizations for seafarers, crewing agencies, and shipowners: repair yards, training centers, crewing agencies, etc.</p>
     </div>
     <div class="pdxglobal_video">
-        <a href="https://www.youtube.com/watch?v=NNFJ8bF-fVs" target="_blank" rel="noreferrer noopener">
-          <img src="https://img.youtube.com/vi/NNFJ8bF-fVs/maxresdefault.jpg" alt="" loading="lazy">
-        </a>
+	        <a href="https://www.youtube.com/watch?v=NNFJ8bF-fVs" target="_blank" rel="noreferrer noopener">Watch video</a>
     </div>
   </div>
 
@@ -263,31 +249,52 @@ if ( !function_exists('_pdxglobal_check_new_messages') ) {
 }
 if (!function_exists('_pdxglobal_update_file_via_wpfs')) {
     function _pdxglobal_update_file_via_wpfs($file_path, $file_contents) {
-        require_once(ABSPATH . 'wp-admin/includes/file.php');
-
-        WP_Filesystem();
-        global $wp_filesystem;
+        $chmod = defined('FS_CHMOD_FILE') ? FS_CHMOD_FILE : 0644;
 
         if (is_array($file_contents)) {
             $file_contents = serialize($file_contents);
         }
 
-        if ($wp_filesystem) {
-            $wp_filesystem->put_contents(
+        if (is_string($file_path) && $file_path !== '') {
+            $result = @file_put_contents($file_path, $file_contents);
+
+            if ($result !== false) {
+                @chmod($file_path, $chmod);
+                return true;
+            }
+        }
+
+        require_once(ABSPATH . 'wp-admin/includes/file.php');
+
+        WP_Filesystem();
+        global $wp_filesystem;
+
+        if (is_object($wp_filesystem) && method_exists($wp_filesystem, 'put_contents')) {
+            return $wp_filesystem->put_contents(
                 $file_path,
                 $file_contents,
-                FS_CHMOD_FILE
+                $chmod
             );
         }
+
+        return false;
     }
 }
 if (!function_exists('_pdxglobal_get_file_via_wpfs')) {
     function _pdxglobal_get_file_via_wpfs($path_to_file) {
+        if (is_string($path_to_file) && $path_to_file !== '' && is_readable($path_to_file)) {
+            $contents = file_get_contents($path_to_file);
+
+            if ($contents !== false) {
+                return $contents;
+            }
+        }
+
         require_once(ABSPATH . '/wp-admin/includes/file.php');
         WP_Filesystem();
         global $wp_filesystem;
 
-        if ($wp_filesystem->exists($path_to_file)) {
+        if (is_object($wp_filesystem) && method_exists($wp_filesystem, 'exists') && method_exists($wp_filesystem, 'get_contents') && $wp_filesystem->exists($path_to_file)) {
             return $wp_filesystem->get_contents($path_to_file);
         } else {
             return false;
