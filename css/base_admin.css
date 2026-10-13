@@ -755,11 +755,20 @@ textarea + span.placeholder{
     width: 48%;
 }
 
+.pdxglobal_links {
+    width: 48%;
+}
+
+.pdxglobal_links ul {
+    margin-top: 8px;
+}
+
 .pdxglobal_video img {
   max-width: 100%;
   height: auto;
 }
-.pdxglobal_project:nth-child(even) .pdxglobal_video{
+.pdxglobal_project:nth-child(even) .pdxglobal_video,
+.pdxglobal_project:nth-child(even) .pdxglobal_links {
     order: -1;
 }
 @media screen and (max-width: 700px) {
@@ -767,6 +776,11 @@ textarea + span.placeholder{
       width: 100%;
     }
     .pdxglobal_video {
+        width: 100%;
+        order: 2 !important;
+        margin-top: 11px;
+    }
+    .pdxglobal_links {
         width: 100%;
         order: 2 !important;
         margin-top: 11px;

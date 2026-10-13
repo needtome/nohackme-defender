@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: NoHackMe Defender 1.1.9\n"
+"Project-Id-Version: NoHackMe Defender 1.1.10\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/nohackme-defender\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-07T08:42:59+00:00\n"
+"POT-Creation-Date: 2026-10-12T12:25:26+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: nohackme-defender\n"
@@ -26,7 +26,7 @@ msgstr ""
 
 #. Description of the plugin
 #: nohackme-defender.php
-msgid "NoHackMe Defender ensures your WordPress site's safety by blocking IP addresses upon receiving suspicious requests or too many requests from a single IP in a certain period. Keep hackers at bay with efficient real-time monitoring and security enforcement. Sponsors of plugin development: <a href=\"https://malinovsky.io\">malinovsky.io</a>, <a href=\"https://gloap.net\">gloap.net</a>, <a href=\"https://gloapm.com\">gloapm.com</a>, <a href=\"https://imgai.art\">imgai.art</a>"
+msgid "NoHackMe Defender ensures your WordPress site's safety by blocking IP addresses upon receiving suspicious requests or too many requests from a single IP in a certain period. Keep hackers at bay with efficient real-time monitoring and security enforcement. Sponsors of plugin development: <a href=\"https://malinovsky.io\">malinovsky.io</a>, <a href=\"https://gloap.net\">gloap.net</a>, <a href=\"https://gloapm.com\">gloapm.com</a>, <a href=\"https://o-keto.com\">o-keto.com</a>"
 msgstr ""
 
 #. Author of the plugin
@@ -177,6 +177,317 @@ msgstr ""
 
 #: funcs.php:321
 msgid "Unable to download the Yandex IP ranges list."
+msgstr ""
+
+#: general.php:6
+#: general.php:165
+msgid "Email:"
+msgstr ""
+
+#: general.php:7
+msgid "LinkedIn:"
+msgstr ""
+
+#: general.php:7
+msgid "Roman Klymenko"
+msgstr ""
+
+#: general.php:8
+msgid "Viber:"
+msgstr ""
+
+#: general.php:9
+msgid "Telegram:"
+msgstr ""
+
+#: general.php:17
+msgid "WordPress plugins"
+msgstr ""
+
+#: general.php:19
+msgid "WordPress security plugin."
+msgstr ""
+
+#: general.php:20
+msgid "Campaign-based phone number replacement."
+msgstr ""
+
+#: general.php:31
+msgid "Need a website or plugin?"
+msgstr ""
+
+#: general.php:32
+msgid "I have been developing websites on CMS WordPress and Drupal since 2008. Over this time, I have developed and optimized over 500 websites."
+msgstr ""
+
+#: general.php:33
+msgid "I Guarantee"
+msgstr ""
+
+#: general.php:34
+msgid "Therefore, for the websites I have developed, I can guarantee:"
+msgstr ""
+
+#: general.php:36
+msgid "Accessibility: 100"
+msgstr ""
+
+#: general.php:37
+msgid "Best Practices: 100"
+msgstr ""
+
+#: general.php:38
+msgid "SEO: 100"
+msgstr ""
+
+#: general.php:39
+msgid "Performance: above 96"
+msgstr ""
+
+#: general.php:40
+msgid "successful passing of"
+msgstr ""
+
+#: general.php:40
+msgid "technical SEO audit"
+msgstr ""
+
+#: general.php:41
+msgid "all functionality for"
+msgstr ""
+
+#: general.php:41
+msgid "SEO settings"
+msgstr ""
+
+#: general.php:42
+msgid "no errors in"
+msgstr ""
+
+#: general.php:42
+msgid "HTML and CSS validation"
+msgstr ""
+
+#: general.php:43
+msgid "high website performance speed"
+msgstr ""
+
+#: general.php:45
+msgid "I also offer:"
+msgstr ""
+
+#: general.php:47
+msgid "3 months of hosting on my server for free"
+msgstr ""
+
+#: general.php:48
+msgid "website maintenance"
+msgstr ""
+
+#: general.php:48
+msgid "for free"
+msgstr ""
+
+#: general.php:50
+msgid "I Have Experience"
+msgstr ""
+
+#: general.php:52
+msgid "in developing websites containing"
+msgstr ""
+
+#: general.php:52
+msgid "over 50,000,000 publications"
+msgstr ""
+
+#: general.php:53
+msgid "in working with"
+msgstr ""
+
+#: general.php:53
+msgid "Asterisk telephony"
+msgstr ""
+
+#: general.php:53
+msgid ", setting up Asterisk, creating robots for auto dialing and collecting results"
+msgstr ""
+
+#: general.php:54
+#: general.php:55
+msgid "in developing"
+msgstr ""
+
+#: general.php:54
+msgid "text and video chats"
+msgstr ""
+
+#: general.php:54
+msgid "based on signal server nodejs and coturn"
+msgstr ""
+
+#: general.php:55
+msgid "interactive online learning systems"
+msgstr ""
+
+#: general.php:55
+msgid "for student and teacher"
+msgstr ""
+
+#: general.php:57
+msgid "Portfolio"
+msgstr ""
+
+#: general.php:58
+msgid "Some examples of my work:"
+msgstr ""
+
+#: general.php:64
+#: general.php:76
+#: general.php:88
+msgid "Mobile PageSpeed 100."
+msgstr ""
+
+#: general.php:65
+msgid "Product aggregator. More than 50,000,000 products processed daily from YML files."
+msgstr ""
+
+#: general.php:68
+#: general.php:80
+#: general.php:92
+#: general.php:104
+msgid "Watch video"
+msgstr ""
+
+#: general.php:77
+msgid "A platform for interaction between seafarers and crewing agencies. Over 200,000 seafarer resumes, job listings, response systems, and instant message exchange, mass mailings and automatic mass phone calling of seafarers via Asterisk, Telegram bots for instant notifications, creation and downloading of various documents in PDF and Word formats, and much more."
+msgstr ""
+
+#: general.php:89
+msgid "Marketing agency’s portfolio website."
+msgstr ""
+
+#: general.php:100
+msgid "Mobile PageSpeed 99."
+msgstr ""
+
+#: general.php:101
+msgid "Information site of the music school."
+msgstr ""
+
+#: general.php:112
+msgid "AI Employee platform for customer communication automation across WhatsApp, Telegram, imo, MAX, email, and website chat. Includes conversation scenarios, knowledge bases, learning from edited replies, contact import, website and CRM API integrations, response quality checks, and handoff to human managers."
+msgstr ""
+
+#: general.php:115
+msgid "Project overview"
+msgstr ""
+
+#: general.php:116
+msgid "Open kra.name"
+msgstr ""
+
+#: general.php:124
+msgid "Custom WordPress and WooCommerce platform for nutrition, recipes, products, nutrients, quizzes, digital books, and health education. The project brings together the AI nutritionist and recipe assistant, recipe-book generation, AI-assisted publishing, multilingual workflows, video production, meal planning, food diary, and ecommerce."
+msgstr ""
+
+#: general.php:127
+msgid "Related sections"
+msgstr ""
+
+#: general.php:129
+msgid "Recipes"
+msgstr ""
+
+#: general.php:130
+msgid "Products"
+msgstr ""
+
+#: general.php:131
+msgid "Nutrients"
+msgstr ""
+
+#: general.php:132
+msgid "Quizzes"
+msgstr ""
+
+#: general.php:133
+msgid "Shop"
+msgstr ""
+
+#: general.php:142
+msgid "Combined trading platform with a historical simulator and journal, browser and desktop trading terminal, and automated crypto-robot workflows. Includes strategy backtesting, charts, watchlists, screeners, demo trading, investor portfolios, alerts, trade history, exchange integrations, robot connections, and performance analytics."
+msgstr ""
+
+#: general.php:145
+msgid "Related products"
+msgstr ""
+
+#: general.php:147
+msgid "Trading simulator and journal"
+msgstr ""
+
+#: general.php:148
+msgid "Trading terminal"
+msgstr ""
+
+#: general.php:149
+msgid "Trading robots"
+msgstr ""
+
+#: general.php:154
+msgid "More works can be seen in my"
+msgstr ""
+
+#: general.php:154
+msgid "WordPress resume"
+msgstr ""
+
+#: general.php:154
+msgid "and"
+msgstr ""
+
+#: general.php:154
+msgid "AI & automation resume"
+msgstr ""
+
+#: general.php:154
+msgid "Even more works are available upon request."
+msgstr ""
+
+#: general.php:155
+msgid "Cost"
+msgstr ""
+
+#: general.php:156
+msgid "The cost of developing both a website and an individual plugin is calculated individually, based on an hourly rate of 30 dollars."
+msgstr ""
+
+#: general.php:164
+msgid "Site:"
+msgstr ""
+
+#: general.php:166
+msgid "Phone:"
+msgstr ""
+
+#: general.php:167
+msgid "Address:"
+msgstr ""
+
+#: general.php:167
+msgid "6000, Georgia, st. Batumi, Tamar Mepe Avenue, N 22a"
+msgstr ""
+
+#: general.php:170
+msgid "SEO services for your website"
+msgstr ""
+
+#: general.php:171
+msgid "Digital Marketing for Software Development Companies"
+msgstr ""
+
+#: general.php:172
+msgid "Specialists in SEO and PPC services for the tech industry. We understand your language and fully comprehend your business needs."
 msgstr ""
 
 #: nohackme-defender.php:168
@@ -498,7 +809,7 @@ msgid "Sorry, you are not allowed to access this page."
 msgstr ""
 
 #: nohackme-defender.php:1100
-#: nohackme-defender.php:1582
+#: nohackme-defender.php:1638
 msgid "Settings"
 msgstr ""
 
@@ -706,18 +1017,18 @@ msgstr ""
 msgid "Edit the list of fragments that make a URL, request parameter, User-Agent, or raw API body suspicious and trigger blocking."
 msgstr ""
 
-#: nohackme-defender.php:1516
+#: nohackme-defender.php:1572
 msgid "To work with the NoHackMe Defender plugin, you need to add the following lines to your wp-config.php file located in the root of the site:"
 msgstr ""
 
-#: nohackme-defender.php:1518
+#: nohackme-defender.php:1574
 msgid "Add them to the wp-config.php file after the line"
 msgstr ""
 
-#: nohackme-defender.php:1518
+#: nohackme-defender.php:1574
 msgid "(on the next line)"
 msgstr ""
 
-#: nohackme-defender.php:1519
+#: nohackme-defender.php:1575
 msgid "Unfortunately, it was not possible to do this automatically."
 msgstr ""

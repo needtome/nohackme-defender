@@ -4,7 +4,7 @@ A WordPress security plugin that blocks IP addresses after suspicious requests, 
 
 - [WordPress.org plugin page](https://wordpress.org/plugins/nohackme-defender/)
 - [Live demo and plugin guide](https://needtome.com/nohackme/)
-- Current source version: **1.1.9**; requires WordPress 6.0+ and PHP 7.4+.
+- Current source version: **1.1.10**; requires WordPress 6.0+ and PHP 7.4+.
 
 Install it from the WordPress Plugins screen or upload the plugin ZIP from WordPress.org. Review the plugin documentation and the access recovery instructions before enabling protection on a site.
 

@@ -1,4 +1,17 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- Preserve the established early-firewall helper names for existing wp-config.php integrations.
+
+/**
+ * Early request firewall loaded from wp-config.php before WordPress finishes booting.
+ * WordPress defines ABSPATH before loading wp-config.php, so this guard still allows
+ * the firewall to run during the early bootstrap include.
+ */
+// phpcs:disable WordPress.WP.AlternativeFunctions.file_system_operations_mkdir, WordPress.WP.AlternativeFunctions.file_system_operations_fopen, WordPress.WP.AlternativeFunctions.file_system_operations_fwrite, WordPress.WP.AlternativeFunctions.file_system_operations_fclose -- The early firewall runs before WP_Filesystem is initialized; locked native file operations are required for the per-request counters and settings.
+function nohackme_defender_run_early_firewall() {
 if ( defined( 'ABSPATH' ) ) {
 
 	/*
@@ -18,8 +31,9 @@ if ( defined( 'ABSPATH' ) ) {
 	_nohackme_defender_hackme_generate_defaults($settings_path);
 
 	$skip_check = _nohackme_defender_is_trusted_internal_request();
-	if ( isset($_SERVER['REQUEST_URI']) and strlen($_SERVER['REQUEST_URI']) ) {
-		$check_str = _nohackme_defender_esc_html(_nohackme_defender_sanitize_text_field($_SERVER['REQUEST_URI']));
+	$request_uri = nohackme_defender_firewall_server_value('REQUEST_URI');
+	if ( strlen($request_uri) ) {
+		$check_str = _nohackme_defender_esc_html(_nohackme_defender_sanitize_text_field($request_uri));
 		if ( strpos($check_str, '/wp-admin/') === false ) {} else {
 			$skip_check = true;
 		}
@@ -78,7 +92,7 @@ if ( defined( 'ABSPATH' ) ) {
 				} }
 			}
 			if (count($exclude_uas)) {
-				$current_user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? (string) $_SERVER['HTTP_USER_AGENT'] : '';
+				$current_user_agent = nohackme_defender_firewall_server_value('HTTP_USER_AGENT');
 				$current_user_agent = _nohackme_defender_esc_html(_nohackme_defender_sanitize_text_field($current_user_agent));
 				foreach ($exclude_uas as $excluded_ua) {
 					if (strpos($current_user_agent, $excluded_ua) !== false) {
@@ -107,10 +121,12 @@ if ( defined( 'ABSPATH' ) ) {
 				} else {
 					if ( strlen($client_ip_key) ) {
 						if ( is_file($hackme_path . $client_ip_key) ) {
-							if ( isset($settings['cancel_block']) and strlen($settings['cancel_block']) and isset($_GET[$settings['cancel_block']]) ) {
-								@unlink($hackme_path . $client_ip_key);
+							$nohackme_defender_query = nohackme_defender_firewall_input_array('GET');
+							if ( isset($settings['cancel_block']) and strlen($settings['cancel_block']) and array_key_exists($settings['cancel_block'], $nohackme_defender_query) ) {
+								nohackme_defender_delete_firewall_file($hackme_path . $client_ip_key);
 							} else {
-								echo strip_tags($banned_string, '<b><i><br><p><ul><li><ol><strong><em><div>');
+								// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The helper applies a strict HTML allowlist after WordPress boots and emits escaped plain text before boot.
+								echo nohackme_defender_safe_block_message($banned_string);
 								exit();
 						}
 					}
@@ -124,11 +140,12 @@ if ( defined( 'ABSPATH' ) ) {
 						$need_time_count = true;
 					}
 						$isbanned = 0;
-						if ( $need_time_count ) {
+						if ( $need_time_count && strlen($client_ip_key) ) {
 							$isbanned = _nohackme_defender_hackme_update_counters($settings_path, $client_ip, $client_ip_key, $settings);
 						}
 				if ( $isbanned ) {
-					echo strip_tags($banned_string, '<b><i><br><p><ul><li><ol><strong><em><div>');
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The helper applies a strict HTML allowlist after WordPress boots and emits escaped plain text before boot.
+					echo nohackme_defender_safe_block_message($banned_string);
 					exit();
 				}
 
@@ -136,7 +153,8 @@ if ( defined( 'ABSPATH' ) ) {
 					$suspicious_path_reason = _nohackme_defender_hackme_check_suspicious_path($settings_path, $client_ip, $client_ip_key);
 					if ( strlen($suspicious_path_reason) ) {
 						_nohackme_defender_hackme_banned_ip($client_ip, 5, $suspicious_path_reason);
-						echo strip_tags($banned_string, '<b><i><br><p><ul><li><ol><strong><em><div>');
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The helper applies a strict HTML allowlist after WordPress boots and emits escaped plain text before boot.
+						echo nohackme_defender_safe_block_message($banned_string);
 						exit();
 					}
 				}
@@ -144,8 +162,9 @@ if ( defined( 'ABSPATH' ) ) {
 		}
 
 			$skip_check_hack = false;
-			if ( isset($_SERVER['REQUEST_URI']) and strlen($_SERVER['REQUEST_URI']) ) {
-				$check_str = _nohackme_defender_esc_html(_nohackme_defender_sanitize_text_field($_SERVER['REQUEST_URI']));
+			$request_uri = nohackme_defender_firewall_server_value('REQUEST_URI');
+			if ( strlen($request_uri) ) {
+				$check_str = _nohackme_defender_esc_html(_nohackme_defender_sanitize_text_field($request_uri));
 				if ( strpos($check_str, '/wp-admin/') === false ) {} else {
 					$skip_check_hack = true;
 				}
@@ -166,10 +185,10 @@ if ( defined( 'ABSPATH' ) ) {
 			if ( !$skip_check_hack and isset($ahacks) and is_array($ahacks) and count($ahacks) ) {
 				$reqfound = _nohackme_defender_hackme_collect_request_text();
 				if ( strlen($reqfound) ) {
-					$reqfound = _nohackme_defender_esc_html(mb_strtolower($reqfound));
-					$reqfound_for_save = _nohackme_defender_esc_html(_nohackme_defender_sanitize_text_field(mb_substr(mb_strtolower($reqfound), 0, 2000)));
+					$reqfound = _nohackme_defender_esc_html(nohackme_defender_mb_lower($reqfound));
+					$reqfound_for_save = _nohackme_defender_esc_html(_nohackme_defender_sanitize_text_field(nohackme_defender_mb_substr(nohackme_defender_mb_lower($reqfound), 0, 2000)));
 					foreach ( $ahacks as $ahacks_item) {
-						$ahacks_item = _nohackme_defender_esc_html(mb_strtolower($ahacks_item));
+						$ahacks_item = _nohackme_defender_esc_html(nohackme_defender_mb_lower($ahacks_item));
 						if ( _nohackme_defender_hackme_is_unsafe_payload_pattern($ahacks_item) ) {
 							continue;
 						}
@@ -185,55 +204,143 @@ if ( defined( 'ABSPATH' ) ) {
 					$isbanned = 4;
 					if ( strlen($client_ip_key) ) {
 						_nohackme_defender_hackme_banned_ip($client_ip, $isbanned, $hackme_string);
-						echo strip_tags($banned_string, '<b><i><br><p><ul><li><ol><strong><em><div>');
-						exit();
 					}
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The helper applies a strict HTML allowlist after WordPress boots and emits escaped plain text before boot.
+					echo nohackme_defender_safe_block_message($banned_string);
+					exit();
 				}
 		}
 	}
 }
+	}
 
 	function _nohackme_defender_hackme_get_ip(){
-	    $candidates = array();
-if (!empty($_SERVER['HTTP_CLIENT_IP'])){
-$candidates[] = $_SERVER['HTTP_CLIENT_IP'];
-}
-if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-$forwarded = explode(',', (string) $_SERVER['HTTP_X_FORWARDED_FOR']);
-foreach ($forwarded as $forwarded_ip) {
-$candidates[] = $forwarded_ip;
-}
-}
-if (!empty($_SERVER['REMOTE_ADDR'])){
-$candidates[] = $_SERVER['REMOTE_ADDR'];
-}
+		$remote_addr = _nohackme_defender_hackme_normalize_ip(nohackme_defender_firewall_server_value('REMOTE_ADDR'));
+		if ( !strlen($remote_addr) ) {
+			return '';
+		}
 
-foreach ($candidates as $candidate) {
-$ip = _nohackme_defender_hackme_normalize_ip($candidate);
-if ( strlen($ip) ) {
-return $ip;
-}
-}
+		// Forwarded headers are untrusted unless the direct connection is from a configured proxy.
+		if ( !_nohackme_defender_hackme_is_trusted_proxy($remote_addr) ) {
+			// A loopback address may be a local reverse proxy. Without an explicit trust entry,
+			// its client identity is unknown and must not match the internal-request allowlist.
+			if ( in_array($remote_addr, array('127.0.0.1', '::1'), true) ) {
+				return '';
+			}
+			return $remote_addr;
+		}
 
+		// HTTP_CLIENT_IP is intentionally ignored. Use X-Forwarded-For only behind a trusted proxy.
+		$forwarded_for = trim(nohackme_defender_firewall_server_value('HTTP_X_FORWARDED_FOR'));
+		if ( !strlen($forwarded_for) ) {
+			// The trusted proxy is not the client. Do not let its loopback IP trigger internal-request bypasses.
+			return '';
+		}
+
+		// Walk from the server toward the client, skipping only explicitly trusted proxy hops.
+		$forwarded_addresses = array_reverse(explode(',', $forwarded_for));
+		foreach ( $forwarded_addresses as $forwarded_address ) {
+			$forwarded_ip = _nohackme_defender_hackme_normalize_ip($forwarded_address);
+			if ( !strlen($forwarded_ip) ) {
+				// Do not fall back to an earlier, potentially client-controlled item in a malformed chain.
+				return '';
+			}
+			if ( _nohackme_defender_hackme_is_trusted_proxy($forwarded_ip) ) {
+				continue;
+			}
+			return $forwarded_ip;
+		}
+
+		// The chain contained only trusted proxy hops; the client identity is unavailable.
 		return '';
+	}
+
+	function _nohackme_defender_hackme_is_trusted_proxy($ip) {
+		if ( !defined('NOHACKME_DEFENDER_TRUSTED_PROXIES') ) {
+			return false;
+		}
+
+		$trusted_proxies = constant('NOHACKME_DEFENDER_TRUSTED_PROXIES');
+		if ( !is_array($trusted_proxies) ) {
+			return false;
+		}
+
+		$ip = _nohackme_defender_hackme_normalize_ip($ip);
+		$packed_ip = strlen($ip) ? @inet_pton($ip) : false;
+		if ( $packed_ip === false ) {
+			return false;
+		}
+
+		foreach ( $trusted_proxies as $trusted_proxy ) {
+			if ( !is_string($trusted_proxy) ) {
+				continue;
+			}
+
+			$parts = explode('/', trim($trusted_proxy), 2);
+			$network = _nohackme_defender_hackme_normalize_ip($parts[0]);
+			$packed_network = strlen($network) ? @inet_pton($network) : false;
+			if ( $packed_network === false || strlen($packed_network) !== strlen($packed_ip) ) {
+				continue;
+			}
+
+			if ( !isset($parts[1]) ) {
+				if ( $packed_network === $packed_ip ) {
+					return true;
+				}
+				continue;
+			}
+
+			if ( !preg_match('/^[0-9]+$/D', $parts[1]) ) {
+				continue;
+			}
+			$prefix_length = (int) $parts[1];
+			$address_bits = strlen($packed_ip) * 8;
+			// Reject /0: it would make every connecting client a trusted proxy.
+			if ( $prefix_length < 1 || $prefix_length > $address_bits ) {
+				continue;
+			}
+
+			$whole_bytes = intdiv($prefix_length, 8);
+			if ( substr($packed_network, 0, $whole_bytes) !== substr($packed_ip, 0, $whole_bytes) ) {
+				continue;
+			}
+
+			$remaining_bits = $prefix_length % 8;
+			if ( $remaining_bits ) {
+				$mask = (0xff << (8 - $remaining_bits)) & 0xff;
+				$network_byte = ord($packed_network[$whole_bytes]) & $mask;
+				$ip_byte = ord($packed_ip[$whole_bytes]) & $mask;
+				if ( $network_byte !== $ip_byte ) {
+					continue;
+				}
+			}
+
+			return true;
+		}
+
+		return false;
 	}
 
 	function _nohackme_defender_hackme_collect_request_text() {
 		$parts = array();
 		foreach ( array('REQUEST_URI', 'QUERY_STRING', 'HTTP_USER_AGENT', 'REQUEST_METHOD', 'CONTENT_TYPE') as $server_key ) {
-			if ( isset($_SERVER[$server_key]) && is_string($_SERVER[$server_key]) && strlen($_SERVER[$server_key]) ) {
-				$parts[] = $_SERVER[$server_key];
+			$server_value = nohackme_defender_firewall_server_value($server_key);
+			if ( strlen($server_value) ) {
+				$parts[] = $server_value;
 			}
 		}
 
-		if ( isset($_GET) && is_array($_GET) && count($_GET) ) {
-			_nohackme_defender_hackme_collect_scalar_strings($_GET, $parts);
+		$get_data = nohackme_defender_firewall_input_array('GET');
+		if ( count($get_data) ) {
+			_nohackme_defender_hackme_collect_scalar_strings($get_data, $parts);
 		}
-		if ( isset($_POST) && is_array($_POST) && count($_POST) ) {
-			_nohackme_defender_hackme_collect_scalar_strings($_POST, $parts);
+		$post_data = nohackme_defender_firewall_input_array('POST');
+		if ( count($post_data) ) {
+			_nohackme_defender_hackme_collect_scalar_strings($post_data, $parts);
 		}
-		if ( isset($_REQUEST) && is_array($_REQUEST) && count($_REQUEST) ) {
-			_nohackme_defender_hackme_collect_scalar_strings($_REQUEST, $parts);
+		$request_data = nohackme_defender_firewall_input_array('REQUEST');
+		if ( count($request_data) ) {
+			_nohackme_defender_hackme_collect_scalar_strings($request_data, $parts);
 		}
 
 		$raw_body = _nohackme_defender_hackme_get_raw_body();
@@ -279,12 +386,12 @@ return $ip;
 	}
 
 	function _nohackme_defender_hackme_get_raw_body() {
-		$method = isset($_SERVER['REQUEST_METHOD']) ? strtoupper((string) $_SERVER['REQUEST_METHOD']) : '';
+		$method = strtoupper(nohackme_defender_firewall_server_value('REQUEST_METHOD'));
 		if ( !in_array($method, array('POST', 'PUT', 'PATCH', 'DELETE'), true) ) {
 			return '';
 		}
 
-		$content_type = isset($_SERVER['CONTENT_TYPE']) ? strtolower((string) $_SERVER['CONTENT_TYPE']) : '';
+		$content_type = strtolower(nohackme_defender_firewall_server_value('CONTENT_TYPE'));
 		if ( strpos($content_type, 'multipart/form-data') !== false ) {
 			return '';
 		}
@@ -310,11 +417,12 @@ return $ip;
 	}
 
 	function _nohackme_defender_hackme_request_path() {
-		if ( !isset($_SERVER['REQUEST_URI']) || !is_string($_SERVER['REQUEST_URI']) || !strlen($_SERVER['REQUEST_URI']) ) {
+		$request_uri = nohackme_defender_firewall_server_value('REQUEST_URI');
+		if ( !strlen($request_uri) ) {
 			return '';
 		}
 
-		$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+		$path = nohackme_defender_parse_url($request_uri, PHP_URL_PATH);
 		if ( !is_string($path) || !strlen($path) ) {
 			return '';
 		}
@@ -330,13 +438,16 @@ return $ip;
 
 	function _nohackme_defender_hackme_check_suspicious_path($settings_path, $client_ip, $client_ip_key) {
 		$path = _nohackme_defender_hackme_request_path();
-		if ( !strlen($path) || !strlen($client_ip_key) ) {
+		if ( !strlen($path) ) {
 			return '';
 		}
 
-		$lower_path = mb_strtolower($path);
+		$lower_path = nohackme_defender_mb_lower($path);
 		if ( _nohackme_defender_hackme_is_sensitive_path($lower_path, $settings_path) ) {
-			return 'sensitive_path:' . mb_substr($lower_path, 0, 180);
+			return 'sensitive_path:' . nohackme_defender_mb_substr($lower_path, 0, 180);
+		}
+		if ( !strlen($client_ip_key) ) {
+			return '';
 		}
 
 		if ( !_nohackme_defender_hackme_is_missing_file_probe($lower_path) ) {
@@ -355,7 +466,7 @@ return $ip;
 			}
 		}
 
-		$extension = strtolower(pathinfo(parse_url($lower_path, PHP_URL_PATH), PATHINFO_EXTENSION));
+		$extension = strtolower(pathinfo(nohackme_defender_parse_url($lower_path, PHP_URL_PATH), PATHINFO_EXTENSION));
 		if ( in_array($extension, array('bak', 'old', 'orig', 'save', 'swp', 'sql'), true) ) {
 			return true;
 		}
@@ -630,11 +741,11 @@ return $ip;
 
 			$recent[] = array(
 				'time' => $now,
-				'path' => mb_substr($lower_path, 0, 180),
+				'path' => nohackme_defender_mb_substr($lower_path, 0, 180),
 			);
 
 			if ( count($recent) >= 6 ) {
-				$reason = 'missing_file_probe:' . count($recent) . ':' . mb_substr($lower_path, 0, 180);
+				$reason = 'missing_file_probe:' . count($recent) . ':' . nohackme_defender_mb_substr($lower_path, 0, 180);
 				unset($counters[$client_ip_key]);
 			} else {
 				$counters[$client_ip_key] = $recent;
@@ -680,7 +791,7 @@ return $ip;
 	}
 
 	$cached_ips = get_transient('nohackme_ai_inspector_runtime_ips');
-	if ( is_array($cached_ips) && count($cached_ips) ) {
+	if ( is_array($cached_ips) ) {
 		foreach ( $cached_ips as $cached_ip ) {
 			$ip = _nohackme_defender_hackme_normalize_ip($cached_ip);
 			if ( strlen($ip) ) {
@@ -695,12 +806,15 @@ return $ip;
 		return $runtime_ips;
 	}
 
-	$table = $wpdb->prefix . 'ai_recruiter_accounts';
+	$table = sanitize_key($wpdb->prefix . 'ai_recruiter_accounts');
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- The final value is cached below for ten minutes; a custom optional integration table has no WordPress API.
 	$table_exists = $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table));
 	if ( $table_exists !== $table ) {
+		set_transient('nohackme_ai_inspector_runtime_ips', array(), 10 * MINUTE_IN_SECONDS);
 		return $runtime_ips;
 	}
 
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- `$table` is a validated prefix plus a fixed suffix; WordPress 6.0 support precludes the newer %i identifier placeholder, and the query result is cached below.
 	$rows = $wpdb->get_col("SELECT runtime_access_json FROM `$table` WHERE runtime_access_json<>''");
 	if ( !is_array($rows) ) {
 		$rows = array();
@@ -719,7 +833,7 @@ return $ip;
 			}
 		}
 		if ( !empty($access['vnc_url']) ) {
-			$url_host = parse_url((string) $access['vnc_url'], PHP_URL_HOST);
+			$url_host = nohackme_defender_parse_url((string) $access['vnc_url'], PHP_URL_HOST);
 			if ( is_string($url_host) && strlen($url_host) ) {
 				$candidates[] = $url_host;
 			}
@@ -809,7 +923,7 @@ function _nohackme_defender_hackme_update_counters($settings_path, $client_ip, $
 			}
 		}
 
-		$cur_minute = intval(date('i', time()));
+		$cur_minute = intval(gmdate('i'));
 		if ( isset($cur_ips[$client_ip_key][$cur_minute]) and is_numeric($cur_ips[$client_ip_key][$cur_minute]) ) {
 			$cur_ips[$client_ip_key][$cur_minute]++;
 		} else {
@@ -925,47 +1039,47 @@ function _nohackme_defender_hackme_banned_ip($client_ip, $reason, $data = ''){
 	_nohackme_defender_hackme_write_serialized_file($hackme_path . $storage_key, array($reason, $data));
 }
 function _hackme_ip_in_range($ip, $range) {
-$ip = _nohackme_defender_hackme_normalize_ip($ip);
-$range = trim((string) $range);
-if ( !strlen($ip) || !strlen($range) ) {
-	return false;
-}
+  $ip = _nohackme_defender_hackme_normalize_ip($ip);
+  $range = trim((string) $range);
+  if ( !strlen($ip) || !strlen($range) ) {
+  	return false;
+  }
 
-if ( strpos($range, '/') === false ) {
-	return $ip === _nohackme_defender_hackme_normalize_ip($range);
-}
+  if ( strpos($range, '/') === false ) {
+  	return $ip === _nohackme_defender_hackme_normalize_ip($range);
+  }
 
-list($subnet, $prefix_length) = explode('/', $range, 2);
-$subnet = _nohackme_defender_hackme_normalize_ip($subnet);
-$prefix_length = (int) $prefix_length;
-if ( !strlen($subnet) ) {
-	return false;
-}
+  list($subnet, $prefix_length) = explode('/', $range, 2);
+  $subnet = _nohackme_defender_hackme_normalize_ip($subnet);
+  $prefix_length = (int) $prefix_length;
+  if ( !strlen($subnet) ) {
+  	return false;
+  }
 
-$packed_ip = @inet_pton($ip);
-$packed_subnet = @inet_pton($subnet);
-if ( $packed_ip === false || $packed_subnet === false || strlen($packed_ip) !== strlen($packed_subnet) ) {
-	return false;
-}
+  $packed_ip = @inet_pton($ip);
+  $packed_subnet = @inet_pton($subnet);
+  if ( $packed_ip === false || $packed_subnet === false || strlen($packed_ip) !== strlen($packed_subnet) ) {
+  	return false;
+  }
 
-$max_bits = strlen($packed_ip) * 8;
-if ( $prefix_length < 0 || $prefix_length > $max_bits ) {
-	return false;
-}
+  $max_bits = strlen($packed_ip) * 8;
+  if ( $prefix_length < 0 || $prefix_length > $max_bits ) {
+  	return false;
+  }
 
-$full_bytes = intdiv($prefix_length, 8);
-$remaining_bits = $prefix_length % 8;
+  $full_bytes = intdiv($prefix_length, 8);
+  $remaining_bits = $prefix_length % 8;
 
-if ( $full_bytes > 0 && substr($packed_ip, 0, $full_bytes) !== substr($packed_subnet, 0, $full_bytes) ) {
-	return false;
-}
+  if ( $full_bytes > 0 && substr($packed_ip, 0, $full_bytes) !== substr($packed_subnet, 0, $full_bytes) ) {
+  	return false;
+  }
 
-if ( $remaining_bits === 0 ) {
-	return true;
-}
+  if ( $remaining_bits === 0 ) {
+  	return true;
+  }
 
-$mask = (0xFF << (8 - $remaining_bits)) & 0xFF;
-return (ord($packed_ip[$full_bytes]) & $mask) === (ord($packed_subnet[$full_bytes]) & $mask);
+  $mask = (0xFF << (8 - $remaining_bits)) & 0xFF;
+  return (ord($packed_ip[$full_bytes]) & $mask) === (ord($packed_subnet[$full_bytes]) & $mask);
 }
 function _nohackme_defender_hackme_isGoogleIp($ip) {
 	global $settings_path;
@@ -976,13 +1090,13 @@ function _nohackme_defender_hackme_isGoogleIp($ip) {
 		$google_ips = file($hacks_list_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 	}
 
-foreach ($google_ips as $range) {
-if (_hackme_ip_in_range($ip, $range)) {
-return true;
-}
-}
+  foreach ($google_ips as $range) {
+    if (_hackme_ip_in_range($ip, $range)) {
+      return true;
+    }
+  }
 
-return false;
+  return false;
 }
 	function _nohackme_defender_hackme_isYandexIp($ip) {
 		global $settings_path;
@@ -993,11 +1107,11 @@ return false;
 		$yandex_ips = file($hacks_list_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 	}
 
-foreach ($yandex_ips as $range) {
-if (_hackme_ip_in_range($ip, $range)) {
-return true;
-}
-}
+  foreach ($yandex_ips as $range) {
+    if (_hackme_ip_in_range($ip, $range)) {
+      return true;
+    }
+  }
 
 	  return false;
 	}
@@ -1013,7 +1127,7 @@ return true;
 
 		$known = array();
 		foreach ( $current_hacks as $hack ) {
-			$normalized = mb_strtolower(_nohackme_defender_hackme_pattern_line_value($hack));
+			$normalized = nohackme_defender_mb_lower(_nohackme_defender_hackme_pattern_line_value($hack));
 			if ( strlen($normalized) ) {
 				$known[$normalized] = true;
 			}
@@ -1026,7 +1140,7 @@ return true;
 				continue;
 			}
 
-			$normalized = mb_strtolower($hack);
+			$normalized = nohackme_defender_mb_lower($hack);
 			if ( isset($known[$normalized]) ) {
 				continue;
 			}
@@ -1075,7 +1189,7 @@ return true;
 			$map = array();
 			if ( is_array($patterns) ) {
 				foreach ( $patterns as $pattern ) {
-				$normalized = mb_strtolower(_nohackme_defender_hackme_pattern_line_value($pattern));
+				$normalized = nohackme_defender_mb_lower(_nohackme_defender_hackme_pattern_line_value($pattern));
 				if ( strlen($normalized) ) {
 					$map[$normalized] = true;
 				}
@@ -1099,7 +1213,7 @@ return true;
 		$payload_hacks = array();
 		$migrated_paths = array();
 		foreach ( $current_hacks as $hack ) {
-			$normalized = mb_strtolower(_nohackme_defender_hackme_pattern_line_value($hack));
+			$normalized = nohackme_defender_mb_lower(_nohackme_defender_hackme_pattern_line_value($hack));
 			if ( !strlen($normalized) ) {
 				continue;
 			}
@@ -1174,13 +1288,177 @@ function _nohackme_defender_esc_html($text) {
 	return $text;
 }
 function _nohackme_defender_sanitize_text_field($str) {
-	$str = strip_tags($str);
+	$str = (string) $str;
+	if ( function_exists('sanitize_text_field') ) {
+		$str = sanitize_text_field($str);
+	} elseif ( function_exists('wp_strip_all_tags') ) {
+		$str = wp_strip_all_tags($str);
+	} else {
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.strip_tags_strip_tags -- Pre-bootstrap fallback strips markup before firewall values are stored or compared.
+		$str = strip_tags($str);
+	}
 	$str = preg_replace('/[\r\n\t ]+/', ' ', $str);
 	$str = preg_replace('/[\x00-\x1F\x7F]/u', '', $str);
 	$str = trim($str);
-	if (!mb_detect_encoding($str, 'UTF-8', true)) {
-		$str = utf8_encode($str);
+	if ( !preg_match('//u', $str) ) {
+		if ( function_exists('mb_convert_encoding') ) {
+			$str = mb_convert_encoding($str, 'UTF-8', 'ISO-8859-1');
+		} elseif ( function_exists('iconv') ) {
+			$converted = @iconv('ISO-8859-1', 'UTF-8//IGNORE', $str);
+			if ( is_string($converted) ) {
+				$str = $converted;
+			}
+		}
 	}
 
 	return $str;
 }
+
+/**
+ * Restore native filesystem checks for the early firewall without exposing a client-controlled path.
+ *
+ * @param string $path File path inside the plugin-managed uploads directory.
+ * @return void
+ */
+function nohackme_defender_delete_firewall_file($path) {
+	if ( function_exists('wp_delete_file') ) {
+		wp_delete_file($path);
+		return;
+	}
+
+	// phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink -- WordPress is not loaded when wp-config.php runs the firewall.
+	@unlink($path);
+}
+
+/**
+ * Sanitize the block message for the current bootstrap stage.
+ *
+ * @param string $message Configured block message.
+ * @return string Safe HTML or escaped plain text.
+ */
+function nohackme_defender_safe_block_message($message) {
+	$allowed_html = array(
+		'b' => array(),
+		'i' => array(),
+		'br' => array(),
+		'p' => array(),
+		'ul' => array(),
+		'li' => array(),
+		'ol' => array(),
+		'strong' => array(),
+		'em' => array(),
+		'div' => array(),
+	);
+	if ( function_exists('wp_kses') ) {
+		return wp_kses((string) $message, $allowed_html);
+	}
+
+	// phpcs:ignore WordPress.WP.AlternativeFunctions.strip_tags_strip_tags -- Before WordPress boots, strip markup and HTML-escape the text rather than emitting untrusted HTML.
+	$plain_text = strip_tags((string) $message);
+	$plain_text = htmlspecialchars($plain_text, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8');
+	return nl2br($plain_text);
+}
+
+/**
+ * Read a bounded server value without altering attack signatures before inspection.
+ *
+ * @param string $key Known server key.
+ * @return string
+ */
+function nohackme_defender_firewall_server_value($key) {
+	$limits = array(
+		'REMOTE_ADDR' => 128,
+		'HTTP_X_FORWARDED_FOR' => 8192,
+		'REQUEST_URI' => 8192,
+		'QUERY_STRING' => 65536,
+		'HTTP_USER_AGENT' => 2048,
+		'REQUEST_METHOD' => 16,
+		'CONTENT_TYPE' => 255,
+	);
+	if ( !isset($limits[$key]) || !isset($_SERVER[$key]) || !is_string($_SERVER[$key]) ) {
+		return '';
+	}
+
+	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Raw values are type-checked and byte-bounded for security inspection; IP headers are separately validated with inet_pton, and request text is never echoed.
+	$value = $_SERVER[$key];
+	return substr($value, 0, $limits[$key]);
+}
+
+/**
+ * Return raw request values for threat scanning; this does not process a privileged form action.
+ *
+ * @param string $source GET, POST, or REQUEST.
+ * @return array
+ */
+function nohackme_defender_firewall_input_array($source) {
+	$source = strtoupper((string) $source);
+	$input_type = array('GET' => INPUT_GET, 'POST' => INPUT_POST);
+	if ( !in_array($source, array('GET', 'POST', 'REQUEST'), true) ) {
+		return array();
+	}
+
+	if ( 'REQUEST' === $source ) {
+		$get_values = filter_input_array(INPUT_GET, FILTER_UNSAFE_RAW, false);
+		$post_values = filter_input_array(INPUT_POST, FILTER_UNSAFE_RAW, false);
+		$cookie_values = filter_input_array(INPUT_COOKIE, FILTER_UNSAFE_RAW, false);
+		$nohackme_defender_values = array_merge(
+			is_array($get_values) ? $get_values : array(),
+			is_array($post_values) ? $post_values : array(),
+			is_array($cookie_values) ? $cookie_values : array()
+		);
+		if ( count($nohackme_defender_values) ) {
+			return $nohackme_defender_values;
+		}
+		if ( isset($GLOBALS['_REQUEST']) && is_array($GLOBALS['_REQUEST']) && count($GLOBALS['_REQUEST']) ) {
+			return $GLOBALS['_REQUEST'];
+		}
+		return array_merge(
+			isset($GLOBALS['_GET']) && is_array($GLOBALS['_GET']) ? $GLOBALS['_GET'] : array(),
+			isset($GLOBALS['_POST']) && is_array($GLOBALS['_POST']) ? $GLOBALS['_POST'] : array(),
+			isset($GLOBALS['_COOKIE']) && is_array($GLOBALS['_COOKIE']) ? $GLOBALS['_COOKIE'] : array()
+		);
+	}
+
+	$raw_values = filter_input_array($input_type[$source], FILTER_UNSAFE_RAW, false);
+	if ( is_array($raw_values) ) {
+		return $raw_values;
+	}
+
+	$global_key = '_' . $source;
+	if ( isset($GLOBALS[$global_key]) && is_array($GLOBALS[$global_key]) ) {
+		return $GLOBALS[$global_key];
+	}
+
+	return array();
+}
+
+/**
+ * Use WordPress URL parsing when available and a compatible fallback before bootstrap.
+ *
+ * @param string $url URL or request URI.
+ * @param int|null $component PHP_URL_* component.
+ * @return mixed
+ */
+function nohackme_defender_parse_url($url, $component = null) {
+	if ( function_exists('wp_parse_url') ) {
+		return null === $component ? wp_parse_url($url) : wp_parse_url($url, $component);
+	}
+
+	// phpcs:ignore WordPress.WP.AlternativeFunctions.parse_url_parse_url -- The firewall runs before wp_parse_url() is available.
+	return null === $component ? parse_url($url) : parse_url($url, $component);
+}
+
+function nohackme_defender_mb_lower($value) {
+	return function_exists('mb_strtolower') ? mb_strtolower((string) $value) : strtolower((string) $value);
+}
+
+function nohackme_defender_mb_substr($value, $start, $length = null) {
+	if ( function_exists('mb_substr') ) {
+		return null === $length ? mb_substr((string) $value, $start) : mb_substr((string) $value, $start, $length);
+	}
+	return null === $length ? substr((string) $value, $start) : substr((string) $value, $start, $length);
+}
+
+// phpcs:enable WordPress.WP.AlternativeFunctions.file_system_operations_mkdir, WordPress.WP.AlternativeFunctions.file_system_operations_fopen, WordPress.WP.AlternativeFunctions.file_system_operations_fwrite, WordPress.WP.AlternativeFunctions.file_system_operations_fclose
+
+nohackme_defender_run_early_firewall();

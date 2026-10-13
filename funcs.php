@@ -1,6 +1,8 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- These legacy globals are shared with the paid add-on and existing plugin integrations.
+
 function _nohackme_defender_premium_exists(){ return true; }
 function _nohackme_defender_premium1($file_path, $hacks) {
   file_put_contents($file_path, implode("\n", $hacks));

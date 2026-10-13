@@ -1,54 +1,78 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NoHackMe Defender\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/nohackme-"
+"defender\n"
+"POT-Creation-Date: 2026-10-12T12:25:26+00:00\n"
+"PO-Revision-Date: 2024-05-17 12:52+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-17 12:51+0300\n"
-"PO-Revision-Date: 2024-05-17 12:52+0300\n"
-"Language: ru_RU\n"
 "X-Generator: Poedit 3.4.4\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: nohackme-defender.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: ajax.php:9
-#: ajax.php:37
-#: ajax.php:66
+#. Plugin Name of the plugin
+#: nohackme-defender.php
+msgid "NoHackMe Defender"
+msgstr "NoHackMe Defender"
+
+#. Plugin URI of the plugin
+#: nohackme-defender.php
+msgid "https://needtome.com/nohackme/"
+msgstr "https://needtome.com/nohackme/"
+
+#. Description of the plugin
+#: nohackme-defender.php
+msgid ""
+"NoHackMe Defender ensures your WordPress site's safety by blocking IP "
+"addresses upon receiving suspicious requests or too many requests from a "
+"single IP in a certain period. Keep hackers at bay with efficient real-time "
+"monitoring and security enforcement. Sponsors of plugin development: <a "
+"href=\"https://malinovsky.io\">malinovsky.io</a>, <a href=\"https://"
+"gloap.net\">gloap.net</a>, <a href=\"https://gloapm.com\">gloapm.com</a>, <a "
+"href=\"https://o-keto.com\">o-keto.com</a>"
+msgstr "NoHackMe Defender обеспечивает безопасность вашего сайта на WordPress, блокируя IP-адреса при получении подозрительных запросов или слишком большого числа запросов с одного IP за определённый период. Плагин помогает защищать сайт благодаря мониторингу в реальном времени и блокировке угроз. Спонсоры разработки плагина: <a href=\"https://malinovsky.io\">malinovsky.io</a>, <a href=\"https://gloap.net\">gloap.net</a>, <a href=\"https://o-keto.com\">o-keto.com</a>"
+
+#. Author of the plugin
+#: nohackme-defender.php
+msgid "Parad0x <paraz0n3@gmail.com>"
+msgstr "Parad0x <paraz0n3@gmail.com>"
+
+#. Author URI of the plugin
+#: nohackme-defender.php
+msgid "https://www.linkedin.com/in/roman-klymenko-parad0x/"
+msgstr "https://www.linkedin.com/in/roman-klymenko-parad0x/"
+
+#: ajax.php:9 ajax.php:37 ajax.php:66
 msgid "Parameters are specified incorrectly!"
 msgstr "Параметры указаны неверно!"
 
-#: ajax.php:20
-#: ajax.php:48
-#: ajax.php:77
-#: ajax.php:106
+#: ajax.php:20 ajax.php:48 ajax.php:77 ajax.php:106
 msgid "List updated"
 msgstr "Список обновлен"
 
-#: ajax.php:23
-#: ajax.php:51
+#: ajax.php:23 ajax.php:51
 msgid "File does not exist."
 msgstr "Файл не существует."
 
-#: ajax.php:26
-#: ajax.php:54
-#: ajax.php:80
-#: ajax.php:109
-#: ajax.php:127
-#: ajax.php:164
+#: ajax.php:26 ajax.php:54 ajax.php:80 ajax.php:109 ajax.php:127 ajax.php:164
 msgid "This functionality is only available to administrators."
 msgstr "Эта функция доступна только администраторам."
 
 #: ajax.php:83
 msgid "Your session has expired. Please log in again on the website."
-msgstr "Срок действия сеанса истек. Пожалуйста, авторизуйтесь еще раз на сайте."
+msgstr ""
+"Срок действия сеанса истек. Пожалуйста, авторизуйтесь еще раз на сайте."
 
 #: ajax.php:95
 msgid "Invalid parameters specified!"
@@ -56,15 +80,44 @@ msgstr "Указаны неверные параметры!"
 
 #: ajax.php:112
 msgid "Your session has expired. Please log in to the website again."
-msgstr "Срок действия сеанса истек. Пожалуйста, авторизуйтесь на сайте еще раз."
+msgstr ""
+"Срок действия сеанса истек. Пожалуйста, авторизуйтесь на сайте еще раз."
+
+#: ajax.php:143
+msgid "Unable to save the Google IP ranges list."
+msgstr "Не удалось сохранить список IP-адресов Google."
+
+#. translators: %d: number of IP ranges
+#: ajax.php:151
+#, php-format
+msgid "Google IP ranges updated. Downloaded: %d"
+msgstr "Список IP-адресов Google обновлён. Загружено: %d"
+
+#: ajax.php:180
+msgid "Unable to save the Yandex IP ranges list."
+msgstr "Не удалось сохранить список IP-адресов Яндекса."
+
+#. translators: %d: number of IP ranges
+#: ajax.php:188
+#, php-format
+msgid "Yandex IP ranges updated. Downloaded: %d"
+msgstr "Список IP-адресов Яндекса обновлён. Загружено: %d"
+
+#: funcs.php:7 nohackme-defender_premium.php:10
+msgid "Changes saved."
+msgstr "Изменения сохранены."
 
 #: funcs.php:82
 msgid "premium"
 msgstr "премиум"
 
 #: funcs.php:88
-msgid "You are using a free version of the plugin. Some functions may be unavailable."
-msgstr "Вы используете бесплатную версию плагина. Некоторые функции могут быть недоступны."
+msgid ""
+"You are using a free version of the plugin. Some functions may be "
+"unavailable."
+msgstr ""
+"Вы используете бесплатную версию плагина. Некоторые функции могут быть "
+"недоступны."
 
 #: funcs.php:90
 msgid "To purchase the paid version of the plugin"
@@ -73,6 +126,52 @@ msgstr "Чтобы активировать полный функционал п
 #: funcs.php:91
 msgid "go to the Premium tab"
 msgstr "перейдите на вкладку «Премиум»"
+
+#: funcs.php:101
+msgid "My current donation page."
+msgstr "Моя актуальная страница для пожертвований."
+
+#: funcs.php:106
+msgid "Best known for recurring support and membership tiers."
+msgstr "Известен регулярной поддержкой и уровнями членства."
+
+#: funcs.php:116
+msgid "Support the development of the plugin"
+msgstr "Поддержите разработку плагина"
+
+#: funcs.php:117
+msgid ""
+"If NoHackMe Defender helps protect your site, you can support further "
+"development and maintenance via the services below."
+msgstr "Если NoHackMe Defender помогает защищать ваш сайт, вы можете поддержать дальнейшую разработку и обслуживание плагина через перечисленные ниже сервисы."
+
+#: funcs.php:164
+msgid ""
+"The plugin can automatically detect the visitor's country based on their IP "
+"address. To enable this, place both SxGeo.php and SxGeo.dat in the GeoIP "
+"folder shown below. This folder is outside the plugin, so the files are kept "
+"when the plugin is updated."
+msgstr ""
+"Плагин может автоматически определять страну посетителя по его IP-адресу. "
+"Для этого поместите файлы SxGeo.php и SxGeo.dat в указанную ниже папку "
+"GeoIP. Она находится вне каталога плагина, поэтому файлы сохранятся при его "
+"обновлении."
+
+#: funcs.php:166
+msgid ""
+"For backward compatibility, the plugin also checks the previous folder "
+"inside the plugin:"
+msgstr ""
+"Для обратной совместимости плагин также проверяет прежнюю папку внутри "
+"каталога плагина:"
+
+#: funcs.php:167
+msgid ""
+"Without these files, IP blocking still works, but the country is shown as "
+"unknown."
+msgstr ""
+"Без этих файлов блокировка IP продолжит работать, но вместо страны будет "
+"отображаться unknown."
 
 #: funcs.php:168
 msgid "These files can be downloaded from the"
@@ -83,26 +182,390 @@ msgid "official Sypex Geo project page"
 msgstr "официальная страница проекта Sypex Geo"
 
 #: funcs.php:169
-msgid "Also, the archive with the SxGeo.dat and SxGeo.php files can be downloaded"
+msgid ""
+"Also, the archive with the SxGeo.dat and SxGeo.php files can be downloaded"
 msgstr "Также можно скачать архив с файлами SxGeo.dat и SxGeo.php"
 
 #: funcs.php:169
 msgid "via this link"
 msgstr "по этой ссылке"
 
-#: nohackme-defender.php:168
-#: nohackme-defender.php:1072
+#: funcs.php:259
+msgid "Unable to download the Google IP ranges list."
+msgstr "Не удалось загрузить список IP-адресов Google."
+
+#: funcs.php:264
+msgid "Google returned an unexpected response format."
+msgstr "Google вернул данные в неожиданном формате."
+
+#: funcs.php:279
+msgid "Google IP ranges list is empty."
+msgstr "Список IP-адресов Google пуст."
+
+#: funcs.php:321
+msgid "Unable to download the Yandex IP ranges list."
+msgstr "Не удалось загрузить список IP-адресов Яндекса."
+
+#: general.php:6 general.php:165
+msgid "Email:"
+msgstr "Электронная почта:"
+
+#: general.php:7
+msgid "LinkedIn:"
+msgstr "LinkedIn:"
+
+#: general.php:7
+msgid "Roman Klymenko"
+msgstr "Роман Клименко"
+
+#: general.php:8
+msgid "Viber:"
+msgstr "Viber:"
+
+#: general.php:9
+msgid "Telegram:"
+msgstr "Telegram:"
+
+#: general.php:17
+msgid "WordPress plugins"
+msgstr "Плагины WordPress"
+
+#: general.php:19
+msgid "WordPress security plugin."
+msgstr "Плагин безопасности WordPress."
+
+#: general.php:20
+msgid "Campaign-based phone number replacement."
+msgstr "Замена телефонного номера в зависимости от рекламной кампании."
+
+#: general.php:31
+msgid "Need a website or plugin?"
+msgstr "Нужен сайт или плагин?"
+
+#: general.php:32
+msgid ""
+"I have been developing websites on CMS WordPress and Drupal since 2008. Over "
+"this time, I have developed and optimized over 500 websites."
+msgstr "С 2008 года я разрабатываю сайты на CMS WordPress и Drupal. За это время я разработал и оптимизировал более 500 сайтов."
+
+#: general.php:33
+msgid "I Guarantee"
+msgstr "Гарантирую"
+
+#: general.php:34
+msgid "Therefore, for the websites I have developed, I can guarantee:"
+msgstr "Для разработанных мной сайтов я гарантирую:"
+
+#: general.php:36
+msgid "Accessibility: 100"
+msgstr "Доступность: 100"
+
+#: general.php:37
+msgid "Best Practices: 100"
+msgstr "Практики: 100"
+
+#: general.php:38
+msgid "SEO: 100"
+msgstr "SEO: 100"
+
+#: general.php:39
+msgid "Performance: above 96"
+msgstr "Производительность: выше 96"
+
+#: general.php:40
+msgid "successful passing of"
+msgstr "успешное прохождение"
+
+#: general.php:40
+msgid "technical SEO audit"
+msgstr "технического SEO-аудита"
+
+#: general.php:41
+msgid "all functionality for"
+msgstr "полный набор функций для"
+
+#: general.php:41
+msgid "SEO settings"
+msgstr "Настройки SEO"
+
+#: general.php:42
+msgid "no errors in"
+msgstr "отсутствие ошибок при"
+
+#: general.php:42
+msgid "HTML and CSS validation"
+msgstr "проверке HTML и CSS"
+
+#: general.php:43
+msgid "high website performance speed"
+msgstr "высокая скорость работы сайта"
+
+#: general.php:45
+msgid "I also offer:"
+msgstr "Также предлагаю:"
+
+#: general.php:47
+msgid "3 months of hosting on my server for free"
+msgstr "3 месяца бесплатного размещения сайта на моём сервере"
+
+#: general.php:48
+msgid "website maintenance"
+msgstr "техническое обслуживание сайта"
+
+#: general.php:48
+msgid "for free"
+msgstr "бесплатно"
+
+#: general.php:50
+msgid "I Have Experience"
+msgstr "У меня есть опыт"
+
+#: general.php:52
+msgid "in developing websites containing"
+msgstr "в разработке сайтов, содержащих"
+
+#: general.php:52
+msgid "over 50,000,000 publications"
+msgstr "более 50 000 000 публикаций"
+
+#: general.php:53
+msgid "in working with"
+msgstr "в работе с"
+
+#: general.php:53
+msgid "Asterisk telephony"
+msgstr "телефонией Asterisk"
+
+#: general.php:53
+msgid ""
+", setting up Asterisk, creating robots for auto dialing and collecting "
+"results"
+msgstr ", настройке Asterisk, создании роботов для автоматического обзвона и сборе результатов"
+
+#: general.php:54 general.php:55
+msgid "in developing"
+msgstr "в разработке"
+
+#: general.php:54
+msgid "text and video chats"
+msgstr "текстовых и видеочатов"
+
+#: general.php:54
+msgid "based on signal server nodejs and coturn"
+msgstr "на базе сервера сигнализации Node.js и coturn"
+
+#: general.php:55
+msgid "interactive online learning systems"
+msgstr "интерактивных систем онлайн-обучения"
+
+#: general.php:55
+msgid "for student and teacher"
+msgstr "для учеников и преподавателей"
+
+#: general.php:57
+msgid "Portfolio"
+msgstr "Портфолио"
+
+#: general.php:58
+msgid "Some examples of my work:"
+msgstr "Некоторые примеры моих работ:"
+
+#: general.php:64 general.php:76 general.php:88
+msgid "Mobile PageSpeed 100."
+msgstr "PageSpeed для мобильных устройств — 100."
+
+#: general.php:65
+msgid ""
+"Product aggregator. More than 50,000,000 products processed daily from YML "
+"files."
+msgstr "Агрегатор товаров. Ежедневная обработка более 50 000 000 товаров из файлов YML."
+
+#: general.php:68 general.php:80 general.php:92 general.php:104
+msgid "Watch video"
+msgstr "Смотреть видео"
+
+#: general.php:77
+msgid ""
+"A platform for interaction between seafarers and crewing agencies. Over "
+"200,000 seafarer resumes, job listings, response systems, and instant "
+"message exchange, mass mailings and automatic mass phone calling of "
+"seafarers via Asterisk, Telegram bots for instant notifications, creation "
+"and downloading of various documents in PDF and Word formats, and much more."
+msgstr "Платформа для взаимодействия моряков и крюинговых агентств. Более 200 000 резюме моряков, вакансии, отклики и обмен мгновенными сообщениями, массовые рассылки и автоматический массовый обзвон моряков через Asterisk, боты Telegram для мгновенных уведомлений, создание и скачивание документов в форматах PDF и Word и многое другое."
+
+#: general.php:89
+msgid "Marketing agency’s portfolio website."
+msgstr "Сайт-портфолио маркетингового агентства."
+
+#: general.php:100
+msgid "Mobile PageSpeed 99."
+msgstr "PageSpeed для мобильных устройств — 99."
+
+#: general.php:101
+msgid "Information site of the music school."
+msgstr "Информационный сайт музыкальной школы."
+
+#: general.php:112
+msgid ""
+"AI Employee platform for customer communication automation across WhatsApp, "
+"Telegram, imo, MAX, email, and website chat. Includes conversation "
+"scenarios, knowledge bases, learning from edited replies, contact import, "
+"website and CRM API integrations, response quality checks, and handoff to "
+"human managers."
+msgstr "Платформа AI Worker автоматизирует общение с клиентами через WhatsApp, Telegram, imo, MAX, электронную почту и чат на сайте. Включает сценарии диалогов, базы знаний, обучение на отредактированных ответах, импорт контактов, интеграции с сайтами и CRM через API, проверку качества ответов и передачу диалога менеджеру."
+
+#: general.php:115
+msgid "Project overview"
+msgstr "О проекте"
+
+#: general.php:116
+msgid "Open kra.name"
+msgstr "Открыть kra.name"
+
+#: general.php:124
+msgid ""
+"Custom WordPress and WooCommerce platform for nutrition, recipes, products, "
+"nutrients, quizzes, digital books, and health education. The project brings "
+"together the AI nutritionist and recipe assistant, recipe-book generation, "
+"AI-assisted publishing, multilingual workflows, video production, meal "
+"planning, food diary, and ecommerce."
+msgstr "Платформа на WordPress и WooCommerce для питания, рецептов, продуктов, нутриентов, тестов, электронных книг и обучения здоровому образу жизни. Объединяет ИИ-нутрициолога и помощника по рецептам, создание сборников рецептов, публикацию с помощью ИИ, многоязычные процессы, видеопроизводство, планирование питания, пищевой дневник и электронную торговлю."
+
+#: general.php:127
+msgid "Related sections"
+msgstr "Разделы проекта"
+
+#: general.php:129
+msgid "Recipes"
+msgstr "Рецепты"
+
+#: general.php:130
+msgid "Products"
+msgstr "Продукты"
+
+#: general.php:131
+msgid "Nutrients"
+msgstr "Нутриенты"
+
+#: general.php:132
+msgid "Quizzes"
+msgstr "Тесты"
+
+#: general.php:133
+msgid "Shop"
+msgstr "Магазин"
+
+#: general.php:142
+msgid ""
+"Combined trading platform with a historical simulator and journal, browser "
+"and desktop trading terminal, and automated crypto-robot workflows. Includes "
+"strategy backtesting, charts, watchlists, screeners, demo trading, investor "
+"portfolios, alerts, trade history, exchange integrations, robot connections, "
+"and performance analytics."
+msgstr "Торговая платформа объединяет исторический симулятор и журнал сделок, браузерный и десктопный терминалы, а также автоматизированную работу криптороботов. Включает тестирование стратегий на исторических данных, графики, списки наблюдения, скринеры, демоторговлю, портфели инвесторов, уведомления, историю сделок, интеграции с биржами и роботами, аналитику результатов."
+
+#: general.php:145
+msgid "Related products"
+msgstr "Связанные продукты"
+
+#: general.php:147
+msgid "Trading simulator and journal"
+msgstr "Торговый симулятор и журнал"
+
+#: general.php:148
+msgid "Trading terminal"
+msgstr "Торговый терминал"
+
+#: general.php:149
+msgid "Trading robots"
+msgstr "Торговые роботы"
+
+#: general.php:154
+msgid "More works can be seen in my"
+msgstr "Другие работы можно посмотреть в моём"
+
+#: general.php:154
+msgid "WordPress resume"
+msgstr "резюме по WordPress"
+
+#: general.php:154
+msgid "and"
+msgstr "и"
+
+#: general.php:154
+msgid "AI & automation resume"
+msgstr "резюме по ИИ и автоматизации"
+
+#: general.php:154
+msgid "Even more works are available upon request."
+msgstr "Дополнительные примеры работ предоставлю по запросу."
+
+#: general.php:155
+msgid "Cost"
+msgstr "Стоимость"
+
+#: general.php:156
+msgid ""
+"The cost of developing both a website and an individual plugin is calculated "
+"individually, based on an hourly rate of 30 dollars."
+msgstr "Стоимость разработки сайта или отдельного плагина рассчитывается индивидуально исходя из почасовой ставки 30 долларов."
+
+#: general.php:164
+msgid "Site:"
+msgstr "Сайт:"
+
+#: general.php:166
+msgid "Phone:"
+msgstr "Телефон:"
+
+#: general.php:167
+msgid "Address:"
+msgstr "Адрес:"
+
+#: general.php:167
+msgid "6000, Georgia, st. Batumi, Tamar Mepe Avenue, N 22a"
+msgstr "6000, Грузия, г. Батуми, проспект Тамар Мепе, 22а"
+
+#: general.php:170
+msgid "SEO services for your website"
+msgstr "SEO-продвижение вашего сайта"
+
+#: general.php:171
+msgid "Digital Marketing for Software Development Companies"
+msgstr "Интернет-маркетинг для компаний-разработчиков программного обеспечения"
+
+#: general.php:172
+msgid ""
+"Specialists in SEO and PPC services for the tech industry. We understand "
+"your language and fully comprehend your business needs."
+msgstr "Специалисты по SEO и контекстной рекламе для технологических компаний. Мы понимаем специфику вашей отрасли и потребности бизнеса."
+
+#: nohackme-defender.php:168 nohackme-defender.php:1072
 msgid "Blocked IP"
 msgstr "Заблокированный IP"
+
+#: nohackme-defender.php:184
+msgid "All blocked IP addresses were unlocked."
+msgstr "Все заблокированные IP-адреса разблокированы."
+
+#: nohackme-defender.php:184
+msgid "Deleted:"
+msgstr "Удалено:"
 
 #: nohackme-defender.php:200
 msgid "IP unlocked"
 msgstr "IP-адрес разблокирован"
 
-#: nohackme-defender.php:225
-#: nohackme-defender.php:966
-#: nohackme-defender.php:999
-#: nohackme-defender.php:1032
+#: nohackme-defender.php:208
+msgid "Unlock all blocked IP addresses?"
+msgstr "Разблокировать все заблокированные IP-адреса?"
+
+#: nohackme-defender.php:208
+msgid "Разблокировать всех"
+msgstr "Разблокировать всех"
+
+#: nohackme-defender.php:225 nohackme-defender.php:966
+#: nohackme-defender.php:999 nohackme-defender.php:1032
 msgid "IP"
 msgstr "IP"
 
@@ -110,10 +573,8 @@ msgstr "IP"
 msgid "Start of blocking"
 msgstr "Начало блокировки"
 
-#: nohackme-defender.php:225
-#: nohackme-defender.php:966
-#: nohackme-defender.php:999
-#: nohackme-defender.php:1032
+#: nohackme-defender.php:225 nohackme-defender.php:966
+#: nohackme-defender.php:999 nohackme-defender.php:1032
 msgid "User country"
 msgstr "Страна пользователя"
 
@@ -121,8 +582,7 @@ msgstr "Страна пользователя"
 msgid "Blocking reason"
 msgstr "Причина блокировки"
 
-#: nohackme-defender.php:225
-#: nohackme-defender.php:368
+#: nohackme-defender.php:225 nohackme-defender.php:368
 #: nohackme-defender.php:429
 msgid "Actions"
 msgstr "Действия"
@@ -155,10 +615,8 @@ msgstr "Подозрительные данные в запросах:"
 msgid "Data:"
 msgstr "Данные:"
 
-#: nohackme-defender.php:288
-#: nohackme-defender.php:376
-#: nohackme-defender.php:441
-#: nohackme-defender.php:582
+#: nohackme-defender.php:288 nohackme-defender.php:376
+#: nohackme-defender.php:441 nohackme-defender.php:582
 msgid "Delete"
 msgstr "Удалить"
 
@@ -167,67 +625,107 @@ msgid "Everything is fine. No one is blocked"
 msgstr "Все отлично. Никто не заблокирован"
 
 #: nohackme-defender.php:300
-msgid "If you want to check if the plugin will block suspicious data, click this button:"
-msgstr "Если вы хотите проверить, будет ли плагин блокировать подозрительные данные, нажмите эту кнопку:"
+msgid ""
+"If you want to check if the plugin will block suspicious data, click this "
+"button:"
+msgstr ""
+"Если вы хотите проверить, будет ли плагин блокировать подозрительные данные, "
+"нажмите эту кнопку:"
 
-#: nohackme-defender.php:301
-#: nohackme-defender.php:375
+#: nohackme-defender.php:301 nohackme-defender.php:375
 #: nohackme-defender.php:440
 msgid "Block me"
 msgstr "Заблокировать меня"
+
+#: nohackme-defender.php:330
+msgid "Блокировка по содержимому запросов"
+msgstr "Блокировка по содержимому запросов"
+
+#: nohackme-defender.php:331
+msgid ""
+"Проверяются URL, query string, параметры запроса, User-Agent и raw body API-"
+"запросов."
+msgstr "Проверяются URL, строка запроса, параметры, User-Agent и тело API-запроса."
+
+#: nohackme-defender.php:353 nohackme-defender.php:414
+msgid "Working with the list is only available in the paid version!"
+msgstr "Работа со списком доступна только в платной версии!"
+
+#: nohackme-defender.php:366 nohackme-defender.php:427
+msgid "Временно отключить защиту"
+msgstr "Временно отключить защиту"
+
+#: nohackme-defender.php:368 nohackme-defender.php:429
+msgid "Active"
+msgstr "Активно"
+
+#: nohackme-defender.php:368 nohackme-defender.php:429
+#: nohackme-defender.php:668 nohackme-defender.php:805
+msgid "Value"
+msgstr "Значение"
+
+#: nohackme-defender.php:368 nohackme-defender.php:429
+msgid "Test"
+msgstr "Тест"
+
+#: nohackme-defender.php:384
+msgid "List of suspicious requests not found"
+msgstr "Список подозрительных запросов не найден"
+
+#: nohackme-defender.php:391
+msgid "Блокировка по URL, к которым обращаются"
+msgstr "Блокировка по запрашиваемым URL"
+
+#: nohackme-defender.php:392
+msgid ""
+"Проверяются отдельные URL/path-шаблоны: чувствительные файлы, чужие CMS, "
+"панели администрирования и служебные endpoints."
+msgstr "Проверяются отдельные шаблоны URL и путей: конфиденциальные файлы, другие CMS, панели администрирования и служебные конечные точки."
+
+#: nohackme-defender.php:449
+msgid "List of suspicious URL paths not found"
+msgstr "Список подозрительных путей URL не найден."
 
 #: nohackme-defender.php:525
 msgid "Changing the list is available only in the paid version"
 msgstr "Изменение списка доступно только в платной версии"
 
-#: nohackme-defender.php:353
-#: nohackme-defender.php:414
-msgid "Working with the list is only available in the paid version!"
-msgstr "Работа со списком доступна только в платной версии!"
-
-#: nohackme-defender.php:368
-#: nohackme-defender.php:429
-#: nohackme-defender.php:668
-#: nohackme-defender.php:805
-msgid "Value"
-msgstr "Значение"
-
-#: nohackme-defender.php:536
-#: nohackme-defender.php:677
-#: nohackme-defender.php:814
-msgid "Save changes"
-msgstr "Сохранить изменения"
-
 #: nohackme-defender.php:533
 msgid "Add a row"
 msgstr "Добавить строку"
 
-#: nohackme-defender.php:538
-#: nohackme-defender.php:683
+#: nohackme-defender.php:536 nohackme-defender.php:677
+#: nohackme-defender.php:814
+msgid "Save changes"
+msgstr "Сохранить изменения"
+
+#: nohackme-defender.php:538 nohackme-defender.php:683
 #: nohackme-defender.php:820
 msgid "Restore Defaults"
 msgstr "Восстановить значения по умолчанию"
 
-#: nohackme-defender.php:546
-#: nohackme-defender.php:699
+#: nohackme-defender.php:546 nohackme-defender.php:699
 #: nohackme-defender.php:836
 msgid "Are you sure you want to restore the default list?"
 msgstr "Вы уверены, что хотите восстановить список по умолчанию?"
 
-#: nohackme-defender.php:384
-msgid "List of suspicious requests not found"
-msgstr "Список подозрительных запросов не найден"
+#: nohackme-defender.php:581
+msgid "Save changes before testing a new row."
+msgstr "Перед проверкой новой строки сохраните изменения."
 
 #: nohackme-defender.php:628
 msgid "List of Google spider IP ranges"
 msgstr "Список диапазонов IP-адресов пауков Google"
 
 #: nohackme-defender.php:630
-msgid "Ranges from this section are used to form a whitelist of IP addresses if the corresponding checkbox is checked in the plugin settings."
-msgstr "Диапазоны из этого раздела используются для формирования белого списка IP-адресов, если в настройках плагина установлена соответствующая галочка."
+msgid ""
+"Ranges from this section are used to form a whitelist of IP addresses if the "
+"corresponding checkbox is checked in the plugin settings."
+msgstr ""
+"Диапазоны из этого раздела используются для формирования белого списка IP-"
+"адресов, если в настройках плагина установлена соответствующая галочка."
 
-#: nohackme-defender.php:638
-#: nohackme-defender.php:775
+#: nohackme-defender.php:638 nohackme-defender.php:775
 msgid "Changing the list is only available in the paid version"
 msgstr "Изменение списка доступно только в платной версии"
 
@@ -235,13 +733,40 @@ msgstr "Изменение списка доступно только в пла�
 msgid "Work with the list is available only in the paid version!"
 msgstr "Работа со списком доступна только в платной версии!"
 
-#: nohackme-defender.php:678
-#: nohackme-defender.php:815
+#: nohackme-defender.php:678 nohackme-defender.php:815
 msgid "Add row"
 msgstr "Добавить ряд"
 
-#: nohackme-defender.php:755
-#: nohackme-defender.php:892
+#: nohackme-defender.php:684 nohackme-defender.php:745
+#: nohackme-defender.php:821 nohackme-defender.php:882
+msgid "Update from official source"
+msgstr "Обновить из официального источника"
+
+#: nohackme-defender.php:690
+msgid "Automatically update the Google IP ranges once per day"
+msgstr "Автоматически обновлять диапазоны IP-адресов Google раз в день"
+
+#: nohackme-defender.php:693 nohackme-defender.php:830
+msgid ""
+"If this checkbox is enabled, all manual changes to this list will be lost "
+"during the automatic update. The entire list will be overwritten."
+msgstr "При включённой опции все ручные изменения списка будут потеряны во время автоматического обновления. Список будет заменён целиком."
+
+#: nohackme-defender.php:725
+msgid ""
+"Download the current Google IP ranges from the official source and replace "
+"the local list?"
+msgstr "Загрузить актуальные диапазоны IP-адресов Google из официального источника и заменить локальный список?"
+
+#: nohackme-defender.php:727 nohackme-defender.php:864
+msgid "Updating..."
+msgstr "Обновление…"
+
+#: nohackme-defender.php:740 nohackme-defender.php:877
+msgid "The page will now reload."
+msgstr "Сейчас страница будет перезагружена."
+
+#: nohackme-defender.php:755 nohackme-defender.php:892
 msgid "List of IP ranges not found"
 msgstr "Список диапазонов IP-адресов не найден"
 
@@ -250,12 +775,18 @@ msgid "List of Yandex spider IP ranges"
 msgstr "Список диапазонов IP-адресов пауков Яндекс"
 
 #: nohackme-defender.php:764
-msgid "Ranges from this section are used to create a whitelist of IP addresses if the corresponding checkbox is checked in the plugin settings."
-msgstr "Диапазоны из этого раздела используются для создания белого списка IP-адресов, если в настройках плагина установлена соответствующая галочка."
+msgid ""
+"Ranges from this section are used to create a whitelist of IP addresses if "
+"the corresponding checkbox is checked in the plugin settings."
+msgstr ""
+"Диапазоны из этого раздела используются для создания белого списка IP-"
+"адресов, если в настройках плагина установлена соответствующая галочка."
 
 #: nohackme-defender.php:767
-msgid "Актуальный список диапазонов адресов поисковых роботов Яндекс можно увидеть"
-msgstr "Актуальный список диапазонов адресов поисковых роботов Яндекс можно увидеть"
+msgid ""
+"Актуальный список диапазонов адресов поисковых роботов Яндекс можно увидеть"
+msgstr ""
+"Актуальный список диапазонов адресов поисковых роботов Яндекс можно увидеть"
 
 #: nohackme-defender.php:767
 msgid "на этой странице"
@@ -265,6 +796,16 @@ msgstr "на этой странице"
 msgid "Working with the list is available only in the paid version!"
 msgstr "Работа со списком доступна только в платной версии!"
 
+#: nohackme-defender.php:827
+msgid "Automatically update the Yandex IP ranges once per day"
+msgstr "Автоматически обновлять диапазоны IP-адресов Яндекса раз в день"
+
+#: nohackme-defender.php:862
+msgid ""
+"Download the current Yandex IP ranges from the official source and replace "
+"the local list?"
+msgstr "Загрузить актуальные диапазоны IP-адресов Яндекса из официального источника и заменить локальный список?"
+
 #: nohackme-defender.php:899
 msgid "Top by blocking counters"
 msgstr "Топ по счетчикам блокировки"
@@ -273,8 +814,7 @@ msgstr "Топ по счетчикам блокировки"
 msgid "For 50 minutes"
 msgstr "За 50 минут"
 
-#: nohackme-defender.php:966
-#: nohackme-defender.php:999
+#: nohackme-defender.php:966 nohackme-defender.php:999
 #: nohackme-defender.php:1032
 msgid "Views"
 msgstr "Просмотры"
@@ -299,6 +839,10 @@ msgstr "Статистика"
 msgid "Suspicious requests"
 msgstr "Подозрительные запросы"
 
+#: nohackme-defender.php:1075
+msgid "Suspicious URL paths"
+msgstr "Подозрительные пути URL"
+
 #: nohackme-defender.php:1076
 msgid "Google IP Ranges"
 msgstr "Диапазоны IP-адресов Google"
@@ -311,8 +855,7 @@ msgstr "Диапазоны IP-адресов Яндекс"
 msgid "Sorry, you are not allowed to access this page."
 msgstr "К сожалению, вам не разрешен доступ к этой странице."
 
-#: nohackme-defender.php:1100
-#: nohackme-defender.php:1582
+#: nohackme-defender.php:1100 nohackme-defender.php:1638
 msgid "Settings"
 msgstr "Настройки"
 
@@ -333,29 +876,42 @@ msgid "Temporarily disable plugin"
 msgstr "Временно отключить отслеживание и блокировку"
 
 #: nohackme-defender.php:1146
-msgid "If the checkbox is checked, the plugin will stop tracking and blocking IP addresses, and will also provide access to the site from IP addresses that are already blocked."
-msgstr "Если галочка установлена, плагин перестанет отслеживать и блокировать IP-адреса, а также будет предоставлять доступ к сайту с IP-адресов, которые уже заблокированы."
+msgid ""
+"If the checkbox is checked, the plugin will stop tracking and blocking IP "
+"addresses, and will also provide access to the site from IP addresses that "
+"are already blocked."
+msgstr ""
+"Если галочка установлена, плагин перестанет отслеживать и блокировать IP-"
+"адреса, а также будет предоставлять доступ к сайту с IP-адресов, которые уже "
+"заблокированы."
 
 #: nohackme-defender.php:1150
 msgid "Cancel current IP blocking if there is a GET parameter"
 msgstr "Отменить текущую блокировку IP-адреса при наличии GET-параметра"
 
 #: nohackme-defender.php:1152
-msgid "Specify the GET parameter that can be entered to remove the current IP from the list of blocked ones."
-msgstr "Укажите GET-параметр, который можно ввести для удаления текущего IP из списка заблокированных."
+msgid ""
+"Specify the GET parameter that can be entered to remove the current IP from "
+"the list of blocked ones."
+msgstr ""
+"Укажите GET-параметр, который можно ввести для удаления текущего IP из "
+"списка заблокированных."
 
 #: nohackme-defender.php:1157
 msgid "For example:"
 msgstr "Например:"
 
-#: nohackme-defender.php:1157
-#: nohackme-defender.php:1160
+#: nohackme-defender.php:1157 nohackme-defender.php:1160
 msgid "Copy"
 msgstr "Копировать"
 
 #: nohackme-defender.php:1160
-msgid "That is, if this GET parameter is specified in the field, then in case of blocking your IP, you will be able to unblock it by opening the URL: "
-msgstr "То есть, если в поле указан этот GET-параметр, то в случае блокировки вашего IP, вы сможете его разблокировать, открыв URL: "
+msgid ""
+"That is, if this GET parameter is specified in the field, then in case of "
+"blocking your IP, you will be able to unblock it by opening the URL: "
+msgstr ""
+"То есть, если в поле указан этот GET-параметр, то в случае блокировки вашего "
+"IP, вы сможете его разблокировать, открыв URL: "
 
 #: nohackme-defender.php:1167
 msgid "Message for blocked IPs"
@@ -370,12 +926,22 @@ msgid "Whitelists"
 msgstr "Белые списки"
 
 #: nohackme-defender.php:1188
-msgid "Whitelists allow disabling the check for the number of requests to the site within a certain time period for specific IPs."
-msgstr "Вайтлисты позволяют отключить проверку количества запросов к сайту за определенный период времени для конкретных IP."
+msgid ""
+"Whitelists allow disabling the check for the number of requests to the site "
+"within a certain time period for specific IPs."
+msgstr ""
+"Вайтлисты позволяют отключить проверку количества запросов к сайту за "
+"определенный период времени для конкретных IP."
 
 #: nohackme-defender.php:1197
 msgid "Whitelist of IP addresses"
 msgstr "Белый список IP-адресов"
+
+#. translators: %s: IP address of the current user
+#: nohackme-defender.php:1200
+#, php-format
+msgid "Your current IP: %s"
+msgstr "Ваш текущий IP-адрес: %s"
 
 #: nohackme-defender.php:1201
 msgid "The specified IP addresses will not be blocked by the plugin."
@@ -385,11 +951,9 @@ msgstr "Указанные IP-адреса не будут заблокиров�
 msgid "Each IP from a new line"
 msgstr "Каждый IP с новой строки"
 
-#. translators: %s: IP address of the current user
-#: nohackme-defender.php:1200
-#, php-format
-msgid "Your current IP: %s"
-msgstr "Ваш текущий IP-адрес: %s"
+#: nohackme-defender.php:1201 nohackme-defender.php:1206
+msgid "Добавить в белый список"
+msgstr "Добавить в белый список"
 
 #. translators: %s: IP address of your site
 #: nohackme-defender.php:1205
@@ -405,8 +969,7 @@ msgstr "Не блокировать роботов Google"
 msgid "The list includes well-known IP address ranges of Google."
 msgstr "Список включает в себя известные диапазоны IP-адресов Google."
 
-#: nohackme-defender.php:1215
-#: nohackme-defender.php:1222
+#: nohackme-defender.php:1215 nohackme-defender.php:1222
 msgid "Change the list of ranges"
 msgstr "Изменить список диапазонов"
 
@@ -423,7 +986,8 @@ msgid "White list User Agent"
 msgstr "Белый список User Agent"
 
 #: nohackme-defender.php:1228
-msgid "Requests with the specified User Agent will not be blocked by the plugin."
+msgid ""
+"Requests with the specified User Agent will not be blocked by the plugin."
 msgstr "Запросы с указанным User Agent не будут блокироваться плагином."
 
 #: nohackme-defender.php:1228
@@ -431,12 +995,23 @@ msgid "View a list of popular User Agents"
 msgstr "Смотреть список популярных User Agent"
 
 #: nohackme-defender.php:1228
-msgid "Each User Agent on a new line. It is not necessary to specify the entire User Agent - the plugin checks for the presence of the specified string in the request User Agent"
-msgstr "Каждый User Agent с новой строки. Указывать весь User Agent не обязательно - плагин проверяет наличие указанной строки в запросе User Agent"
+msgid ""
+"Each User Agent on a new line. It is not necessary to specify the entire "
+"User Agent - the plugin checks for the presence of the specified string in "
+"the request User Agent"
+msgstr ""
+"Каждый User Agent с новой строки. Указывать весь User Agent не обязательно - "
+"плагин проверяет наличие указанной строки в запросе User Agent"
 
 #: nohackme-defender.php:1228
-msgid "ATTENTION!!! An attacker can specify any User Agent for their request. Thus, they can easily pretend to be a Google or Yandex robot if you add these robots' User Agents to the whitelist."
-msgstr "ВНИМАНИЕ!!! Злоумышленник может указать любой User Agent для своего запроса. Таким образом, он может легко выдать себя за роботов Google или Yandex, если вы добавите User Agent этих роботов в белый список."
+msgid ""
+"ATTENTION!!! An attacker can specify any User Agent for their request. Thus, "
+"they can easily pretend to be a Google or Yandex robot if you add these "
+"robots' User Agents to the whitelist."
+msgstr ""
+"ВНИМАНИЕ!!! Злоумышленник может указать любой User Agent для своего запроса. "
+"Таким образом, он может легко выдать себя за роботов Google или Yandex, если "
+"вы добавите User Agent этих роботов в белый список."
 
 #: nohackme-defender.php:1268
 msgid "Max number of requests"
@@ -448,7 +1023,9 @@ msgstr "За 1 минуту"
 
 #: nohackme-defender.php:1273
 msgid "Block IP if there are this many or more requests within one minute"
-msgstr "Блокировать IP-адрес, если в течение одной минуты поступает такое количество или более запросов"
+msgstr ""
+"Блокировать IP-адрес, если в течение одной минуты поступает такое количество "
+"или более запросов"
 
 #: nohackme-defender.php:1278
 msgid "Per 10 minutes"
@@ -456,7 +1033,9 @@ msgstr "За 10 минут"
 
 #: nohackme-defender.php:1280
 msgid "Block IP if there are this many or more requests within ten minutes"
-msgstr "Блокировать IP-адрес, если в течение десяти минут будет столько или больше запросов"
+msgstr ""
+"Блокировать IP-адрес, если в течение десяти минут будет столько или больше "
+"запросов"
 
 #: nohackme-defender.php:1285
 msgid "Per 50 minutes"
@@ -464,10 +1043,11 @@ msgstr "За 50 минут"
 
 #: nohackme-defender.php:1287
 msgid "Block IP if there are this many or more requests within fifty minutes"
-msgstr "Блокировать IP-адрес, если в течение пятидесяти минут поступит столько или больше запросов"
+msgstr ""
+"Блокировать IP-адрес, если в течение пятидесяти минут поступит столько или "
+"больше запросов"
 
-#: nohackme-defender.php:1296
-#: nohackme-defender.php:1325
+#: nohackme-defender.php:1296 nohackme-defender.php:1325
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
@@ -492,237 +1072,61 @@ msgid "The cost of the premium version of the plugin"
 msgstr "Стоимость премиум-версии плагина"
 
 #: nohackme-defender.php:1345
-msgid "For inquiries about purchasing the paid version of the plugin, write to the email"
+msgid ""
+"For inquiries about purchasing the paid version of the plugin, write to the "
+"email"
 msgstr "По вопросам приобретения платной версии плагина пишите на почту"
 
 #: nohackme-defender.php:1352
-msgid "By purchasing the plugin, you will get the opportunity to use the following premium features:"
-msgstr "Купив плагин, вы получите возможность пользоваться следующими премиум-функциями:"
+msgid ""
+"By purchasing the plugin, you will get the opportunity to use the following "
+"premium features:"
+msgstr ""
+"Купив плагин, вы получите возможность пользоваться следующими премиум-"
+"функциями:"
 
 #: nohackme-defender.php:1356
-msgid "The ability to add ranges of IP addresses belonging to Google and Yandex search engine crawlers to the whitelist with just two checkboxes."
-msgstr "Возможность добавлять диапазоны IP-адресов, принадлежащих поисковым роботам Google и Yandex, в белый список всего двумя флажками."
+msgid ""
+"The ability to add ranges of IP addresses belonging to Google and Yandex "
+"search engine crawlers to the whitelist with just two checkboxes."
+msgstr ""
+"Возможность добавлять диапазоны IP-адресов, принадлежащих поисковым роботам "
+"Google и Yandex, в белый список всего двумя флажками."
 
 #: nohackme-defender.php:1359
 msgid "Edit the list of IP ranges owned by Google spiders."
-msgstr "Редактировать по своему усмотрению список диапазонов IP-адресов, принадлежащих паукам Google."
+msgstr ""
+"Редактировать по своему усмотрению список диапазонов IP-адресов, "
+"принадлежащих паукам Google."
 
 #: nohackme-defender.php:1362
 msgid "Edit the list of IP ranges owned by Yandex spiders."
-msgstr "Редактировать по своему усмотрению список диапазонов IP-адресов, принадлежащих паукам Яндекс."
+msgstr ""
+"Редактировать по своему усмотрению список диапазонов IP-адресов, "
+"принадлежащих паукам Яндекс."
 
-#: nohackme-defender.php:1516
-msgid "To work with the NoHackMe Defender plugin, you need to add the following lines to your wp-config.php file located in the root of the site:"
-msgstr "Для работы с плагином NoHackMe Defender вам необходимо добавить следующие строки в ваш файл wp-config.php, расположенный в корне сайта:"
+#: nohackme-defender.php:1365
+msgid ""
+"Edit the list of fragments that make a URL, request parameter, User-Agent, "
+"or raw API body suspicious and trigger blocking."
+msgstr "Редактируйте список фрагментов, из-за которых URL, параметр запроса, User-Agent или тело API-запроса считаются подозрительными и приводят к блокировке."
 
-#: nohackme-defender.php:1518
+#: nohackme-defender.php:1572
+msgid ""
+"To work with the NoHackMe Defender plugin, you need to add the following "
+"lines to your wp-config.php file located in the root of the site:"
+msgstr ""
+"Для работы с плагином NoHackMe Defender вам необходимо добавить следующие "
+"строки в ваш файл wp-config.php, расположенный в корне сайта:"
+
+#: nohackme-defender.php:1574
 msgid "Add them to the wp-config.php file after the line"
 msgstr "Добавьте их в файл wp-config.php после строки"
 
-#: nohackme-defender.php:1518
+#: nohackme-defender.php:1574
 msgid "(on the next line)"
 msgstr "(на следующей строке)"
 
-#: nohackme-defender.php:1519
+#: nohackme-defender.php:1575
 msgid "Unfortunately, it was not possible to do this automatically."
 msgstr "К сожалению, сделать это автоматически не удалось."
-
-#: funcs.php:7
-#: nohackme-defender_premium.php:10
-msgid "Changes saved."
-msgstr "Изменения сохранены."
-
-#. Plugin Name of the plugin
-#: nohackme-defender.php
-msgid "NoHackMe Defender"
-msgstr "NoHackMe Defender"
-
-#. Plugin URI of the plugin
-#: nohackme-defender.php
-msgid "https://needtome.com/nohackme/"
-msgstr "https://needtome.com/nohackme/"
-
-#. Description of the plugin
-#: nohackme-defender.php
-msgid "NoHackMe Defender ensures your WordPress site's safety by blocking IP addresses upon receiving suspicious requests or too many requests from a single IP in a certain period. Keep hackers at bay with efficient real-time monitoring and security enforcement. Sponsors of plugin development: <a href=\"https://malinovsky.io\">malinovsky.io</a>, <a href=\"https://gloap.net\">gloap.net</a>, <a href=\"https://gloapm.com\">gloapm.com</a>, <a href=\"https://imgai.art\">imgai.art</a>"
-msgstr "NoHackMe Defender обеспечивает безопасность вашего сайта на WordPress, блокируя IP-адреса при получении с них подозрительных запросов, а также при поступлении слишком большого количества запросов с одного IP за определенный промежуток времени. Держите хакеров на расстоянии с помощью эффективного мониторинга в режиме реального времени и обеспечения безопасности. Спонсоры разработки плагина: <a href=\"https://malinovsky.io\">malinovsky.io</a>, <a href=\"https://gloap.net\">gloap.net</a>, <a href=\"https://gloapm.com\">gloapm.com</a>, <a href=\"https://imgai.art\">imgai.art</a>"
-
-#. Author of the plugin
-#: nohackme-defender.php
-msgid "Parad0x <paraz0n3@gmail.com>"
-msgstr "Parad0x <paraz0n3@gmail.com>"
-
-#. Author URI of the plugin
-#: nohackme-defender.php
-msgid "https://www.linkedin.com/in/roman-klymenko-parad0x/"
-msgstr "https://www.linkedin.com/in/roman-klymenko-parad0x/"
-
-#: ajax.php:143
-msgid "Unable to save the Google IP ranges list."
-msgstr ""
-
-#. translators: %d: number of IP ranges
-#: ajax.php:151
-#, php-format
-msgid "Google IP ranges updated. Downloaded: %d"
-msgstr ""
-
-#: ajax.php:180
-msgid "Unable to save the Yandex IP ranges list."
-msgstr ""
-
-#. translators: %d: number of IP ranges
-#: ajax.php:188
-#, php-format
-msgid "Yandex IP ranges updated. Downloaded: %d"
-msgstr ""
-
-#: funcs.php:101
-msgid "My current donation page."
-msgstr ""
-
-#: funcs.php:106
-msgid "Best known for recurring support and membership tiers."
-msgstr ""
-
-#: funcs.php:116
-msgid "Support the development of the plugin"
-msgstr ""
-
-#: funcs.php:117
-msgid "If NoHackMe Defender helps protect your site, you can support further development and maintenance via the services below."
-msgstr ""
-
-#: funcs.php:164
-msgid "The plugin can automatically detect the visitor's country based on their IP address. To enable this, place both SxGeo.php and SxGeo.dat in the GeoIP folder shown below. This folder is outside the plugin, so the files are kept when the plugin is updated."
-msgstr "Плагин может автоматически определять страну посетителя по его IP-адресу. Для этого поместите файлы SxGeo.php и SxGeo.dat в указанную ниже папку GeoIP. Она находится вне каталога плагина, поэтому файлы сохранятся при его обновлении."
-
-#: funcs.php:166
-msgid "For backward compatibility, the plugin also checks the previous folder inside the plugin:"
-msgstr "Для обратной совместимости плагин также проверяет прежнюю папку внутри каталога плагина:"
-
-#: funcs.php:167
-msgid "Without these files, IP blocking still works, but the country is shown as unknown."
-msgstr "Без этих файлов блокировка IP продолжит работать, но вместо страны будет отображаться unknown."
-
-#: funcs.php:259
-msgid "Unable to download the Google IP ranges list."
-msgstr ""
-
-#: funcs.php:264
-msgid "Google returned an unexpected response format."
-msgstr ""
-
-#: funcs.php:279
-msgid "Google IP ranges list is empty."
-msgstr ""
-
-#: funcs.php:321
-msgid "Unable to download the Yandex IP ranges list."
-msgstr ""
-
-#: nohackme-defender.php:184
-msgid "All blocked IP addresses were unlocked."
-msgstr ""
-
-#: nohackme-defender.php:184
-msgid "Deleted:"
-msgstr ""
-
-#: nohackme-defender.php:208
-msgid "Unlock all blocked IP addresses?"
-msgstr ""
-
-#: nohackme-defender.php:208
-msgid "Разблокировать всех"
-msgstr ""
-
-#: nohackme-defender.php:330
-msgid "Блокировка по содержимому запросов"
-msgstr ""
-
-#: nohackme-defender.php:331
-msgid "Проверяются URL, query string, параметры запроса, User-Agent и raw body API-запросов."
-msgstr ""
-
-#: nohackme-defender.php:366
-#: nohackme-defender.php:427
-msgid "Временно отключить защиту"
-msgstr ""
-
-#: nohackme-defender.php:368
-#: nohackme-defender.php:429
-msgid "Active"
-msgstr ""
-
-#: nohackme-defender.php:368
-#: nohackme-defender.php:429
-msgid "Test"
-msgstr ""
-
-#: nohackme-defender.php:391
-msgid "Блокировка по URL, к которым обращаются"
-msgstr ""
-
-#: nohackme-defender.php:392
-msgid "Проверяются отдельные URL/path-шаблоны: чувствительные файлы, чужие CMS, панели администрирования и служебные endpoints."
-msgstr ""
-
-#: nohackme-defender.php:449
-msgid "List of suspicious URL paths not found"
-msgstr ""
-
-#: nohackme-defender.php:581
-msgid "Save changes before testing a new row."
-msgstr ""
-
-#: nohackme-defender.php:684
-#: nohackme-defender.php:745
-#: nohackme-defender.php:821
-#: nohackme-defender.php:882
-msgid "Update from official source"
-msgstr ""
-
-#: nohackme-defender.php:690
-msgid "Automatically update the Google IP ranges once per day"
-msgstr ""
-
-#: nohackme-defender.php:693
-#: nohackme-defender.php:830
-msgid "If this checkbox is enabled, all manual changes to this list will be lost during the automatic update. The entire list will be overwritten."
-msgstr ""
-
-#: nohackme-defender.php:725
-msgid "Download the current Google IP ranges from the official source and replace the local list?"
-msgstr ""
-
-#: nohackme-defender.php:727
-#: nohackme-defender.php:864
-msgid "Updating..."
-msgstr ""
-
-#: nohackme-defender.php:740
-#: nohackme-defender.php:877
-msgid "The page will now reload."
-msgstr ""
-
-#: nohackme-defender.php:827
-msgid "Automatically update the Yandex IP ranges once per day"
-msgstr ""
-
-#: nohackme-defender.php:862
-msgid "Download the current Yandex IP ranges from the official source and replace the local list?"
-msgstr ""
-
-#: nohackme-defender.php:1075
-msgid "Suspicious URL paths"
-msgstr ""
-
-#: nohackme-defender.php:1201
-#: nohackme-defender.php:1206
-msgid "Добавить в белый список"
-msgstr ""
-
-#: nohackme-defender.php:1365
-msgid "Edit the list of fragments that make a URL, request parameter, User-Agent, or raw API body suspicious and trigger blocking."
-msgstr ""

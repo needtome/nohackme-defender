@@ -3,8 +3,8 @@ Contributors: needtome
 Donate link: https://www.donationalerts.com/r/needtome
 Tags: security, protection, anti-hack, IP blocking, firewall
 Requires at least: 6.0
-Tested up to: 7.1.3
-Stable tag: 1.1.9
+Tested up to: 7.1
+Stable tag: 1.1.10
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -35,6 +35,14 @@ Special thanks to our sponsors for supporting the development of this plugin:
 - [o-keto.com](https://o-keto.com)
 
 == Frequently Asked Questions ==
+
+= How does the plugin detect visitor IP addresses behind a reverse proxy? =
+
+By default, the plugin uses the connection address from `REMOTE_ADDR` and ignores forwarded client-IP headers. To use `X-Forwarded-For`, explicitly configure your reverse proxy addresses before the NoHackMe Defender include in `wp-config.php`:
+
+<code>define( 'NOHACKME_DEFENDER_TRUSTED_PROXIES', array( '10.0.0.10', '2001:db8::10', '192.0.2.0/24' ) );</code>
+
+Use only the exact IP addresses or narrow CIDR ranges of proxies you control. The proxy must overwrite or safely append `X-Forwarded-For`; the plugin ignores `HTTP_CLIENT_IP`. If your production proxy configuration is unknown, leave this setting undefined.
 
 = Is the plugin fully available in one version? =
 
@@ -69,6 +77,12 @@ For website and WordPress plugin development inquiries, email [paraz0n3@gmail.co
 7. screenshot-7.png
 
 == Changelog ==
+
+= 1.1.10 =
+* Ignore the spoofable HTTP_CLIENT_IP header and trust forwarded client addresses only when the direct peer is an explicitly configured proxy.
+* Fail closed when a loopback proxy does not provide a usable trusted forwarding chain, preventing the proxy address from matching internal-IP exclusions.
+* Keep suspicious-path blocking active when the client address cannot be determined, without writing shared counters under an empty IP key.
+* Improve compatibility and output handling in the early request firewall.
 
 = 1.1.9 =
 * Store GeoIP files in the WordPress uploads directory so plugin updates do not remove them, while continuing to support the previous plugin folder.
